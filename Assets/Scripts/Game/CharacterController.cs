@@ -8,7 +8,7 @@ public class CharacterController : MonoBehaviour
 {
     public SpriteRenderer sprite;
 
-    public SpriteRenderer emoticon, otherEmoticon;
+    public SpriteRenderer emoticon, otherEmoticon, glow;
     public TextMesh emoticonText, otherEmoticonText;
 
     float posX,posY;
@@ -26,12 +26,23 @@ public class CharacterController : MonoBehaviour
         sprite.sprite = UIRefs.Instance.characterAnimationSprites[characterId].animationStates[(int)CharacterAnimtaionType.Idle].animSprites[0];
 
         transform.localPosition = newPos;//new Vector3(posX, posY, 0);
-        transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one * 0.8f;
         emoticon.gameObject.SetActive(false);
         otherEmoticon.gameObject.SetActive(false);
 
+        SetPlayerUIStauts();
         PlayIdleAnimation();
 //        Invoke("PlayIdleAnimation", 2);
+    }
+
+    public void SetPlayerUIStauts() 
+    {
+        if (!isOtherPlayer)
+        {
+            glow.gameObject.SetActive(true);
+            emoticonText.text = "ME";
+            emoticon.gameObject.SetActive(true);
+        }
     }
 
     public void Shuffle(Vector3 newPos, bool answer)
@@ -80,20 +91,22 @@ public class CharacterController : MonoBehaviour
         emoticonText.text = Utility.GeMyPlayerText();
         emoticon.transform.DOKill();
         emoticon.gameObject.SetActive(true);
-        emoticon.transform.DOScale(1, 3).OnComplete(() =>
-        {
-            emoticon.gameObject.SetActive(false);
+        //emoticon.transform.DOScale(1, 3).OnComplete(() =>
+        //{
+        //    //emoticon.gameObject.SetActive(false);
 
 
-        });
+        //});
 
     }
+
     void LateUpdate()
     {
         Vector3 localPos = transform.localPosition;
         localPos.z = localPos.y;
         if (!isOtherPlayer)
         {
+            glow.transform.Rotate(Vector3.back * 2);
             localPos.z -= 0.1f;
         }
         transform.localPosition = localPos;
@@ -110,12 +123,13 @@ public class CharacterController : MonoBehaviour
     public void PlayDeathAnimation() 
     {
         float posY = transform.localPosition.y;
+        glow.gameObject.SetActive(false);
 
         transform.DOKill();
         //transform.localEulerAngles = Vector3.back * 5;
         animSequence = DOTween.Sequence();
-        animSequence.PrependInterval(0.3f);
-        animSequence.Append(transform.DOScale(0.65f, 0.2f).OnComplete( delegate () {
+        animSequence.PrependInterval(Random.Range(0.2f, 0.3f));
+        animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete( delegate () {
 
             AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
         }));
@@ -124,7 +138,7 @@ public class CharacterController : MonoBehaviour
 
 
 
-        animSequence.Append(transform.DOScale(0.75f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Join(transform.DOLocalMoveY(posY , 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Play();

@@ -424,7 +424,7 @@ public static class Utility
         int randNo = UnityEngine.Random.Range(0, 5);
         switch(randNo)
         {
-            case 0:return "YEes!";
+            case 0:return "Yes!";
             case 1: return "Heyyy";
             case 2: return "Easy";
             case 3: return "Phew";
@@ -438,7 +438,7 @@ public static class Utility
         int randNo = UnityEngine.Random.Range(0, 5);
         switch (randNo)
         {
-            case 0: return "Me";
+            case 0: return "YES!";
             case 1: return "Hi";
             case 2: return "Hello";
             case 3: return "Hmm";

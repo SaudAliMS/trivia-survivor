@@ -400,6 +400,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public void LoadQuestion()
     {
+        myCharacter.SetPlayerUIStauts();
         timerValue = GameConstants.QUESTION_TIME;
         timerOn = true;
         ViewController.Instance.OpenView(Views.GamePlay);
