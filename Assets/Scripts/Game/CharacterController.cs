@@ -30,7 +30,7 @@ public class CharacterController : MonoBehaviour
         transform.localPosition = new Vector3(posX, posY, 0);
         transform.localScale = Vector3.one;
         //PlayIdleAnimation();
-        Invoke("PlayDeathAnimation", 2);
+        Invoke("PlayIdleAnimation", 2);
     }
 
     public void Shuffle()
@@ -53,17 +53,27 @@ public class CharacterController : MonoBehaviour
         transform.DOLocalMove(newPos, time).SetDelay(delay).SetEase(Ease.InOutSine);
     }
 
-    Sequence deathSequence;
+    void LateUpdate()
+    {
+        Vector3 localPos = transform.localPosition;
+        localPos.z = localPos.y / 10f;
+        transform.localPosition = localPos;
+    }
+
+    #region Animations
+
+    Sequence animSequence;
     public void PlayDeathAnimation() 
     {
-        deathSequence = DOTween.Sequence();
-        deathSequence.Append(transform.DOScale(0.4f, 0.4f).OnComplete( delegate () {
+        transform.DOKill();
+        animSequence = DOTween.Sequence();
+        animSequence.Append(transform.DOScale(0.4f, 0.4f).OnComplete( delegate () {
             AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
         }));
-        deathSequence.Append(transform.DOScale(1, 0.3f).OnComplete(delegate () {
+        animSequence.Append(transform.DOScale(1, 0.3f).OnComplete(delegate () {
 
         }));
-        deathSequence.Play();
+        animSequence.Play();
 
     }
 
@@ -74,24 +84,28 @@ public class CharacterController : MonoBehaviour
 
     public void PlayIdleAnimation()
     {
+        transform.localRotation = Quaternion.Euler(0,0,-1);
+        transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f,0.05f)).SetLoops(-1, LoopType.Yoyo);
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 0.5f);
     }
 
     public void PlayStunAnimation()
     {
+        transform.DOKill();
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
+    }
+
+    public void PlayWalkAnimation()
+    {
+        transform.DOKill();
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, true, 0.4f);
     }
 
     private void OnAnimationComplete(bool status) 
     {
-        Debug.LogError("OnAnimationComplete: " + status);
+        //Debug.LogError("OnAnimationComplete: " + status);
     }
 
-    void LateUpdate()
-    {
-        Vector3 localPos = transform.localPosition;
-        localPos.z = localPos.y/10f;
-        transform.localPosition = localPos;
-    }
+    #endregion Animations
 
 }
