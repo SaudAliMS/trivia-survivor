@@ -5,5 +5,5 @@ using UnityEngine;
 public class UIRefs : SingletonMono<UIRefs>
 {
     public List<Sprite> characters;
-
+    public List<Sprite> waves;
 }

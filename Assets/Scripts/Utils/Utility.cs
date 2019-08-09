@@ -386,6 +386,34 @@ public static class Utility
         return saveDirectory + "/" + langFileName;
     }
 
+    private static List<int> positionIndex;
+    public static void ResetPositionForCharacter()
+    {
+        if( positionIndex == null){
+            positionIndex = new List<int>();
+        }
+        else{
+            positionIndex.Clear();
+        }
+
+        for (int index = 0; index < 12; index++)
+        {
+            positionIndex.Add(index);
+        }
+    }
+
+    public static Vector3 GetPositionForCharacter(Vector3 position)
+    {
+        int randomIndex = UnityEngine.Random.Range(0, positionIndex.Count);
+        positionIndex.RemoveAt(randomIndex);
+
+        //Debug.Log("Position Index" + randomIndex);
+        int rows   = randomIndex / 3 ; 
+        int colums = randomIndex % 3 -1;
+
+        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.4f; 
+        return finalPos;
+    }
 
 #if UNITY_EDITOR
     // Add menu item to menu bar.
