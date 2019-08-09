@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2657293240632918097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2657293240632918103}
+  - component: {fileID: 2657293240632918102}
+  m_Layer: 0
+  m_Name: UIRefs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2657293240632918103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2657293240632918097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2657293240632918102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2657293240632918097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e2984129cd664dee88bc4f275797c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters:
+  - {fileID: 21300000, guid: 38bbea4e6c2614e3783321fb37ae23a2, type: 3}
+  - {fileID: 21300000, guid: fa81da2958ebf45f5bf8173aadcfe027, type: 3}
+  - {fileID: 21300000, guid: e6b0afc50ee5d41bfbedd8b3436b5b29, type: 3}
+  - {fileID: 21300000, guid: e9ccad5c9576346369b62180f075753f, type: 3}
+  - {fileID: 21300000, guid: 6095e6b03b7ca4752aefbf418521e5e6, type: 3}
+  - {fileID: 21300000, guid: 640fe1e4913b64800b223da34f22cabb, type: 3}
+  characterAnimationSprites:
+  - animationStates:
+    - animSprites:
+      - {fileID: 21300000, guid: 677e2f31e9c204bea99e9ac25a34c30b, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: b7cf51663104c41ca899620d555bae4f, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: d418c2071ec9a4194a8f4b9ce8ce050d, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: 452da8cd1c9104b2bb8cbb8afac847da, type: 3}
+      - {fileID: 21300000, guid: 204bc6165436147669a0abc7dbd3dd41, type: 3}
+  - animationStates:
+    - animSprites:
+      - {fileID: 21300000, guid: bb8f9417c18e643be8aaa7a5332947bc, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: b082a96c583214e87a2a9c009e0bd1a5, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: bbdf0cd38880046e184ab544fb6187ee, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: 47be38337cbcf43adb5277a7a82d6e08, type: 3}
+      - {fileID: 21300000, guid: b709862815bca44acba71c0002bb074f, type: 3}
+  - animationStates:
+    - animSprites:
+      - {fileID: 21300000, guid: 95a6d280311e24c999f85669d00c9b12, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: a858916a1c3e944f0a4546c9e2bae63d, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: f5d3b5a8751fe48b78610328fcf82a83, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: 5928e3a34f11c47eab0e02005ec6c213, type: 3}
+      - {fileID: 21300000, guid: a7cfef6fd3ba84ea089473d138735a4e, type: 3}
+  - animationStates:
+    - animSprites:
+      - {fileID: 21300000, guid: 38c745e5694764b51ba0e9442f3cc81f, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: 3943ba387f7ab48f4b5101b41277cf4d, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: a434d5e42550e4ee88f2fd5b5ac2461a, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: 7978be04bf51e404086b19754f9a9a33, type: 3}
+      - {fileID: 21300000, guid: 58899f27ae7044a9baaf083d166e3aa8, type: 3}
+  - animationStates:
+    - animSprites:
+      - {fileID: 21300000, guid: 86e0a4ab0e92546d0b424205f9ec2c7e, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: b6a9ca89ddc1049cdbeca05ec3347c6b, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: 863335d312fdb4fb9927826e98d0528a, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: e5727bdabd32b40bd8b566e2fbfd59ab, type: 3}
+      - {fileID: 21300000, guid: f927d585319ee4a459289f968cae9b24, type: 3}
+  - animationStates:
+    - animSprites:
+      - {fileID: 21300000, guid: f4e5ff5b5e34642ae9e867efbbbd5908, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: ec845c9cd6cea4061a70d572b36297ef, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: a959617fe00fe4ce895a2036e6e9b9e9, type: 3}
+    - animSprites:
+      - {fileID: 21300000, guid: ffbc533c8ee92411cbdea0eaed88a1bd, type: 3}
+      - {fileID: 21300000, guid: 2bb14fa5d0d8f46f4b8517a44b75aa53, type: 3}

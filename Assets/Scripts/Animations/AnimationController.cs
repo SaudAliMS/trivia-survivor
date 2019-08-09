@@ -5,10 +5,19 @@ using System;
 
 public class AnimationController : SingletonMono<AnimationController>
 {
+    private Dictionary<int, IEnumerator> coroutinesDictionary = new Dictionary<int, IEnumerator>();
 
     public void PlayAnimation(Action<bool> onComplete, SpriteRenderer spriteRenderer, int chrId, CharacterAnimtaionType type, bool loop, float time) 
     {
+        int hash = spriteRenderer.GetHashCode();
+        if (coroutinesDictionary.ContainsKey(hash))
+        {
+            IEnumerator routine = coroutinesDictionary.GetValue(hash);
+            coroutinesDictionary.Remove(hash);
+            StopCoroutine(routine);
+        }
         IEnumerator coroutine = PlayAnimationCoroutine(onComplete, spriteRenderer,chrId, type, loop, time);
+        coroutinesDictionary.Add(hash, coroutine);
         StartCoroutine(coroutine);
     }
 

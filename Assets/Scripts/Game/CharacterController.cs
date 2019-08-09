@@ -29,7 +29,8 @@ public class CharacterController : MonoBehaviour
 
         transform.localPosition = new Vector3(posX, posY, 0);
         transform.localScale = Vector3.one;
-        PlayIdleAnimation();
+        //PlayIdleAnimation();
+        Invoke("PlayDeathAnimation", 2);
     }
 
     public void Shuffle()
@@ -52,29 +53,38 @@ public class CharacterController : MonoBehaviour
         transform.DOLocalMove(newPos, time).SetDelay(delay).SetEase(Ease.InOutSine);
     }
 
+    Sequence deathSequence;
     public void PlayDeathAnimation() 
     {
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 1);
+        deathSequence = DOTween.Sequence();
+        deathSequence.Append(transform.DOScale(0.4f, 0.4f).OnComplete( delegate () {
+            AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
+        }));
+        deathSequence.Append(transform.DOScale(1, 0.3f).OnComplete(delegate () {
+
+        }));
+        deathSequence.Play();
+
     }
 
     public void PlayGameOverAnimation()
     {
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.GameOver, false, 1);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.GameOver, false, 0.5f);
     }
 
     public void PlayIdleAnimation()
     {
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 1);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 0.5f);
     }
 
     public void PlayStunAnimation()
     {
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, false, 1);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
     }
 
-    private void OnAnimationComplete(bool stauts) 
+    private void OnAnimationComplete(bool status) 
     {
-        Debug.LogError("OnAnimationComplete: " + stauts);
+        Debug.LogError("OnAnimationComplete: " + status);
     }
 
     void LateUpdate()
@@ -83,17 +93,5 @@ public class CharacterController : MonoBehaviour
         localPos.z = localPos.y/10f;
         transform.localPosition = localPos;
     }
-
-    //public void SetupCharacter(int characterId)
-    //{
-
-    //}
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-
-    //}
-
-    //// Update is called once per frame
 
 }
