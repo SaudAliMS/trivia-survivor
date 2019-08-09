@@ -405,15 +405,48 @@ public static class Utility
     public static Vector3 GetPositionForCharacter(Vector3 position)
     {
         int randomIndex = UnityEngine.Random.Range(0, positionIndex.Count);
+        int actualIndex = positionIndex[randomIndex];
         positionIndex.RemoveAt(randomIndex);
 
-        //Debug.Log("Position Index" + randomIndex);
-        int rows   = randomIndex / 3 ; 
-        int colums = randomIndex % 3 -1;
+        //Debug.Log("Position Index" + actualIndex);
+        int rows   = actualIndex / 3;
+        int colums = (actualIndex % 3) - 1;
+        //Debug.Log("Position Index" + rows + "/"+ colums);
 
-        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.4f; 
+        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.4f;
+        //Debug.Log("finalPos Index" + finalPos.ToString());
+
         return finalPos;
     }
+
+    public static string GetOtherPlayerText()
+    {
+        int randNo = UnityEngine.Random.Range(0, 5);
+        switch(randNo)
+        {
+            case 0:return "YEes!";
+            case 1: return "Heyyy";
+            case 2: return "Easy";
+            case 3: return "Phew";
+            case 4: return "Lucky";
+            default:  return "Yes!";
+        }
+    }
+
+    public static string GeMyPlayerText()
+    {
+        int randNo = UnityEngine.Random.Range(0, 5);
+        switch (randNo)
+        {
+            case 0: return "Me";
+            case 1: return "Hi";
+            case 2: return "Hello";
+            case 3: return "Hmm";
+            case 4: return "Ok";
+            default: return "YES!";
+        }
+    }
+
 
 #if UNITY_EDITOR
     // Add menu item to menu bar.
