@@ -12,5 +12,5 @@ public class GameConstants
     public const string languagefile_version = "languagefile_version";
 
         
-    public const float QUESTION_TIME = 15;
+    public const float QUESTION_TIME = 5;
 }

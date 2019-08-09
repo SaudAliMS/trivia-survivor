@@ -26,6 +26,7 @@ public class GameOverViewController : MonoBehaviour
 
     public void OnPressRetryBtn()
     {
+        GameplayController.Instance.LoadLevel();
         GameplayController.Instance.LoadQuestion();
     }
 

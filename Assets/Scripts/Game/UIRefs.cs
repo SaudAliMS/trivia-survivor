@@ -10,6 +10,7 @@ public class UIRefs : SingletonMono<UIRefs>
     public List<CharacterAnimList> characterAnimationSprites;
 
 
+    public List<Sprite> waves;
 }
 
 [System.Serializable]
