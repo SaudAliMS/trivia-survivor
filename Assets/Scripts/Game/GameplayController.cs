@@ -265,9 +265,11 @@ public class GameplayController : SingletonMono<GameplayController>
 
     void PopulateCharacters()
     {
+        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+
         Utility.ResetPositionForCharacter();
         // right characters
-        Vector3 rightCenterPos = GetRightSidePosition();
+        Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
         for (int count= 0; count < 5; count++)
         {
             // new Vector3(1.25f, 0.5f, 0);
@@ -281,7 +283,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
         Utility.ResetPositionForCharacter();
         // left characters
-        Vector3 leftCenterPos = GetLeftSidePosition();
+        Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);
         for (int count = 0; count < 5; count++)
         {
             //new Vector3(-1.25f,0.5f, 0);
@@ -294,7 +296,7 @@ public class GameplayController : SingletonMono<GameplayController>
             characterList.Add(characterController);
         }
 
-        Vector3 leftCenterPos1 = GetLeftSidePosition();//new Vector3(-1.25f, 0.5f, 0);
+        Vector3 leftCenterPos1 = GetLeftSidePosition(answerIsTrue);//new Vector3(-1.25f, 0.5f, 0);
         Vector3 leftSidePos1 = Utility.GetPositionForCharacter(leftCenterPos1);
 
         myCharacter = GetCharacter();
@@ -353,10 +355,11 @@ public class GameplayController : SingletonMono<GameplayController>
             //count--;
             characterMovingLeft.Add(characterIndex);
         }
+        //bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
 
         // right characters
         Utility.ResetPositionForCharacter();
-        Vector3 rightCenterPos = GetRightSidePosition();
+        Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
         for (int count = 0; count < characterMovingRight.Count; count++)
         {
             //new Vector3(1.25f, 0.5f, 0);
@@ -369,7 +372,7 @@ public class GameplayController : SingletonMono<GameplayController>
         }
 
         Utility.ResetPositionForCharacter();
-        Vector3 leftCenterPos = GetLeftSidePosition();
+        Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);
         // left characters
         for (int count = 0; count < characterMovingLeft.Count; count++)
         {
@@ -416,7 +419,8 @@ public class GameplayController : SingletonMono<GameplayController>
     {
         if (canAnswer)
         {
-            Vector3 leftCenterPos = GetLeftSidePosition();//new Vector3(-1.25f, 0.5f, 0);
+            bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);//new Vector3(-1.25f, 0.5f, 0);
             Vector3 leftSidePos = Utility.GetPositionForCharacter(leftCenterPos);
 
             //canAnswer = false;
@@ -428,7 +432,8 @@ public class GameplayController : SingletonMono<GameplayController>
     {
         if (canAnswer)
         {
-            Vector3 rightCenterPos = GetRightSidePosition();//new Vector3(1.25f, 0.5f, 0);
+            bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);//new Vector3(1.25f, 0.5f, 0);
             Vector3 rightSidePos = Utility.GetPositionForCharacter(rightCenterPos);
 
             //canAnswer = false;
@@ -448,27 +453,27 @@ public class GameplayController : SingletonMono<GameplayController>
 
     #endregion
 
-    Vector3 GetRightSidePosition()
+    Vector3 GetRightSidePosition(bool correctLeftSide)
     {
         Transform icePiece = icePieces[icePieces.Count - 1];
-        if (icePieces.Count > 2)
+        if (icePieces.Count > 3 && !correctLeftSide)
         {
-            return icePiece.position + Vector3.up * 0.5f;// + Vector3.left * 0.5f;
+            return icePiece.position + Vector3.up * 0.5f + Vector3.left * 0.5f;
         }
         else
-            return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.125f;
+            return icePiece.position + Vector3.up * 0.5f;// + Vector3.right * 0.125f;
 
     }
 
-    Vector3 GetLeftSidePosition()
+    Vector3 GetLeftSidePosition(bool correctLeftSide)
     {
         Transform icePiece = icePieces[0];
-        if (icePieces.Count > 2)
+        if (icePieces.Count > 3 && correctLeftSide)
         {
-            return icePiece.position + Vector3.up * 0.5f;// + Vector3.right * 0.5f;
+            return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.5f;
         }
         else
-            return icePiece.position + Vector3.up * 0.5f + Vector3.left * 0.125f;
+            return icePiece.position + Vector3.up * 0.5f;// + Vector3.left * 0.125f;
     }
 
 }

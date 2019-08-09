@@ -83,11 +83,9 @@ public class CharacterController : MonoBehaviour
         emoticon.transform.DOScale(1, 3).OnComplete(() =>
         {
             emoticon.gameObject.SetActive(false);
-
-
         });
-
     }
+
     void LateUpdate()
     {
         Vector3 localPos = transform.localPosition;
@@ -110,7 +108,6 @@ public class CharacterController : MonoBehaviour
     public void PlayDeathAnimation() 
     {
         float posY = transform.localPosition.y;
-
         transform.DOKill();
         //transform.localEulerAngles = Vector3.back * 5;
         animSequence = DOTween.Sequence();
@@ -122,13 +119,10 @@ public class CharacterController : MonoBehaviour
         animSequence.Join(transform.DOLocalMoveY(posY-0.2f, 0.2f));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
 
-
-
         animSequence.Append(transform.DOScale(0.75f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Join(transform.DOLocalMoveY(posY , 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Play();
-
     }
 
     public void PlayGameOverAnimation()

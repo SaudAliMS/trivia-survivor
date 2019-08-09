@@ -21,6 +21,8 @@ public class GameOverViewController : MonoBehaviour
 
     public void OnPressHomeBtn()
     {
+        GameplayController.Instance.LoadLevel();
+
         ViewController.Instance.OpenView(Views.MainMenu);
     }
 
