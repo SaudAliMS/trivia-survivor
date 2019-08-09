@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937b8549bade449549e496d96c6fe14f, type: 3}
+  m_Name: CharacterAnimationSprites
+  m_EditorClassIdentifier: 
+  character0Death:
+  - {fileID: 21300000, guid: 677e2f31e9c204bea99e9ac25a34c30b, type: 3}
+  character0GameOver:
+  - {fileID: 21300000, guid: b7cf51663104c41ca899620d555bae4f, type: 3}
+  character0Idle:
+  - {fileID: 21300000, guid: d418c2071ec9a4194a8f4b9ce8ce050d, type: 3}
+  character0Stun:
+  - {fileID: 21300000, guid: 452da8cd1c9104b2bb8cbb8afac847da, type: 3}
+  character0Walk: []
+  character1Death:
+  - {fileID: 21300000, guid: bb8f9417c18e643be8aaa7a5332947bc, type: 3}
+  character1GameOver:
+  - {fileID: 21300000, guid: b082a96c583214e87a2a9c009e0bd1a5, type: 3}
+  character1Idle:
+  - {fileID: 21300000, guid: bbdf0cd38880046e184ab544fb6187ee, type: 3}
+  character1Stun:
+  - {fileID: 21300000, guid: 47be38337cbcf43adb5277a7a82d6e08, type: 3}
+  character1Walk: []
+  character2Death:
+  - {fileID: 21300000, guid: 95a6d280311e24c999f85669d00c9b12, type: 3}
+  character2GameOver:
+  - {fileID: 21300000, guid: a858916a1c3e944f0a4546c9e2bae63d, type: 3}
+  character2Idle:
+  - {fileID: 21300000, guid: f5d3b5a8751fe48b78610328fcf82a83, type: 3}
+  character2Stun:
+  - {fileID: 21300000, guid: 5928e3a34f11c47eab0e02005ec6c213, type: 3}
+  character2Walk: []
+  character3Death:
+  - {fileID: 21300000, guid: 38c745e5694764b51ba0e9442f3cc81f, type: 3}
+  character3GameOver:
+  - {fileID: 21300000, guid: 3943ba387f7ab48f4b5101b41277cf4d, type: 3}
+  character3Idle:
+  - {fileID: 21300000, guid: a434d5e42550e4ee88f2fd5b5ac2461a, type: 3}
+  character3Stun:
+  - {fileID: 21300000, guid: 7978be04bf51e404086b19754f9a9a33, type: 3}
+  character3Walk: []
+  character4Death:
+  - {fileID: 21300000, guid: 86e0a4ab0e92546d0b424205f9ec2c7e, type: 3}
+  character4GameOver:
+  - {fileID: 21300000, guid: b6a9ca89ddc1049cdbeca05ec3347c6b, type: 3}
+  character4Idle:
+  - {fileID: 21300000, guid: 863335d312fdb4fb9927826e98d0528a, type: 3}
+  character4Stun:
+  - {fileID: 21300000, guid: e5727bdabd32b40bd8b566e2fbfd59ab, type: 3}
+  character4Walk: []
+  character5Death:
+  - {fileID: 21300000, guid: f4e5ff5b5e34642ae9e867efbbbd5908, type: 3}
+  character5GameOver:
+  - {fileID: 21300000, guid: ec845c9cd6cea4061a70d572b36297ef, type: 3}
+  character5Idle:
+  - {fileID: 21300000, guid: a959617fe00fe4ce895a2036e6e9b9e9, type: 3}
+  character5Stun:
+  - {fileID: 21300000, guid: ffbc533c8ee92411cbdea0eaed88a1bd, type: 3}
+  character5Walk: []
