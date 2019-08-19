@@ -320,7 +320,7 @@ public class GameplayController : SingletonMono<GameplayController>
         bool killAllOtherPlayers =  false;
         if( questionIndex >= levelData.Count-1)
         {
-            Debug.Log("Kill all other players");
+            //Debug.Log("Kill all other players");
             killAllOtherPlayers = true;
         }
 
@@ -329,12 +329,12 @@ public class GameplayController : SingletonMono<GameplayController>
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
         if (killAllOtherPlayers && answerIsTrue)
         {
-            Debug.Log("Kill all other players");
+            //Debug.Log("Kill all other players");
             halfCharacters = tempList.Count;
         }
         else if (killAllOtherPlayers && !answerIsTrue)
         {
-            Debug.Log("Kill all other players");
+            //Debug.Log("Kill all other players");
             halfCharacters = 0;
         }
 
@@ -366,7 +366,7 @@ public class GameplayController : SingletonMono<GameplayController>
             Vector3 rightSidePos = Utility.GetPositionForCharacter(rightCenterPos);
 
             int index = characterMovingRight[count];
-            Debug.Log("Characters moving right" + index);
+            //Debug.Log("Characters moving right" + index);
             CharacterController characterController = characterList[index];
             characterController.Shuffle(rightSidePos,false);
         }
@@ -380,7 +380,7 @@ public class GameplayController : SingletonMono<GameplayController>
             Vector3 leftSidePos = Utility.GetPositionForCharacter(leftCenterPos);
 
             int index = characterMovingLeft[count];
-            Debug.Log("characterMovingLeft" + index);
+            //Debug.Log("characterMovingLeft" + index);
             CharacterController characterController = characterList[index];
             characterController.Shuffle(leftSidePos,true);
         }
@@ -462,7 +462,7 @@ public class GameplayController : SingletonMono<GameplayController>
             return icePiece.position + Vector3.up * 0.5f + Vector3.left * 0.5f;
         }
         else
-            return icePiece.position + Vector3.up * 0.5f;// + Vector3.right * 0.125f;
+            return icePiece.position + Vector3.up * 0.5f + Vector3.left * 0.1f;
 
     }
 
@@ -474,7 +474,7 @@ public class GameplayController : SingletonMono<GameplayController>
             return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.5f;
         }
         else
-            return icePiece.position + Vector3.up * 0.5f;// + Vector3.left * 0.125f;
+            return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.1f;
     }
 
 }

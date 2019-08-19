@@ -91,7 +91,7 @@ public class LoadingViewController : MonoBehaviour
 
         Debug.Log(" LoadScene");
 
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("GameScene");
         //async = SceneManager.LoadSceneAsync("Gameplay");
         //async.allowSceneActivation = false;
 
