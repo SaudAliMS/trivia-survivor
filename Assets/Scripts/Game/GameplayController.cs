@@ -331,6 +331,20 @@ public class GameplayController : SingletonMono<GameplayController>
         }
     }
 
+    public int GetMyPosition() 
+    {
+        int position = 1;
+        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        foreach (CharacterController character in characterList) 
+        {
+            if (answerIsTrue == character.UserAnswerYes()) 
+            {
+                position++;
+            }
+        }
+        return position;
+    }
+
     #endregion
 
     #region public methods

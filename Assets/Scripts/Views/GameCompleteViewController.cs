@@ -10,7 +10,12 @@ public class GameCompleteViewController : MonoBehaviour
     public Text topXPCount;
     public Text levelCount;
     public Slider levelProgress;
-    public Text questionText;
+    public Text positionText;
+    public GameObject LevelBonus;
+    public GameObject Glow;
+    public GameObject AnswerObject;
+    public Image character;
+    public Text answerText;
     public Text resultCoinsCount;
     public Text resultXPCount;
 
@@ -23,7 +28,20 @@ public class GameCompleteViewController : MonoBehaviour
     public void Open()
     {
         UpdateUI();
+        UpdateXPStatus();
         gameObject.SetActive(true);
+        int position = GameplayController.Instance.GetMyPosition();
+        positionText.text = GameConstants.POSITIONS[position - 1];
+
+        if (position == 1) 
+        {
+            UpdateWinUI();
+        }
+        else 
+        {
+            UpdateLooseUI();
+        }
+
         if (GameplayController.Instance.sessionCoinsCount > 0)
         {
             Invoke("ShowCoinAnimation", 1);
@@ -35,7 +53,7 @@ public class GameCompleteViewController : MonoBehaviour
         topCoinsCount.text = PlayerData.CoinsCount.ToString();
         topXPCount.text = PlayerData.XPCount.ToString() + "/" + GameplayController.Instance.GetRequiredXPForLevelUpdate();
         levelCount.text = "Lv " + PlayerData.Level.ToString();
-        levelProgress.value = (PlayerData.XPCount / GameplayController.Instance.GetRequiredXPForLevelUpdate());
+        levelProgress.value = ((float)PlayerData.XPCount / (float)GameplayController.Instance.GetRequiredXPForLevelUpdate());
 
         resultCoinsCount.text = GameplayController.Instance.sessionCoinsCount.ToString();
         resultXPCount.text = GameplayController.Instance.sessionXPCount.ToString();
@@ -46,11 +64,24 @@ public class GameCompleteViewController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void UpdateWinUI() 
+    {
+        //AnimationController.Instance.PlayAnimation(null, )
+        LevelBonus.SetActive(true);
+        Glow.SetActive(true);
+        AnswerObject.SetActive(false);
+    }
+
+    private void UpdateLooseUI()
+    {
+        LevelBonus.SetActive(false);
+        Glow.SetActive(false);
+        AnswerObject.SetActive(true);
+    }
 
     public void OnPressHomeBtn()
     {
         GameplayController.Instance.LoadLevel();
-
         ViewController.Instance.OpenView(Views.MainMenu);
     }
 
@@ -60,12 +91,21 @@ public class GameCompleteViewController : MonoBehaviour
         GameplayController.Instance.LoadQuestion();
     }
 
-    public void ShowAnswer(string question)
+    public void ShowAnswer(string answer)
     {
-        questionText.text = question;
+        answerText.text = answer;
     }
     #endregion
 
+    private void UpdateXPStatus()
+    {
+        while (PlayerData.XPCount >= GameConstants.REQUIRED_XP[PlayerData.Level - 1]) 
+        {
+            PlayerData.XPCount -= GameConstants.REQUIRED_XP[PlayerData.Level - 1];
+            PlayerData.Level++;
+            PlayerData.SaveState();
+        }
+    }
 
     #region Reward Animation
     private void ShowCoinAnimation()
@@ -73,6 +113,7 @@ public class GameCompleteViewController : MonoBehaviour
         AnimateCoins();
         TweenTotalReward();
         PlayerData.CoinsCount += GameplayController.Instance.sessionCoinsCount;
+        PlayerData.XPCount += GameplayController.Instance.sessionXPCount;
         PlayerData.SaveState();
     }
 
@@ -106,7 +147,7 @@ public class GameCompleteViewController : MonoBehaviour
                 .Join(coinsList[i].DOScale(Vector3.one * 1f, 0.9f).SetEase(ease))
                 .Append(coinsList[i].DOScale(Vector3.zero, 0.01f));
             sequence.OnComplete(delegate {
-                //Vibration.Vibrate(TapticPlugin.ImpactFeedback.Light);
+                Vibration.Vibrate(TapticPlugin.ImpactFeedback.Light);
             });
 
         }
