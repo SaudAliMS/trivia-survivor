@@ -244,7 +244,7 @@ public class GameplayController : SingletonMono<GameplayController>
         Vector3 leftSidePos1 = Utility.GetPositionForCharacterLeft(leftCenterPos1);
 
         myCharacter = GetCharacter();
-        int myCharacterId = 0;
+        int myCharacterId = GameConstants.MY_CHARACTER_ID;
         myCharacter.transform.SetParent(characterContainer);
         myCharacter.SetupCharacter(myCharacterId, leftSidePos1, true,false);
     }

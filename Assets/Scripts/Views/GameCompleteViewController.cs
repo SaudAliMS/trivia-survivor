@@ -18,11 +18,24 @@ public class GameCompleteViewController : MonoBehaviour
     public Text answerText;
     public Text resultCoinsCount;
     public Text resultXPCount;
+    public Transform reward;
 
     public Transform coinsCollectionPoint;
     public Transform xpCollectionPoint;
     public Transform coinsContainer;
     public Transform[] coinsList;
+
+    int position = 1;
+    int extraReward = 0;
+
+    #region LifeCycle Methods
+
+    public void Update()
+    {
+        Glow.transform.Rotate(Vector3.back, 1);
+    }
+
+    #endregion LifeCycle Methods
 
     #region public methods
     public void Open()
@@ -30,16 +43,18 @@ public class GameCompleteViewController : MonoBehaviour
         UpdateUI();
         UpdateXPStatus();
         gameObject.SetActive(true);
-        int position = GameplayController.Instance.GetMyPosition();
+        position = GameplayController.Instance.GetMyPosition();
         positionText.text = GameConstants.POSITIONS[position - 1];
 
         if (position == 1) 
         {
+            extraReward = GameConstants.COIN_REWARD_ON_MATCH_COMPLETE;
             UpdateWinUI();
         }
         else 
         {
-            UpdateLooseUI();
+            extraReward = 0;
+            UpdateLoseUI();
         }
 
         if (GameplayController.Instance.sessionCoinsCount > 0)
@@ -66,17 +81,20 @@ public class GameCompleteViewController : MonoBehaviour
 
     private void UpdateWinUI() 
     {
-        //AnimationController.Instance.PlayAnimation(null, )
+        AnimationController.Instance.PlayAnimation(null, character, GameConstants.MY_CHARACTER_ID, CharacterAnimtaionType.GameWin, true, 0.5f);
         LevelBonus.SetActive(true);
         Glow.SetActive(true);
         AnswerObject.SetActive(false);
+        reward.GetComponent<RectTransform>().localPosition = new Vector3(0, -100, 0);
     }
 
-    private void UpdateLooseUI()
+    private void UpdateLoseUI()
     {
+        AnimationController.Instance.PlayAnimation(null, character, GameConstants.MY_CHARACTER_ID, CharacterAnimtaionType.GameOver, true, 0.5f);
         LevelBonus.SetActive(false);
         Glow.SetActive(false);
         AnswerObject.SetActive(true);
+        reward.GetComponent<RectTransform>().localPosition = Vector3.zero;
     }
 
     public void OnPressHomeBtn()
@@ -112,7 +130,7 @@ public class GameCompleteViewController : MonoBehaviour
     {
         AnimateCoins();
         TweenTotalReward();
-        PlayerData.CoinsCount += GameplayController.Instance.sessionCoinsCount;
+        PlayerData.CoinsCount = PlayerData.CoinsCount + GameplayController.Instance.sessionCoinsCount + extraReward;
         PlayerData.XPCount += GameplayController.Instance.sessionXPCount;
         UpdateXPStatus();
         PlayerData.SaveState();
@@ -158,7 +176,7 @@ public class GameCompleteViewController : MonoBehaviour
     private void TweenTotalReward()
     {
         int currentReward = PlayerData.CoinsCount;
-        int newReward = currentReward + GameplayController.Instance.sessionCoinsCount;
+        int newReward = currentReward + GameplayController.Instance.sessionCoinsCount + extraReward;
         DOTween.To(() => currentReward, x => currentReward = x, newReward, 1).SetDelay(1f).OnUpdate(UpdateUI);
     }
     #endregion Reward Animation

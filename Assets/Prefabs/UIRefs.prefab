@@ -47,7 +47,8 @@ MonoBehaviour:
   - frozenFrames:
     - {fileID: 21300000, guid: 677e2f31e9c204bea99e9ac25a34c30b, type: 3}
     cryingFrames:
-    - {fileID: 21300000, guid: b7cf51663104c41ca899620d555bae4f, type: 3}
+    - {fileID: 21300000, guid: 816ae47d1f10a4b59883b8173bdd327e, type: 3}
+    - {fileID: 21300000, guid: f094a1d181749418fb1abc3d00865908, type: 3}
     shiveringFrames:
     - {fileID: 21300000, guid: d418c2071ec9a4194a8f4b9ce8ce050d, type: 3}
     shockFrames:
@@ -65,6 +66,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 5777fec647eea4dbb89230e3518d83dc, type: 3}
     - {fileID: 21300000, guid: bc63cf34955994f7ea1aabfa406e0a43, type: 3}
     - {fileID: 21300000, guid: 022df57bf7cfe402ab28ddd246415542, type: 3}
+    gameWinFrames:
+    - {fileID: 21300000, guid: 4bcac4f471659412d8711f2765961534, type: 3}
+    - {fileID: 21300000, guid: d940b9a58116e45fcb8929e9528c7e4d, type: 3}
   - frozenFrames:
     - {fileID: 21300000, guid: bb8f9417c18e643be8aaa7a5332947bc, type: 3}
     cryingFrames:
@@ -86,6 +90,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9b568f4169dfb4c5986b059f39ceb089, type: 3}
     - {fileID: 21300000, guid: 4b04a81ff8222437c9f967a272469665, type: 3}
     - {fileID: 21300000, guid: d0660f51a6c624f49b2cb00a3ae13258, type: 3}
+    gameWinFrames: []
   - frozenFrames:
     - {fileID: 21300000, guid: 95a6d280311e24c999f85669d00c9b12, type: 3}
     cryingFrames:
@@ -107,6 +112,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 60b3077321f5545adbdc6f38626ee3ab, type: 3}
     - {fileID: 21300000, guid: b4de1d7528f7d4fe885f67afcd779c3d, type: 3}
     - {fileID: 21300000, guid: ccac941065dfa4ae28a7a8f948c87d70, type: 3}
+    gameWinFrames: []
   - frozenFrames:
     - {fileID: 21300000, guid: 38c745e5694764b51ba0e9442f3cc81f, type: 3}
     cryingFrames:
@@ -128,6 +134,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: c851812b9a5c3487db798ee64ac4c7cc, type: 3}
     - {fileID: 21300000, guid: bd5ca4faa22b24c329c6f4ac9e7a89c9, type: 3}
     - {fileID: 21300000, guid: 6168a0d0000814335b0d01b6648eecd2, type: 3}
+    gameWinFrames: []
   - frozenFrames:
     - {fileID: 21300000, guid: 86e0a4ab0e92546d0b424205f9ec2c7e, type: 3}
     cryingFrames:
@@ -149,6 +156,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: d499ed71d28cb4f9ca0326bc14becce4, type: 3}
     - {fileID: 21300000, guid: d98f7a0c3e92f40f0bb59d1e8f607962, type: 3}
     - {fileID: 21300000, guid: 728bc2d08ff0346cfab4342d570d38e2, type: 3}
+    gameWinFrames: []
   - frozenFrames:
     - {fileID: 21300000, guid: f4e5ff5b5e34642ae9e867efbbbd5908, type: 3}
     cryingFrames:
@@ -170,6 +178,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 514c140c4761d4c8cbe2c85bda2c95b0, type: 3}
     - {fileID: 21300000, guid: 1b3becab01a6c4ed1bce3d44acf09393, type: 3}
     - {fileID: 21300000, guid: 7e848bf4783c144d3bcfbdae1505982e, type: 3}
+    gameWinFrames: []
   waves:
   - {fileID: 21300000, guid: 25aa6e5b0c0824ebfb75473490c73d70, type: 3}
   - {fileID: 21300000, guid: 6cbccb038bfdb40659826d9a4137bf01, type: 3}
