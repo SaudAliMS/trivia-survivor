@@ -133,8 +133,11 @@ public class MetaLoader
 	}
 
     #region load game meta data
+    static int counter = 0;
     public static void LoadLevelData(string[] elements)
     {
+        counter++;
+        Debug.Log("counter" + counter);
         QuestionData buildingData = QuestionData.Create(elements);         
         if(unitTesting == false)
            GameData.Instance.AddQuestionData(buildingData);

@@ -88,7 +88,7 @@ public class GameCompleteViewController : MonoBehaviour
     public void OnPressRetryBtn()
     {
         GameplayController.Instance.LoadLevel();
-        GameplayController.Instance.LoadQuestion();
+        GameplayController.Instance.AnimateReadyGo();
     }
 
     public void ShowAnswer(string answer)

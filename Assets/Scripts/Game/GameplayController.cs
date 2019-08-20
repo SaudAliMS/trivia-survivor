@@ -154,8 +154,6 @@ public class GameplayController : SingletonMono<GameplayController>
         }
     }
 
-
-
     void RemoveEliminatedCharaceters()
     {
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
@@ -372,6 +370,17 @@ public class GameplayController : SingletonMono<GameplayController>
         PopulateCharacters();
     }
 
+    public void AnimateReadyGo()
+    {
+        timerOn = false;
+        canAnswer = false;
+        ViewController.Instance.OpenView(Views.GamePlay);
+        ViewController.Instance.gameplayViewController.UpdateTopBar();
+        ViewController.Instance.gameplayViewController.AnimateReadGO();
+        Invoke("LoadQuestion", 2);
+    }
+
+
     public void LoadQuestion()
     {
         questionNumber += 1;
@@ -379,9 +388,9 @@ public class GameplayController : SingletonMono<GameplayController>
         timerValue = GameConstants.QUESTION_TIME;
         timerOn = true;
         ViewController.Instance.OpenView(Views.GamePlay);
+        ViewController.Instance.gameplayViewController.UpdateTopBar();
         ViewController.Instance.gameplayViewController.ShowTimer();
         ViewController.Instance.gameplayViewController.ShowQuestion(levelData[questionIndex].Question);
-        ViewController.Instance.gameplayViewController.UpdateTopBar();
         gamePaused = false;
         canAnswer = true;
 
@@ -430,7 +439,8 @@ public class GameplayController : SingletonMono<GameplayController>
         sessionCoinsCount = 0;
         sessionXPCount = 0;
         questionNumber = 0;
-        LoadQuestion();
+        AnimateReadyGo();
+        //        LoadQuestion();
     }
 
     #endregion
@@ -513,8 +523,7 @@ public class GameplayController : SingletonMono<GameplayController>
             {
                 icePieceSinking.gameObject.SetActive(false);
             });
-            icePieceSinking.DOFade(0, 0.25f).SetEase(Ease.Linear);
-
+            icePieceSinking.DOFade(0, 0.15f).SetDelay(0.15f).SetEase(Ease.Linear);
             stone.gameObject.SetActive(false);
 
             SinkWrongAnswerCharaceters();

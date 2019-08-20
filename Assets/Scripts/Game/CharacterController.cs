@@ -190,6 +190,18 @@ public class CharacterController : MonoBehaviour
             mask.gameObject.SetActive(false);
         });
 
+        waterSplash.DOKill();
+        waterSplash.color = Color.white;
+        waterSplash.transform.localScale = Vector3.zero;
+        waterSplash.gameObject.SetActive(true);
+        float finalScale = Random.Range(0.5f, 1.5f);
+        waterSplash.transform.DOScale(finalScale, 0.5f).SetDelay(0.1f).OnComplete(() =>
+        {
+            waterSplash.gameObject.SetActive(false);
+        });
+
+        waterSplash.DOFade(0, 0.2f).SetDelay(0.4f);
+
         float posY = transform.localPosition.y;
         glow.gameObject.SetActive(false);
 

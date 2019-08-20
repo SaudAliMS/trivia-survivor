@@ -9,6 +9,7 @@ public class GameplayViewController : MonoBehaviour
     public GameObject yesBtn;
     public GameObject noBtn;
 
+    public CanvasGroup questionGroup;
     public Text questionText;
     public Text pauseText;
     public Text timer;
@@ -17,9 +18,12 @@ public class GameplayViewController : MonoBehaviour
     public Text xpCount;
     public Text questionNumber;
 
+    public Image readyImage;
+    public Image goImage;
     #region public methods
     public void Open()
     {
+        questionGroup.alpha = 0;
         gameObject.SetActive(true);
         UpdatUI();
         UpdateTopBar();
@@ -28,6 +32,27 @@ public class GameplayViewController : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
+    }
+
+    public void AnimateReadGO()
+    {
+        readyImage.gameObject.SetActive(false);
+        goImage.gameObject.SetActive(false);
+        readyImage.color = Color.white;
+        goImage.color = Color.white;
+
+        readyImage.transform.localScale = Vector3.one * 2;
+        goImage.transform.localScale = Vector3.one * 2;
+
+        readyImage.gameObject.SetActive(true);
+        readyImage.transform.DOScale(1, 0.5f);
+        readyImage.DOFade(0, 0.5f).SetDelay(0.5f).OnComplete(() =>
+        {
+            goImage.gameObject.SetActive(true);
+            goImage.transform.DOScale(1, 0.5f);
+            goImage.DOFade(0, 0.5f).SetDelay(0.5f);
+
+        });
     }
 
     private void UpdatUI()
@@ -65,7 +90,13 @@ public class GameplayViewController : MonoBehaviour
 
     public void ShowQuestion(string question)
     {
-        questionText.text = question;
+        questionGroup.DOFade(0.2f, 0.2f).OnComplete(() =>
+        {
+            questionText.text = question;
+        });
+        questionGroup.DOFade(1f, 0.2f).SetDelay(0.2f);
+
+
     }
     #endregion
 
