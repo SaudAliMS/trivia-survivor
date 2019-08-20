@@ -4,7 +4,7 @@ public enum Views : int
     None = 0,
     MainMenu,
     GamePlay,
-    LevelFailed,
+    GameComplete,
 	LevelComplete,
     Settings,
     GiftBox,
