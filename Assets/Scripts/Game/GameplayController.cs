@@ -15,7 +15,8 @@ public class GameplayController : SingletonMono<GameplayController>
     //public List<Transform> icePieces;
     public Transform leftIce,rightIce,wholeIce;
 
-    public Transform stone,tornado;
+    public Transform stone;
+    public SpriteRenderer tornado;
     public Transform characterContainer;
     public GameObject characterPrefab;
     List<QuestionData> levelData;
@@ -43,12 +44,6 @@ public class GameplayController : SingletonMono<GameplayController>
         wholeIce.gameObject.SetActive(true);
         stone.gameObject.SetActive(false);
 
-        //if (icePieces == null)
-        //{
-        //    icePieces = new List<Transform>();
-        //}
-        //icePieces.Clear();
-
         for (int count = 0; count < characterList.Count; count++)
         {
             CharacterController characterController = characterList[count];
@@ -64,13 +59,6 @@ public class GameplayController : SingletonMono<GameplayController>
             myCharacter = null;
         }
 
-        //for (int count = 0; count < iceContainer.Count; count++)
-        //{
-        //    Transform ice = iceContainer[count];
-        //    ice.gameObject.SetActive(true);
-        //    icePieces.Add(ice);
-        //    ice.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        //}
         characterList.Clear();
     }
 
@@ -150,6 +138,12 @@ public class GameplayController : SingletonMono<GameplayController>
         if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
         {
             myCharacter.PlayStunAnimation();
+            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Heavy);
+
+        }
+        else
+        {
+            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Medium);
         }
     }
 
@@ -302,13 +296,19 @@ public class GameplayController : SingletonMono<GameplayController>
         }
         //bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
 
+        Vector2 myCharacterPos = myCharacter.transform.position;
         // right characters
         Utility.ResetPositionForCharacterRight();
         Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
         for (int count = 0; count < characterMovingRight.Count; count++)
         {
             //new Vector3(1.25f, 0.5f, 0);
+
             Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
+            while(Mathf.Approximately(rightSidePos.x,myCharacterPos.x) && Mathf.Approximately(rightSidePos.y, myCharacterPos.y))
+            {
+                rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
+            }
 
             int index = characterMovingRight[count];
             //Debug.Log("Characters moving right" + index);
@@ -323,6 +323,10 @@ public class GameplayController : SingletonMono<GameplayController>
         {
             //new Vector3(-1.25f, 0.5f, 0);
             Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+            while (Mathf.Approximately(leftSidePos.x, myCharacterPos.x) && Mathf.Approximately(leftSidePos.y, myCharacterPos.y))
+            {
+                leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+            }
 
             int index = characterMovingLeft[count];
             //Debug.Log("characterMovingLeft" + index);
@@ -425,12 +429,12 @@ public class GameplayController : SingletonMono<GameplayController>
 
     Vector3 GetRightSidePosition(bool correctLeftSide)
     {
-        return rightIce.position + Vector3.down * 0f;// + Vector3.left * 0.1f;
+        return rightIce.position + Vector3.down * 0.25f;// + Vector3.left * 0.1f;
     }
 
     Vector3 GetLeftSidePosition(bool correctLeftSide)
     {
-        return leftIce.position + Vector3.down * 0f;// + Vector3.right * 0.1f;
+        return leftIce.position + Vector3.down * 0.25f;// + Vector3.right * 0.1f;
     }
 
     #region Death Animations
@@ -449,7 +453,7 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
             int randomNo = Random.Range(0, 100);
-            if(randomNo < 50)
+            if(randomNo < 0)
             {
                 Invoke("ThrowLightning", 0.5f);
             }
@@ -562,16 +566,31 @@ public class GameplayController : SingletonMono<GameplayController>
         //        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
         if (levelData[questionIndex].AnswerIsTrue)
         {
-            tornado.position = new Vector3(1, -7, 0);
+            tornado.transform.position = new Vector3(1, -7, 0);
         }
         else
         {
-            tornado.position = new Vector3(-1.5f, -7, 0);
+            tornado.transform.position = new Vector3(-1.5f, -7, 0);
         }
+        tornado.DOKill();
 
-        tornado.DOMoveY(7, 1.2f);
+        tornado.color = new Color(1, 1, 1, 0f);
+        tornado.gameObject.SetActive(true);
 
-        transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
+        float posX = tornado.transform.position.x;
+        List<Vector3> tornadoPath = new List<Vector3>();
+        tornadoPath.Add(new Vector3(posX + 0.2f,-2f,0));
+        tornadoPath.Add(new Vector3(posX - 0.25f,   0f, 0));
+        tornadoPath.Add(new Vector3(posX + 0.2f, 2f,0));
+        tornadoPath.Add(Vector3.up * 7);
+
+        tornado.transform.DOPath(tornadoPath.ToArray(), 1.2f,PathType.CatmullRom).OnComplete(()=> {
+            tornado.gameObject.SetActive(false);
+        });
+        tornado.DOFade(1, 0.2f).SetDelay(0.1f);
+        tornado.DOFade(0f, 0.2f).SetDelay(0.6f);
+
+        transform.DOMove(Vector3.zero, 0.4f).OnComplete(() =>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             for (int count = 0; count < characterList.Count; count++)
@@ -595,8 +614,9 @@ public class GameplayController : SingletonMono<GameplayController>
                     characterController.isDying = true;
                     characterController.transform.DOScale(1f, 0.3f);
                     characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
-                    characterController.transform.DOMove(finalPos, 0.5f).SetEase(Ease.Linear).OnComplete(()=> {
-                        characterController.PlayDeathAnimation();
+                    float time  = Random.Range(0.3f, 0.6f);
+                    characterController.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(()=> {
+                        characterController.PlayFreezeAnimation();
 
                     });
 

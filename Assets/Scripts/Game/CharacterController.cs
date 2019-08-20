@@ -10,6 +10,8 @@ public class CharacterController : MonoBehaviour
 
     public SpriteRenderer emoticon, otherEmoticon, glow;
     public TextMesh emoticonText, otherEmoticonText;
+    public SpriteRenderer waterSplash;
+    public Transform mask;
 
     float posX,posY;
     int chrId;
@@ -19,6 +21,7 @@ public class CharacterController : MonoBehaviour
     private bool isOtherPlayer;
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
     {
+        mask.gameObject.SetActive(false);
         isDying = false;
         isOtherPlayer = otherPlayer;
         newPos += Vector3.down * 0.8f;
@@ -126,26 +129,58 @@ public class CharacterController : MonoBehaviour
 
     public void PlayFreezeAnimation()
     {
-    
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
+        mask.transform.localPosition = Vector3.down * 1;
+        mask.gameObject.SetActive(true);
+        mask.transform.DOLocalMoveY(0.5f, 0.2f);
+        mask.transform.DOLocalMoveY(-1, 0.4f).SetDelay(0.2f).OnComplete(() =>
+        {
+            mask.gameObject.SetActive(false);
+        });
 
-        ////transform.localEulerAngles = Vector3.back * 5;
-        //animSequence = DOTween.Sequence();
+        waterSplash.DOKill();
+        waterSplash.color = Color.white;
+        waterSplash.transform.localScale = Vector3.zero;
+        waterSplash.gameObject.SetActive(true);
+
+        float posY = transform.localPosition.y;
+        glow.gameObject.SetActive(false);
+
+        transform.DOKill();
+        //transform.localEulerAngles = Vector3.back * 5;
+        animSequence = DOTween.Sequence();
         //animSequence.PrependInterval(Random.Range(0.2f, 0.3f));
-        //animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete(delegate () {
+        animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete(delegate () {
 
-        //}));
-        //animSequence.Join(transform.DOLocalMoveY(posY - 0.2f, 0.2f));
-        ////animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
+            AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
+        }));
+        animSequence.Join(transform.DOLocalMoveY(posY - 0.2f, 0.2f));
+        //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
 
-        //animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
-        ////animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
-        //animSequence.Join(transform.DOLocalMoveY(posY, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
-        //animSequence.Play();
+        animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Join(transform.DOLocalMoveY(posY, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Play();
+
+        float finalScale = Random.Range(0.5f, 1.5f);
+        waterSplash.transform.DOScale(finalScale, 0.5f).SetDelay(0.1f).OnComplete(() =>
+        {
+            waterSplash.gameObject.SetActive(false);
+        });
+
+        waterSplash.DOFade(0, 0.2f).SetDelay(0.4f);
     }
 
     public void PlayDeathAnimation() 
     {
+
+        mask.transform.localPosition = Vector3.down * 1;
+        mask.gameObject.SetActive(true);
+        mask.transform.DOLocalMoveY(0.5f, 0.2f);
+        mask.transform.DOLocalMoveY(-1, 0.4f).SetDelay(0.2f).OnComplete(() =>
+        {
+            mask.gameObject.SetActive(false);
+        });
+
         float posY = transform.localPosition.y;
         glow.gameObject.SetActive(false);
 
@@ -188,7 +223,7 @@ public class CharacterController : MonoBehaviour
     public void PlayStunAnimation()
     {
         transform.DOKill();
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, false, 0.4f);
     }
 
     public void PlayWalkAnimation()

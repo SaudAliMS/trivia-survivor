@@ -44,11 +44,13 @@ public class GameplayViewController : MonoBehaviour
 
     public void OnPressYesBtn()
     {
+        TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Medium);
         GameplayController.Instance.OnPressYesBtn();
     }
 
     public void OnPressNoBtn()
     {
+        TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Medium);
         GameplayController.Instance.OnPressNoBtn();
     }
 
