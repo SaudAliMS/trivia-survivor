@@ -7,14 +7,16 @@ using System;
 public class GameData : SingletonBase<GameData>
 {
     #region variables
-    private Dictionary<int,List<LevelData>> levelDataDict;
+    int questionIndex = 0;
+    const int QUESTION_PER_MISSION = 5;
+    private List<QuestionData> questionList;
     #endregion
-
 
     #region initialization methods
     public GameData()
     {
-        levelDataDict = new Dictionary<int, List<LevelData>>();
+        questionList = new List<QuestionData>();
+        questionIndex = DatabaseManager.GetInt("question_index", 0);
     }
     #endregion
 
@@ -22,36 +24,37 @@ public class GameData : SingletonBase<GameData>
     #endregion
 
     #region public setter methods
-    public void AddLevelData(LevelData levelData)
+    public void AddQuestionData(QuestionData levelData)
     {
-        List<LevelData> levelDatas;
-        if ( levelDataDict.ContainsKey(levelData.Level)){
-            levelDatas  = levelDataDict[levelData.Level];
-        }
-        else{
-            levelDatas = new List<LevelData>();
-        }
-
-        if (levelDatas.Count <= 1)
-        {
-            levelDatas.Add(levelData);
-            levelDataDict[levelData.Level] = levelDatas;
-        }
+        questionList.Add(levelData);
     }
     #endregion
 
     #region public getter methods
 
-    public List<LevelData> GetLevelData(int level)
+    public List<QuestionData> GetLevelData()
     {
-
-        return levelDataDict[level];
+        List<QuestionData> qList = new List<QuestionData>();
+        int count = 0;
+        while(count < QUESTION_PER_MISSION)
+        {
+            QuestionData qData = questionList[questionIndex];
+            qList.Add(qData);
+            count++;
+            questionIndex++;
+            if(questionIndex >= questionList.Count)
+            {
+                questionIndex = 0;
+            }
+        }
+        DatabaseManager.SetInt("question_index", questionIndex);
+        return qList;
     }
 
-    public bool LevelDataExists(int level)
-    {
+    //public bool LevelDataExists(int level)
+    //{
 
-        return levelDataDict.ContainsKey(level);
-    }
+    //    return questionsList.ContainsKey(level);
+    //}
     #endregion
 }

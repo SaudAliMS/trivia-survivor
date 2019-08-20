@@ -8,7 +8,7 @@ public class GameController  : SingletonBase<GameController>
     #region veriables
     public bool IsVibrationOn =  true;
     public bool gameRunnig;
-    public int currentLevel;
+    //public int currentLevel;
 
 
     //public GameplayController gameplayController;
@@ -26,7 +26,7 @@ public class GameController  : SingletonBase<GameController>
     {
         if (MetaLoader.LoadData())
         {
-            currentLevel = DatabaseManager.GetInt("current_level",1);
+            //currentLevel = DatabaseManager.GetInt("current_level",1);
             GameplayController.Instance.LoadLevel();
         }
         else
@@ -35,15 +35,15 @@ public class GameController  : SingletonBase<GameController>
         }
     }
 
-    public void LevelCompleted()
-    {
-        currentLevel++;
-        if(!GameData.Instance.LevelDataExists(currentLevel ))
-        {
-            currentLevel = 1;
-        }
-        DatabaseManager.SetInt("current_level", currentLevel);
-    }
+    //public void LevelCompleted()
+    //{
+    //    currentLevel++;
+    //    if(!GameData.Instance.LevelDataExists(currentLevel ))
+    //    {
+    //        currentLevel = 1;
+    //    }
+    //    DatabaseManager.SetInt("current_level", currentLevel);
+    //}
 
 
 

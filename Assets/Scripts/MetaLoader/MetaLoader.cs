@@ -135,9 +135,9 @@ public class MetaLoader
     #region load game meta data
     public static void LoadLevelData(string[] elements)
     {
-        LevelData buildingData = LevelData.Create(elements);         
+        QuestionData buildingData = QuestionData.Create(elements);         
         if(unitTesting == false)
-           GameData.Instance.AddLevelData(buildingData);
+           GameData.Instance.AddQuestionData(buildingData);
     }
     #endregion
 }

@@ -14,7 +14,7 @@ public class GameplayController : SingletonMono<GameplayController>
     public Transform stone,tornado;
     public Transform characterContainer;
     public GameObject characterPrefab;
-    List<LevelData> levelData;
+    List<QuestionData> levelData;
     int questionIndex;
     bool canAnswer = false;
 
@@ -106,7 +106,6 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
             timerOn = false;
-            GameController.Instance.LevelCompleted();
             ViewController.Instance.OpenView(Views.LevelComplete);
         }
     }
@@ -336,7 +335,7 @@ public class GameplayController : SingletonMono<GameplayController>
         ResetCharacters();
         questionIndex = 0;
 
-        levelData = GameData.Instance.GetLevelData(GameController.Instance.currentLevel);
+        levelData = GameData.Instance.GetLevelData();
         PopulateCharacters();
     }
 

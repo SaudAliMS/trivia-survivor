@@ -1,16 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Parallex : MonoBehaviour
 {
+    public Transform ice;
     private Material material;
 //    public SpriteRenderer sRenderer;
-    private float speed = -0.2f;
+    private float speed = -0.05f;
     // Start is called before the first frame update
     void Start()
     {
         material = GetComponent<Renderer>().material;
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(ice.DOLocalRotate(Vector3.up * 2,0.5f).SetEase(Ease.InOutSine));
+        mySequence.Append(ice.DOLocalRotate(Vector3.down * 2, 1f).SetEase(Ease.InOutSine));
+        mySequence.Append(ice.DOLocalRotate(Vector3.up * 2, 1f).SetEase(Ease.InOutSine));
+        mySequence.SetLoops(-1,LoopType.Yoyo);
+        mySequence.Play();
     }
 
     // Update is called once per frame
