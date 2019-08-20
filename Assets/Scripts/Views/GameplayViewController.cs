@@ -90,6 +90,7 @@ public class GameplayViewController : MonoBehaviour
 
     public void ShowQuestion(string question)
     {
+        question = question.Replace(";", ",");
         questionGroup.DOFade(0.2f, 0.2f).OnComplete(() =>
         {
             questionText.text = question;
