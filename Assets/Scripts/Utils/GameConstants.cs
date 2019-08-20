@@ -21,6 +21,7 @@ public class GameConstants
     public const int COIN_REWARD_ON_MATCH_COMPLETE = 10;
     public const int COIN_REWARD_ON_TRUE_ANSWER = 2;
     public const int XP_REWARD_ON_TRUE_ANSWER = 1;
+    public const int MY_CHARACTER_ID = 0;
     public static readonly int[] REQUIRED_XP = {3, 5, 7, 10, 20};
     public static readonly string[] POSITIONS = { "WIN!", "2nd", "3rd","4th","5th","6th","7th","8th","9th","10th" };
 
