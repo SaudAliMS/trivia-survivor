@@ -582,6 +582,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &947213037 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5973636339350617305, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5973636338136942103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &947361069 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2193606060923271479, guid: 38d00789a06414f4bb48c6a49f61961f,
@@ -762,6 +768,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11d56efb357a485ebfef076dc794f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &1292055960 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5973636339565592929, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5973636338136942103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1613294894 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3709399873933347389, guid: 7f8d3017bb291498b88690bf548d14bc,
@@ -1137,6 +1149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8e7ff050507499a94544344c92d33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &1970024842 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5973636339382133526, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5973636338136942103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2032504291 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5071368440302542883, guid: 7b0bf61e3303a442ebce2d617f3b71b7,
@@ -1216,5 +1234,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5973636338595750872, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
+        type: 3}
+      propertyPath: wholeIce
+      value: 
+      objectReference: {fileID: 1292055960}
+    - target: {fileID: 5973636338595750872, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
+        type: 3}
+      propertyPath: leftIce
+      value: 
+      objectReference: {fileID: 947213037}
+    - target: {fileID: 5973636338595750872, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
+        type: 3}
+      propertyPath: rightIce
+      value: 
+      objectReference: {fileID: 1970024842}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ee51b9fd16a54175a2d1e903ccbb44b, type: 3}

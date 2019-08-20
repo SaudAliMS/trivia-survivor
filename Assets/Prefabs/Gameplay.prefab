@@ -824,9 +824,9 @@ MonoBehaviour:
   sessionXPCount: 0
   questionNumber: 0
   snowDust: {fileID: 5973636338816165548}
-  leftIce: {fileID: 5973636339350617306}
-  rightIce: {fileID: 5973636339382133527}
-  wholeIce: {fileID: 5973636339565592930}
+  leftIce: {fileID: 5973636339350617305}
+  rightIce: {fileID: 5973636339382133526}
+  wholeIce: {fileID: 5973636339565592929}
   stone: {fileID: 5973636338011087177}
   tornado: {fileID: 2852483820591001423}
   characterContainer: {fileID: 5973636338486360903}

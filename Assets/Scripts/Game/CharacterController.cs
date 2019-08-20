@@ -55,6 +55,13 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    private void HideEmoticons()
+    {
+        glow.gameObject.SetActive(false);
+        emoticon.gameObject.SetActive(false);
+        otherEmoticon.gameObject.SetActive(false);
+    }
+
     public void Shuffle(Vector3 newPos, bool answer)
     {
         PlayWalkAnimation(); 
@@ -129,6 +136,7 @@ public class CharacterController : MonoBehaviour
 
     public void PlayFreezeAnimation()
     {
+        HideEmoticons();
         mask.transform.localPosition = Vector3.down * 1;
         mask.gameObject.SetActive(true);
         mask.transform.DOLocalMoveY(0.5f, 0.2f);
@@ -172,11 +180,12 @@ public class CharacterController : MonoBehaviour
 
     public void PlayDeathAnimation() 
     {
-
+        HideEmoticons();
+        float initialDelay = Random.Range(0.2f, 0.3f);
         mask.transform.localPosition = Vector3.down * 1;
         mask.gameObject.SetActive(true);
-        mask.transform.DOLocalMoveY(0.5f, 0.2f);
-        mask.transform.DOLocalMoveY(-1, 0.4f).SetDelay(0.2f).OnComplete(() =>
+        mask.transform.DOLocalMoveY(0.5f, 0.2f).SetDelay(initialDelay);
+        mask.transform.DOLocalMoveY(-1, 0.4f).SetDelay(0.2f+ initialDelay).OnComplete(() =>
         {
             mask.gameObject.SetActive(false);
         });
@@ -187,7 +196,7 @@ public class CharacterController : MonoBehaviour
         transform.DOKill();
         //transform.localEulerAngles = Vector3.back * 5;
         animSequence = DOTween.Sequence();
-        animSequence.PrependInterval(Random.Range(0.2f, 0.3f));
+        animSequence.PrependInterval(initialDelay);
         animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete( delegate () {
 
             AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
@@ -215,6 +224,7 @@ public class CharacterController : MonoBehaviour
 
     public void PlayLightningAnimation()
     {
+        HideEmoticons();
         //transform.localRotation = Quaternion.Euler(0, 0, -1);
         //transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f, 0.05f)).SetLoops(-1, LoopType.Yoyo);
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Lightning, false, 1f);

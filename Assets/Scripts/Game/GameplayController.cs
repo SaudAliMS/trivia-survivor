@@ -13,7 +13,7 @@ public class GameplayController : SingletonMono<GameplayController>
     public SpriteRenderer snowDust;
     //public List<Transform> iceContainer;
     //public List<Transform> icePieces;
-    public Transform leftIce,rightIce,wholeIce;
+    public SpriteRenderer leftIce,rightIce,wholeIce;
 
     public Transform stone;
     public SpriteRenderer tornado;
@@ -39,9 +39,16 @@ public class GameplayController : SingletonMono<GameplayController>
             characterCache = new List<CharacterController>();
             characterList = new List<CharacterController>();
         }
+        leftIce.color = Color.white;
+        rightIce.color = Color.white;
+        wholeIce.color = Color.white;
+
+        wholeIce.transform.position = Vector3.up * 0.2f; 
         leftIce.gameObject.SetActive(false);
         rightIce.gameObject.SetActive(false);
         wholeIce.gameObject.SetActive(true);
+
+
         stone.gameObject.SetActive(false);
 
         for (int count = 0; count < characterList.Count; count++)
@@ -415,12 +422,12 @@ public class GameplayController : SingletonMono<GameplayController>
 
     Vector3 GetRightSidePosition(bool correctLeftSide)
     {
-        return rightIce.position + Vector3.down * 0.25f;// + Vector3.left * 0.1f;
+        return rightIce.transform.position + Vector3.down * 0.25f;// + Vector3.left * 0.1f;
     }
 
     Vector3 GetLeftSidePosition(bool correctLeftSide)
     {
-        return leftIce.position + Vector3.down * 0.25f;// + Vector3.right * 0.1f;
+        return leftIce.transform.position + Vector3.down * 0.25f;// + Vector3.right * 0.1f;
     }
 
     #region Death Animations
@@ -439,7 +446,7 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
             int randomNo = Random.Range(0, 100);
-            if(randomNo < 0)
+            if(randomNo < 50)
             {
                 Invoke("ThrowLightning", 0.5f);
             }
@@ -454,7 +461,7 @@ public class GameplayController : SingletonMono<GameplayController>
     void ThrowStone()
     {
         Vector3 stonePosition;
-        Transform icePieceSinking;
+        SpriteRenderer icePieceSinking;
 
         if (levelData[questionIndex].AnswerIsTrue)
         {
@@ -465,7 +472,6 @@ public class GameplayController : SingletonMono<GameplayController>
             icePieceSinking = leftIce;
         }
 
-        SpriteRenderer spriteRenderer = icePieceSinking.GetComponent<SpriteRenderer>();
         float posX = icePieceSinking.transform.position.x;
         stonePosition = new Vector3(posX, 7, 0);
 
@@ -488,11 +494,11 @@ public class GameplayController : SingletonMono<GameplayController>
                 snowDust.color = Color.white;
             });
 
-            icePieceSinking.DOMoveZ(1, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
+            icePieceSinking.transform.DOMoveZ(1, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 icePieceSinking.gameObject.SetActive(false);
             });
-            spriteRenderer.DOFade(0, 0.25f).SetEase(Ease.Linear);
+            icePieceSinking.DOFade(0, 0.25f).SetEase(Ease.Linear);
 
             stone.gameObject.SetActive(false);
 

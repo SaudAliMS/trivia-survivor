@@ -8,7 +8,7 @@ public class GameData : SingletonBase<GameData>
 {
     #region variables
     int questionIndex = 0;
-    const int QUESTION_PER_MISSION = 5;
+    const int QUESTION_PER_MISSION = 4;
     private List<QuestionData> questionList;
     #endregion
 
