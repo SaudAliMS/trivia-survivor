@@ -10,7 +10,7 @@ public class CharacterController : MonoBehaviour
 
     public SpriteRenderer emoticon, otherEmoticon, glow;
     public TextMesh emoticonText, otherEmoticonText;
-
+    public SpriteRenderer waterSplash;
     float posX,posY;
     int chrId;
 
@@ -126,22 +126,37 @@ public class CharacterController : MonoBehaviour
 
     public void PlayFreezeAnimation()
     {
-    
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
+        waterSplash.DOKill();
+        waterSplash.color = Color.white;
+        waterSplash.transform.localScale = Vector3.zero;
+        waterSplash.gameObject.SetActive(true);
 
-        ////transform.localEulerAngles = Vector3.back * 5;
-        //animSequence = DOTween.Sequence();
+        float posY = transform.localPosition.y;
+        glow.gameObject.SetActive(false);
+
+        transform.DOKill();
+        //transform.localEulerAngles = Vector3.back * 5;
+        animSequence = DOTween.Sequence();
         //animSequence.PrependInterval(Random.Range(0.2f, 0.3f));
-        //animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete(delegate () {
+        animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete(delegate () {
 
-        //}));
-        //animSequence.Join(transform.DOLocalMoveY(posY - 0.2f, 0.2f));
-        ////animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
+            AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
+        }));
+        animSequence.Join(transform.DOLocalMoveY(posY - 0.2f, 0.2f));
+        //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
 
-        //animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
-        ////animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
-        //animSequence.Join(transform.DOLocalMoveY(posY, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
-        //animSequence.Play();
+        animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Join(transform.DOLocalMoveY(posY, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Play();
+
+        float finalScale = Random.Range(0.5f, 1.5f);
+        waterSplash.transform.DOScale(finalScale, 0.5f).SetDelay(0.1f).OnComplete(() =>
+        {
+            waterSplash.gameObject.SetActive(false);
+        });
+
+        waterSplash.DOFade(0, 0.2f).SetDelay(0.4f);
     }
 
     public void PlayDeathAnimation() 

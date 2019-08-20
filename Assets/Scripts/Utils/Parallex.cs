@@ -14,9 +14,9 @@ public class Parallex : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(ice.DOLocalRotate(Vector3.up * 2,0.5f).SetEase(Ease.InOutSine));
-        mySequence.Append(ice.DOLocalRotate(Vector3.down * 2, 1f).SetEase(Ease.InOutSine));
-        mySequence.Append(ice.DOLocalRotate(Vector3.up * 2, 1f).SetEase(Ease.InOutSine));
+        mySequence.Append(ice.DOLocalRotate(Vector3.up * 3,0.5f).SetEase(Ease.InOutSine));
+        mySequence.Append(ice.DOLocalRotate(Vector3.down * 3, 1f).SetEase(Ease.InOutSine));
+        mySequence.Append(ice.DOLocalRotate(Vector3.up * 3, 1f).SetEase(Ease.InOutSine));
         mySequence.SetLoops(-1,LoopType.Yoyo);
         mySequence.Play();
     }

@@ -43,12 +43,6 @@ public class GameplayController : SingletonMono<GameplayController>
         wholeIce.gameObject.SetActive(true);
         stone.gameObject.SetActive(false);
 
-        //if (icePieces == null)
-        //{
-        //    icePieces = new List<Transform>();
-        //}
-        //icePieces.Clear();
-
         for (int count = 0; count < characterList.Count; count++)
         {
             CharacterController characterController = characterList[count];
@@ -64,13 +58,6 @@ public class GameplayController : SingletonMono<GameplayController>
             myCharacter = null;
         }
 
-        //for (int count = 0; count < iceContainer.Count; count++)
-        //{
-        //    Transform ice = iceContainer[count];
-        //    ice.gameObject.SetActive(true);
-        //    icePieces.Add(ice);
-        //    ice.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        //}
         characterList.Clear();
     }
 
@@ -150,6 +137,12 @@ public class GameplayController : SingletonMono<GameplayController>
         if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
         {
             myCharacter.PlayStunAnimation();
+            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Heavy);
+
+        }
+        else
+        {
+            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Medium);
         }
     }
 
@@ -302,13 +295,19 @@ public class GameplayController : SingletonMono<GameplayController>
         }
         //bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
 
+        Vector2 myCharacterPos = myCharacter.transform.position;
         // right characters
         Utility.ResetPositionForCharacterRight();
         Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
         for (int count = 0; count < characterMovingRight.Count; count++)
         {
             //new Vector3(1.25f, 0.5f, 0);
+
             Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
+            while(Mathf.Approximately(rightSidePos.x,myCharacterPos.x) && Mathf.Approximately(rightSidePos.y, myCharacterPos.y))
+            {
+                rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
+            }
 
             int index = characterMovingRight[count];
             //Debug.Log("Characters moving right" + index);
@@ -323,6 +322,10 @@ public class GameplayController : SingletonMono<GameplayController>
         {
             //new Vector3(-1.25f, 0.5f, 0);
             Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+            while (Mathf.Approximately(leftSidePos.x, myCharacterPos.x) && Mathf.Approximately(leftSidePos.y, myCharacterPos.y))
+            {
+                leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+            }
 
             int index = characterMovingLeft[count];
             //Debug.Log("characterMovingLeft" + index);
@@ -435,7 +438,7 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
             int randomNo = Random.Range(0, 100);
-            if(randomNo < 50)
+            if(randomNo < 0)
             {
                 Invoke("ThrowLightning", 0.5f);
             }
@@ -555,9 +558,12 @@ public class GameplayController : SingletonMono<GameplayController>
             tornado.position = new Vector3(-1.5f, -7, 0);
         }
 
-        tornado.DOMoveY(7, 1.2f);
+        tornado.gameObject.SetActive(true);
+        tornado.DOMoveY(7, 1.2f).OnComplete(()=> {
+            tornado.gameObject.SetActive(false);
+        });
 
-        transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
+        transform.DOMove(Vector3.zero, 0.4f).OnComplete(() =>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             for (int count = 0; count < characterList.Count; count++)
@@ -581,8 +587,9 @@ public class GameplayController : SingletonMono<GameplayController>
                     characterController.isDying = true;
                     characterController.transform.DOScale(1f, 0.3f);
                     characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
-                    characterController.transform.DOMove(finalPos, 0.5f).SetEase(Ease.Linear).OnComplete(()=> {
-                        characterController.PlayDeathAnimation();
+                    float time  = Random.Range(0.3f, 0.6f);
+                    characterController.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(()=> {
+                        characterController.PlayFreezeAnimation();
 
                     });
 
