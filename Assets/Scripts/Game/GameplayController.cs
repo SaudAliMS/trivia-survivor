@@ -377,7 +377,7 @@ public class GameplayController : SingletonMono<GameplayController>
         ViewController.Instance.OpenView(Views.GamePlay);
         ViewController.Instance.gameplayViewController.UpdateTopBar();
         ViewController.Instance.gameplayViewController.AnimateReadGO();
-        Invoke("LoadQuestion", 2);
+        Invoke("LoadQuestion", 2.5f);
     }
 
 
@@ -600,13 +600,13 @@ public class GameplayController : SingletonMono<GameplayController>
         tornadoPath.Add(new Vector3(posX + 0.2f, 2f,0));
         tornadoPath.Add(Vector3.up * 7);
 
-        tornado.transform.DOPath(tornadoPath.ToArray(), 1.2f,PathType.CatmullRom).OnComplete(()=> {
+        tornado.transform.DOPath(tornadoPath.ToArray(), 1.5f,PathType.CatmullRom).OnComplete(()=> {
             tornado.gameObject.SetActive(false);
         });
-        tornado.DOFade(1, 0.2f).SetDelay(0.1f);
-        tornado.DOFade(0f, 0.2f).SetDelay(0.6f);
+        tornado.DOFade(1, 0.3f).SetDelay(0.2f);
+        tornado.DOFade(0f, 0.3f).SetDelay(0.8f);
 
-        transform.DOMove(Vector3.zero, 0.4f).OnComplete(() =>
+        transform.DOMove(Vector3.zero, 0.6f).OnComplete(() =>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             for (int count = 0; count < characterList.Count; count++)

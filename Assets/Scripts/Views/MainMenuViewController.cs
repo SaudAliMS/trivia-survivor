@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MainMenuViewController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class MainMenuViewController : MonoBehaviour
     public Text xpCount;
     public Text levelCount;
     public Slider levelProgress;
-
+    public Transform tapToStart;
     public void Open()
     {
         UpdateUI();
@@ -22,6 +23,9 @@ public class MainMenuViewController : MonoBehaviour
         xpCount.text = PlayerData.XPCount.ToString() + "/" + GameplayController.Instance.GetRequiredXPForLevelUpdate();
         levelCount.text = "Lv " + PlayerData.Level.ToString();
         levelProgress.value = ((float)PlayerData.XPCount / (float)GameplayController.Instance.GetRequiredXPForLevelUpdate());
+
+        tapToStart.DOKill();
+        tapToStart.DOScale(0.925f, 0.85f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
     }
 
     public void Close()

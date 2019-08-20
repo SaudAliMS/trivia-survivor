@@ -41,12 +41,12 @@ public class GameplayViewController : MonoBehaviour
         readyImage.color = Color.white;
         goImage.color = Color.white;
 
-        readyImage.transform.localScale = Vector3.one * 2;
-        goImage.transform.localScale = Vector3.one * 2;
+        readyImage.transform.localScale = Vector3.one * 1.5f;
+        goImage.transform.localScale = Vector3.one * 1.5f;
 
         readyImage.gameObject.SetActive(true);
-        readyImage.transform.DOScale(1, 0.5f);
-        readyImage.DOFade(0, 0.5f).SetDelay(0.5f).OnComplete(() =>
+        readyImage.transform.DOScale(1, 0.5f).SetDelay(0.5f);
+        readyImage.DOFade(0, 0.5f).SetDelay(1f).OnComplete(() =>
         {
             goImage.gameObject.SetActive(true);
             goImage.transform.DOScale(1, 0.5f);
