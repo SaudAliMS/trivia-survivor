@@ -7,6 +7,7 @@ public class GameLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerData.LoadState();
         GameController.Instance.LoadGameData();
     }
 

@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GameplayController : SingletonMono<GameplayController>
 {
+    [HideInInspector]public int sessionCoinsCount = 0;
+    [HideInInspector] public int sessionXPCount = 0;
+    [HideInInspector] public int questionNumber = 0;
+
     public SpriteRenderer snowDust;
     public List<Transform> iceContainer;
     public List<Transform> icePieces;
@@ -158,6 +162,9 @@ public class GameplayController : SingletonMono<GameplayController>
         if ((userAnswerYes && levelData[questionIndex].AnswerIsTrue) || 
             (!userAnswerYes && !levelData[questionIndex].AnswerIsTrue))
         {
+            sessionCoinsCount += GameConstants.COIN_REWARD_ON_TRUE_ANSWER;
+            sessionXPCount += GameConstants.XP_REWARD_ON_TRUE_ANSWER;
+            ViewController.Instance.gameplayViewController.UpdateTopBar();
             QuestionCompleted();
         }
         else
@@ -403,12 +410,14 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public void LoadQuestion()
     {
+        questionNumber += 1;
         myCharacter.SetPlayerUIStauts();
         timerValue = GameConstants.QUESTION_TIME;
         timerOn = true;
         ViewController.Instance.OpenView(Views.GamePlay);
         ViewController.Instance.gameplayViewController.ShowTimer();
         ViewController.Instance.gameplayViewController.ShowQuestion(levelData[questionIndex].Question);
+        ViewController.Instance.gameplayViewController.UpdateTopBar();
         gamePaused = false;
         canAnswer = true;
 
@@ -452,6 +461,14 @@ public class GameplayController : SingletonMono<GameplayController>
         return gamePaused;
     }
 
+    public void OnPressTapToStartBtn()
+    {
+        sessionCoinsCount = 0;
+        sessionXPCount = 0;
+        questionNumber = 0;
+        LoadQuestion();
+    }
+
     #endregion
 
     Vector3 GetRightSidePosition(bool correctLeftSide)
@@ -477,4 +494,19 @@ public class GameplayController : SingletonMono<GameplayController>
             return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.1f;
     }
 
+    #region Helper Methods
+
+    public int GetRequiredXPForLevelUpdate()
+    {
+        if (PlayerData.Level > GameConstants.REQUIRED_XP.Length) 
+        {
+            return GameConstants.REQUIRED_XP[GameConstants.REQUIRED_XP.Length - 1];
+        }
+        else 
+        {
+            return GameConstants.REQUIRED_XP[PlayerData.Level - 1];
+        }
+    }
+
+    #endregion Helper Methods
 }
