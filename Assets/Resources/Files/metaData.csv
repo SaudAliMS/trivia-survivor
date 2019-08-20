@@ -1,9 +1,9 @@
-[LEVEL TABLE],,,,
-ID,Level,Answer,QuestionStatement,CorrectAnswer
-1,1,1,England won stricket worldcup.,England won stricket worldcup.
-2,1,1,Inzamam has most runs for Pakistan,Inzamam has most runs for Pakistan
-3,1,0,Pakistan won T20 worldcup under Shahid Afridi leadership,Pakistan won T20 worldcup under Shahid Afridi leadership
-4,2,1,Wasim Akram has most wickets for Pakistan,Wasim Akram has most wickets for Pakistan
-5,2,0,Pakistan national sport is Cricket,Pakistan national sport is Hockey
-6,2,1,England is worldcup winner.,England is worldcup winner.
-[END],,,,
+[LEVEL TABLE],,,
+ID,Answer,QuestionStatement,CorrectAnswer
+1,1,England won cricket worldcup.,England won cricket worldcup.
+2,1,Inzamam has most runs for Pakistan,Inzamam has most runs for Pakistan
+3,0,Pakistan won T20 worldcup under Shahid Afridi leadership,Pakistan won T20 worldcup under Shahid Afridi leadership
+4,1,Wasim Akram has most wickets for Pakistan,Wasim Akram has most wickets for Pakistan
+5,0,Pakistan national sport is Cricket,Pakistan national sport is Hockey
+6,1,England is worldcup winner.,England is worldcup winner.
+[END],,,
