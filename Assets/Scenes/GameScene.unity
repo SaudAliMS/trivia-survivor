@@ -764,14 +764,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &1613294894 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6437187958179113630, guid: 7f8d3017bb291498b88690bf548d14bc,
+  m_CorrespondingSourceObject: {fileID: 3709399873933347389, guid: 7f8d3017bb291498b88690bf548d14bc,
     type: 3}
   m_PrefabInstance: {fileID: 1932564286}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd696cf83ee241558507da586041aea, type: 3}
+  m_Script: {fileID: 11500000, guid: 855ce802f45504982a8ab324626ecd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1871498960
@@ -958,7 +958,7 @@ MonoBehaviour:
   mainMenuViewController: {fileID: 1944258374}
   gameplayViewController: {fileID: 2032504291}
   levelCompletedViewController: {fileID: 947361069}
-  gameOverViewController: {fileID: 1613294894}
+  gameCompleteViewController: {fileID: 1613294894}
   currentView: 0
 --- !u!1001 &1932564286
 PrefabInstance:
@@ -970,7 +970,7 @@ PrefabInstance:
     - target: {fileID: 6437187958179113624, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
       propertyPath: m_Name
-      value: GameOverMenu
+      value: GameCompleteMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6437187958179113624, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
@@ -1085,12 +1085,37 @@ PrefabInstance:
     - target: {fileID: 6437187958442903030, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.527
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6437187958442903030, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437187957703698042, guid: 7f8d3017bb291498b88690bf548d14bc,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437187958330600391, guid: 7f8d3017bb291498b88690bf548d14bc,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1613294894}
+    - target: {fileID: 6437187958330600391, guid: 7f8d3017bb291498b88690bf548d14bc,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPressHomeBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437187958465862285, guid: 7f8d3017bb291498b88690bf548d14bc,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1613294894}
+    - target: {fileID: 6437187958465862285, guid: 7f8d3017bb291498b88690bf548d14bc,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPressRetryBtn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8d3017bb291498b88690bf548d14bc, type: 3}

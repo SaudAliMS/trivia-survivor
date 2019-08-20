@@ -7,7 +7,7 @@ public class ViewController : SingletonMono<ViewController>
     public MainMenuViewController       mainMenuViewController;
     public GameplayViewController       gameplayViewController;
     public LevelCompletedViewController levelCompletedViewController;
-    public GameOverViewController       gameOverViewController;
+    public GameCompleteViewController       gameCompleteViewController;
 
     public Views currentView;
     public void OpenView(Views view)
@@ -24,8 +24,8 @@ public class ViewController : SingletonMono<ViewController>
                 case Views.GamePlay:
                     gameplayViewController.Open();
                     break;
-                case Views.LevelFailed:
-                    gameOverViewController.Open();
+                case Views.GameComplete:
+                    gameCompleteViewController.Open();
                     break;
                 case Views.LevelComplete:
                     levelCompletedViewController.Open();
@@ -44,8 +44,8 @@ public class ViewController : SingletonMono<ViewController>
             case Views.GamePlay:
                 gameplayViewController.Close();
                 break;
-            case Views.LevelFailed:
-                gameOverViewController.Close();
+            case Views.GameComplete:
+                gameCompleteViewController.Close();
                 break;
             case Views.LevelComplete:
                 levelCompletedViewController.Close();

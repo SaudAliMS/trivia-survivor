@@ -97,7 +97,7 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
             timerOn = false;
-            ViewController.Instance.OpenView(Views.LevelComplete);
+            ViewController.Instance.OpenView(Views.GameComplete);
         }
     }
 
@@ -179,8 +179,8 @@ public class GameplayController : SingletonMono<GameplayController>
         canAnswer = false;
         timerOn = false;
 
-        ViewController.Instance.gameOverViewController.ShowAnswer(levelData[questionIndex].AnswerStatement);
-        ViewController.Instance.OpenView(Views.LevelFailed);
+        ViewController.Instance.gameCompleteViewController.ShowAnswer(levelData[questionIndex].AnswerStatement);
+        ViewController.Instance.OpenView(Views.GameComplete);
     }
 
     void Update()
