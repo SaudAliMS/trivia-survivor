@@ -13,13 +13,50 @@ public class MetaLoader
 		{ "[LEVEL TABLE]", 					    LoadLevelData }
     };
 
-    public static bool LoadData(bool unitTest = false)
-    {
-        unitTesting = unitTest;
-        StreamReader streamReader = null;
 
-        TextAsset textAsset = Resources.Load("Files/metaData") as TextAsset;
-        string data = textAsset.text;
+    public static bool LoadData()
+    {
+        string data = null;
+        TextAsset textAsset = null;
+        StreamReader streamReader = null;
+        Debug.Log("METADATAPATH : " + Utility.GetPathForDownloadMeta());
+        string pathForDownloadedMeta = Utility.GetPathForDownloadMeta(); 
+
+        if (System.IO.File.Exists(pathForDownloadedMeta))
+        {
+            //Debug.Log("Loading from path:" + pathForDownloadedMeta);
+            streamReader = System.IO.File.OpenText(pathForDownloadedMeta);
+            data = streamReader.ReadToEnd();
+            try
+            {
+                UnityEngine.Profiling.Profiler.BeginSample("Decrypt downloaded meta file");
+                data = ConfigurationLibrary.CryptoString.Decrypt(data);
+                UnityEngine.Profiling.Profiler.EndSample();
+                Debug.Log("Loading data from downloaded meta file");
+            }
+            catch (Exception ex)
+            {
+                data = null;
+                textAsset = Resources.Load("Files/metaData") as TextAsset;
+                data = textAsset.text;
+                Debug.Log("Loading data from resources meta file");
+
+                //                Elastec.doSendAnalytic(LogType.Error, string.Format("Stack Trace: {0}, {1}", ex.Message, ex.StackTrace));
+
+            }
+
+            data = data.Replace("\\n\\r", "\n");
+            data = data.Replace("\\r\\n", "\n");
+            data = data.Replace("\\n", "\n");
+            data = data.Replace("\"", "");
+            data = string.Format("{0}", data);
+        }
+        else
+        {
+            textAsset = Resources.Load("Files/metaData") as TextAsset;
+            data = textAsset.text;
+            Debug.Log("Loading data from resources meta file");
+        }
         if (string.IsNullOrEmpty(data))
         {
             Debug.Log("metaData data not found");
@@ -36,22 +73,17 @@ public class MetaLoader
         }
         catch (Exception exception)
         {
-            if(unitTesting == false)
-            {
-                throw exception;
-            }
             return false;
         }
-
-		if(textAsset != null)
-			Resources.UnloadAsset(textAsset);
-		if (streamReader != null)
-			streamReader.Close ();
+        if (textAsset != null)
+            Resources.UnloadAsset(textAsset);
+        if (streamReader != null)
+            streamReader.Close();
 
         return true;
-	}
+    }
 
-	static bool LoadDataUsingCSV (string data)
+    static bool LoadDataUsingCSV (string data)
 	{
 		int tableCount = 0;
 		string lastTableName = "";
@@ -103,9 +135,9 @@ public class MetaLoader
     #region load game meta data
     public static void LoadLevelData(string[] elements)
     {
-        LevelData buildingData = LevelData.Create(elements);         
+        QuestionData buildingData = QuestionData.Create(elements);         
         if(unitTesting == false)
-           GameData.Instance.AddLevelData(buildingData);
+           GameData.Instance.AddQuestionData(buildingData);
     }
     #endregion
 }

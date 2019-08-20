@@ -8,6 +8,8 @@ public class UIRefs : SingletonMono<UIRefs>
 
 
     public List<CharacterAnimList> characterAnimationSprites;
+  
+
 
 
     public List<Sprite> waves;
@@ -22,5 +24,12 @@ public class StateAnim
 [System.Serializable]
 public class CharacterAnimList
 {
-    public List<StateAnim> animationStates;
+    //public List<StateAnim> animationStates;
+
+    public List<Sprite> frozenFrames;
+    public List<Sprite> cryingFrames;
+    public List<Sprite> shiveringFrames;
+    public List<Sprite> shockFrames;
+    public List<Sprite> lightningFrames;
 }
+

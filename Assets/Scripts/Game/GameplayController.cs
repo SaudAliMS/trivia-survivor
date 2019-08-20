@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -11,13 +11,14 @@ public class GameplayController : SingletonMono<GameplayController>
     [HideInInspector] public int questionNumber = 0;
 
     public SpriteRenderer snowDust;
-    public List<Transform> iceContainer;
-    public List<Transform> icePieces;
+    //public List<Transform> iceContainer;
+    //public List<Transform> icePieces;
+    public Transform leftIce,rightIce,wholeIce;
 
-    public Transform stone;
+    public Transform stone,tornado;
     public Transform characterContainer;
     public GameObject characterPrefab;
-    List<LevelData> levelData;
+    List<QuestionData> levelData;
     int questionIndex;
     bool canAnswer = false;
 
@@ -37,12 +38,16 @@ public class GameplayController : SingletonMono<GameplayController>
             characterCache = new List<CharacterController>();
             characterList = new List<CharacterController>();
         }
+        leftIce.gameObject.SetActive(false);
+        rightIce.gameObject.SetActive(false);
+        wholeIce.gameObject.SetActive(true);
+        stone.gameObject.SetActive(false);
 
-        if (icePieces == null)
-        {
-            icePieces = new List<Transform>();
-        }
-        icePieces.Clear();
+        //if (icePieces == null)
+        //{
+        //    icePieces = new List<Transform>();
+        //}
+        //icePieces.Clear();
 
         for (int count = 0; count < characterList.Count; count++)
         {
@@ -59,13 +64,13 @@ public class GameplayController : SingletonMono<GameplayController>
             myCharacter = null;
         }
 
-        for (int count = 0; count < iceContainer.Count; count++)
-        {
-            Transform ice = iceContainer[count];
-            ice.gameObject.SetActive(true);
-            icePieces.Add(ice);
-            ice.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        }
+        //for (int count = 0; count < iceContainer.Count; count++)
+        //{
+        //    Transform ice = iceContainer[count];
+        //    ice.gameObject.SetActive(true);
+        //    icePieces.Add(ice);
+        //    ice.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        //}
         characterList.Clear();
     }
 
@@ -88,67 +93,23 @@ public class GameplayController : SingletonMono<GameplayController>
         }
     }
 
-    void ThrowStone()
-    {
-        canAnswer = false;
-        timerOn = false;
-        //bool userAnswerYes = myCharacter.UserAnswerYes();
-        Vector3 stonePosition;
-        Transform icePiece;
 
-        if (levelData[questionIndex].AnswerIsTrue) {
-            icePiece = icePieces[icePieces.Count - 1];
-            icePieces.RemoveAt(icePieces.Count - 1);
-        }
-        else{
-            icePiece = icePieces[0];
-            icePieces.RemoveAt(0);
-        }
-
-        SpriteRenderer spriteRenderer = icePiece.GetComponent<SpriteRenderer>();
-        float posX = icePiece.transform.position.x;
-        stonePosition = new Vector3(posX,7,0);
-
-        stone.localPosition = stonePosition;
-        stone.gameObject.SetActive(true);
-
-        stone.transform.DOLocalMoveY(0.5f,0.5f).SetDelay(0.5f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            snowDust.transform.localPosition = stone.transform.localPosition + Vector3.down * 0.4f; 
-            snowDust.transform.localScale = Vector3.one * 0.2f;
-            snowDust.gameObject.SetActive(true);
-            snowDust.DOFade(0.3f, 0.5f).SetEase(Ease.InSine);
-            snowDust.transform.DOScale(1, 0.5f).SetEase(Ease.Linear).OnComplete(()=> {
-                snowDust.gameObject.SetActive(false);
-                snowDust.color = Color.white;
-            });
-
-            stone.gameObject.SetActive(false);
-            icePiece.DOMoveZ(1, 0.25f).SetEase(Ease.Linear);
-            spriteRenderer.DOFade(0, 0.25f).SetEase(Ease.Linear);
-
-
-            SinkWrongAnswerCharaceters();
-            Invoke("AnalytizeUserAnswer",1.5f);
-        });
-    }
 
     void QuestionCompleted()
     {
-        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        //bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
         questionIndex++;
         if (questionIndex < levelData.Count)
         {
             LoadQuestion();
-            float posX = Camera.main.transform.position.x;
-            posX = answerIsTrue ? posX - 0.7f : posX + 0.7f;
-            Camera.main.transform.DOMoveX(posX, 1f).SetDelay(0.5f);
-            Camera.main.DOFieldOfView(Camera.main.fieldOfView - 5, 0.6f).SetDelay(0.5f);
+            //float posX = Camera.main.transform.position.x;
+            //posX = answerIsTrue ? posX - 0.7f : posX + 0.7f;
+            //Camera.main.transform.DOMoveX(posX, 1f).SetDelay(0.5f);
+            //Camera.main.DOFieldOfView(Camera.main.fieldOfView - 5, 0.6f).SetDelay(0.5f);
         }
         else
         {
             timerOn = false;
-            GameController.Instance.LevelCompleted();
             ViewController.Instance.OpenView(Views.LevelComplete);
         }
     }
@@ -156,8 +117,7 @@ public class GameplayController : SingletonMono<GameplayController>
     void AnalytizeUserAnswer()
     {
         canAnswer = false;
-
-        RemoveFallenCharaceters();
+        RemoveEliminatedCharaceters();
         bool userAnswerYes = myCharacter.UserAnswerYes();
         if ((userAnswerYes && levelData[questionIndex].AnswerIsTrue) || 
             (!userAnswerYes && !levelData[questionIndex].AnswerIsTrue))
@@ -194,29 +154,8 @@ public class GameplayController : SingletonMono<GameplayController>
     }
 
 
-    void SinkWrongAnswerCharaceters()
-    {
-        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
-        for (int count = 0; count < characterList.Count; count++)
-        {
-            CharacterController characterController = characterList[count];
-            bool userAnswerYes = characterController.UserAnswerYes();
-            if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
-            {
-                characterController.PlayDeathAnimation();
-            }
-        }
 
-        bool userAnswerYesOwn = myCharacter.UserAnswerYes();
-        if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
-        {
-            myCharacter.PlayDeathAnimation();
-            //myCharacter.gameObject.SetActive(false);
-            //characterCache.Add(myCharacter);
-        }
-    }
-
-    void RemoveFallenCharaceters()
+    void RemoveEliminatedCharaceters()
     {
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
         for (int count = 0; count < characterList.Count; count ++)
@@ -259,8 +198,7 @@ public class GameplayController : SingletonMono<GameplayController>
             if (timerValue <= 0)
             {
                 ViewController.Instance.gameplayViewController.HideTimer();
-                ThrowStone();
-                ShockWrongAnswerCharaceters();
+                SelectDeathAnimation();
 
             }
             else
@@ -274,13 +212,13 @@ public class GameplayController : SingletonMono<GameplayController>
     {
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
 
-        Utility.ResetPositionForCharacter();
+        Utility.ResetPositionForCharacterRight();
         // right characters
         Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
         for (int count= 0; count < 5; count++)
         {
             // new Vector3(1.25f, 0.5f, 0);
-            Vector3 rightSidePos = Utility.GetPositionForCharacter(rightCenterPos);
+            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
             CharacterController characterController = GetCharacter();
             int characterId = Random.Range(0, UIRefs.Instance.characterAnimationSprites.Count);
             characterController.transform.SetParent(characterContainer);
@@ -288,13 +226,13 @@ public class GameplayController : SingletonMono<GameplayController>
             characterList.Add(characterController);
         }
 
-        Utility.ResetPositionForCharacter();
+        Utility.ResetPositionForCharacterLeft();
         // left characters
         Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);
         for (int count = 0; count < 5; count++)
         {
             //new Vector3(-1.25f,0.5f, 0);
-            Vector3 leftSidePos = Utility.GetPositionForCharacter(leftCenterPos);
+            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
 
             CharacterController characterController = GetCharacter();
             int characterId = Random.Range(0, UIRefs.Instance.characterAnimationSprites.Count);
@@ -304,7 +242,7 @@ public class GameplayController : SingletonMono<GameplayController>
         }
 
         Vector3 leftCenterPos1 = GetLeftSidePosition(answerIsTrue);//new Vector3(-1.25f, 0.5f, 0);
-        Vector3 leftSidePos1 = Utility.GetPositionForCharacter(leftCenterPos1);
+        Vector3 leftSidePos1 = Utility.GetPositionForCharacterLeft(leftCenterPos1);
 
         myCharacter = GetCharacter();
         int myCharacterId = 0;
@@ -365,12 +303,12 @@ public class GameplayController : SingletonMono<GameplayController>
         //bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
 
         // right characters
-        Utility.ResetPositionForCharacter();
+        Utility.ResetPositionForCharacterRight();
         Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
         for (int count = 0; count < characterMovingRight.Count; count++)
         {
             //new Vector3(1.25f, 0.5f, 0);
-            Vector3 rightSidePos = Utility.GetPositionForCharacter(rightCenterPos);
+            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
 
             int index = characterMovingRight[count];
             //Debug.Log("Characters moving right" + index);
@@ -378,13 +316,13 @@ public class GameplayController : SingletonMono<GameplayController>
             characterController.Shuffle(rightSidePos,false);
         }
 
-        Utility.ResetPositionForCharacter();
+        Utility.ResetPositionForCharacterLeft();
         Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);
         // left characters
         for (int count = 0; count < characterMovingLeft.Count; count++)
         {
             //new Vector3(-1.25f, 0.5f, 0);
-            Vector3 leftSidePos = Utility.GetPositionForCharacter(leftCenterPos);
+            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
 
             int index = characterMovingLeft[count];
             //Debug.Log("characterMovingLeft" + index);
@@ -404,7 +342,7 @@ public class GameplayController : SingletonMono<GameplayController>
         ResetCharacters();
         questionIndex = 0;
 
-        levelData = GameData.Instance.GetLevelData(GameController.Instance.currentLevel);
+        levelData = GameData.Instance.GetLevelData();
         PopulateCharacters();
     }
 
@@ -431,7 +369,7 @@ public class GameplayController : SingletonMono<GameplayController>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);//new Vector3(-1.25f, 0.5f, 0);
-            Vector3 leftSidePos = Utility.GetPositionForCharacter(leftCenterPos);
+            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos,false);
 
             //canAnswer = false;
             myCharacter.ShuffleMyPlayer(leftSidePos,true);
@@ -444,7 +382,7 @@ public class GameplayController : SingletonMono<GameplayController>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);//new Vector3(1.25f, 0.5f, 0);
-            Vector3 rightSidePos = Utility.GetPositionForCharacter(rightCenterPos);
+            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos,false);
 
             //canAnswer = false;
             myCharacter.ShuffleMyPlayer(rightSidePos,false);
@@ -473,28 +411,163 @@ public class GameplayController : SingletonMono<GameplayController>
 
     Vector3 GetRightSidePosition(bool correctLeftSide)
     {
-        Transform icePiece = icePieces[icePieces.Count - 1];
-        if (icePieces.Count > 3 && !correctLeftSide)
-        {
-            return icePiece.position + Vector3.up * 0.5f + Vector3.left * 0.5f;
-        }
-        else
-            return icePiece.position + Vector3.up * 0.5f + Vector3.left * 0.1f;
-
+        return rightIce.position + Vector3.down * 0f;// + Vector3.left * 0.1f;
     }
 
     Vector3 GetLeftSidePosition(bool correctLeftSide)
     {
-        Transform icePiece = icePieces[0];
-        if (icePieces.Count > 3 && correctLeftSide)
-        {
-            return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.5f;
-        }
-        else
-            return icePiece.position + Vector3.up * 0.5f + Vector3.right * 0.1f;
+        return leftIce.position + Vector3.down * 0f;// + Vector3.right * 0.1f;
     }
 
-    #region Helper Methods
+    #region Death Animations
+    void SelectDeathAnimation()
+    {
+        canAnswer = false;
+        timerOn = false;
+
+        ShockWrongAnswerCharaceters();
+
+        // last index
+        if (questionIndex >= levelData.Count - 1)
+        {
+            Invoke("ThrowStone",0.5f);
+        }
+        else
+        {
+            int randomNo = Random.Range(0, 100);
+            if(randomNo < 100)
+            {
+                Invoke("ThrowLightning", 0.5f);
+            }
+            else
+            {
+                Invoke("ShowTornado", 0.5f);
+            }
+        }
+    }
+
+
+    void ThrowStone()
+    {
+        Vector3 stonePosition;
+        Transform icePieceSinking;
+
+        if (levelData[questionIndex].AnswerIsTrue)
+        {
+            icePieceSinking = rightIce;
+        }
+        else
+        {
+            icePieceSinking = leftIce;
+        }
+
+        SpriteRenderer spriteRenderer = icePieceSinking.GetComponent<SpriteRenderer>();
+        float posX = icePieceSinking.transform.position.x;
+        stonePosition = new Vector3(posX, 7, 0);
+
+        stone.localPosition = stonePosition;
+        stone.gameObject.SetActive(true);
+
+        stone.transform.DOLocalMoveY(0.5f, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            leftIce.gameObject.SetActive(true);
+            rightIce.gameObject.SetActive(true);
+            wholeIce.gameObject.SetActive(false);
+
+
+            snowDust.transform.localPosition = stone.transform.localPosition + Vector3.down * 0.4f;
+            snowDust.transform.localScale = Vector3.one * 0.2f;
+            snowDust.gameObject.SetActive(true);
+            snowDust.DOFade(0.3f, 0.5f).SetEase(Ease.InSine);
+            snowDust.transform.DOScale(1, 0.5f).SetEase(Ease.Linear).OnComplete(() => {
+                snowDust.gameObject.SetActive(false);
+                snowDust.color = Color.white;
+            });
+
+            icePieceSinking.DOMoveZ(1, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                icePieceSinking.gameObject.SetActive(false);
+            });
+            spriteRenderer.DOFade(0, 0.25f).SetEase(Ease.Linear);
+
+            stone.gameObject.SetActive(false);
+
+            SinkWrongAnswerCharaceters();
+            Invoke("AnalytizeUserAnswer", 1.5f);
+        });
+    }
+
+
+    void SinkWrongAnswerCharaceters()
+    {
+        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        for (int count = 0; count < characterList.Count; count++)
+        {
+            CharacterController characterController = characterList[count];
+            bool userAnswerYes = characterController.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+            {
+                characterController.PlayDeathAnimation();
+            }
+        }
+
+        bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+        if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+        {
+            myCharacter.PlayDeathAnimation();
+            //myCharacter.gameObject.SetActive(false);
+            //characterCache.Add(myCharacter);
+        }
+    }
+
+
+    void ThrowLightning()
+    {
+        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        for (int count = 0; count < characterList.Count; count++)
+        {
+            CharacterController characterController = characterList[count];
+            bool userAnswerYes = characterController.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+            {
+                characterController.PlayLightningAnimation();
+            }
+        }
+
+        bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+        if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+        {
+            myCharacter.PlayLightningAnimation();
+        }
+
+        Invoke("AnalytizeUserAnswer", 1.5f);
+    }
+
+    void ShowTornado()
+    {
+//        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
+
+        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        for (int count = 0; count < characterList.Count; count++)
+        {
+            CharacterController characterController = characterList[count];
+            bool userAnswerYes = characterController.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+            {
+                characterController.PlayStunAnimation();
+            }
+        }
+
+        bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+        if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+        {
+            myCharacter.PlayStunAnimation();
+        }
+
+        Invoke("AnalytizeUserAnswer", 1.5f);
+    }
+
+    #endregion Death Animations
 
     public int GetRequiredXPForLevelUpdate()
     {
@@ -507,6 +580,4 @@ public class GameplayController : SingletonMono<GameplayController>
             return GameConstants.REQUIRED_XP[PlayerData.Level - 1];
         }
     }
-
-    #endregion Helper Methods
 }

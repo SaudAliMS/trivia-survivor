@@ -60,8 +60,8 @@ public class LoadingViewController : MonoBehaviour
                 string metaVersion = metadata_version.StringValue;
                 string languageFileName = languagefile_path.StringValue;
                 string languageFileVersion = languagefile_version.StringValue;
-                Debug.Log("Firebase fetched Value languagefile_path:" + languagefile_path.StringValue);
-                Debug.Log("Firebase fetched Value languagefile_version:" + languagefile_version.StringValue);
+                Debug.Log("Firebase fetched Value metaName:" + metaName);
+                Debug.Log("Firebase fetched Value metaVersion:" + metaVersion);
 
                 if (metaVersion.Equals(Configs.GetFireBaseMetaDataVersion()) || string.IsNullOrEmpty(metaVersion))
                 {
@@ -252,13 +252,13 @@ public class LoadingViewController : MonoBehaviour
 
     void LogFirebaseToken()
     {
-        Firebase.InstanceId.FirebaseInstanceId.DefaultInstance.GetTokenAsync().ContinueWith(
-        task => {
-            if (!(task.IsCanceled || task.IsFaulted) && task.IsCompleted)
-            {
-                UnityEngine.Debug.Log(System.String.Format("Instance ID Token {0}", task.Result));
-            }
-        });
+        //Firebase.InstanceId.FirebaseInstanceId.DefaultInstance.GetTokenAsync().ContinueWith(
+        //task => {
+        //    if (!(task.IsCanceled || task.IsFaulted) && task.IsCompleted)
+        //    {
+        //        UnityEngine.Debug.Log(System.String.Format("Instance ID Token {0}", task.Result));
+        //    }
+        //});
     }
 
     #endregion

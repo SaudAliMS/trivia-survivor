@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
-public class LevelData 
+public class QuestionData 
 {
     private int id;
     private int level;
@@ -17,9 +17,9 @@ public class LevelData
     public string AnswerStatement           { get { return answerStatement; } }
     public bool AnswerIsTrue                { get { return answerIsTrue; } }
 
-    public static LevelData Create(string[] elements)
+    public static QuestionData Create(string[] elements)
     {
-        LevelData levelData              = new LevelData();
+        QuestionData levelData              = new QuestionData();
         levelData.id                     = Utility.ToInt(elements[0]);
         levelData.level                  = Utility.ToInt(elements[1]);
         levelData.answerIsTrue           = Utility.ToInt(elements[2]) == 1 ? true : false;

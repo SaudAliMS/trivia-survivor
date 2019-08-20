@@ -386,36 +386,78 @@ public static class Utility
         return saveDirectory + "/" + langFileName;
     }
 
-    private static List<int> positionIndex;
-    public static void ResetPositionForCharacter()
+    private static List<int> positionIndexLeft, positionIndexRight;
+    public static void ResetPositionForCharacterLeft()
     {
-        if( positionIndex == null){
-            positionIndex = new List<int>();
+        if(positionIndexLeft == null){
+            positionIndexLeft = new List<int>();
         }
         else{
-            positionIndex.Clear();
+            positionIndexLeft.Clear();
         }
 
-        for (int index = 0; index < 12; index++)
+        for (int index = 0; index < 15; index++)
         {
-            positionIndex.Add(index);
+            positionIndexLeft.Add(index);
         }
     }
 
-    public static Vector3 GetPositionForCharacter(Vector3 position)
+    public static void ResetPositionForCharacterRight()
     {
-        int randomIndex = UnityEngine.Random.Range(0, positionIndex.Count);
-        int actualIndex = positionIndex[randomIndex];
-        positionIndex.RemoveAt(randomIndex);
+        if (positionIndexRight == null)
+        {
+            positionIndexRight = new List<int>();
+        }
+        else
+        {
+            positionIndexRight.Clear();
+        }
 
-        //Debug.Log("Position Index" + actualIndex);
+        for (int index = 0; index < 15; index++)
+        {
+            positionIndexRight.Add(index);
+        }
+    }
+
+    public static Vector3 GetPositionForCharacterLeft(Vector3 position,bool removeUsedIndex = true)
+    {
+        if (positionIndexLeft.Count == 0)
+        {
+            Utility.ResetPositionForCharacterLeft();
+        }
+
+        int randomIndex = UnityEngine.Random.Range(0, positionIndexLeft.Count);
+        int actualIndex = positionIndexLeft[randomIndex];
+        if (removeUsedIndex)
+        { 
+            positionIndexLeft.RemoveAt(randomIndex);
+        }
+
         int rows   = actualIndex / 3;
         int colums = (actualIndex % 3) - 1;
-        //Debug.Log("Position Index" + rows + "/"+ colums);
 
-        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.4f;
-        //Debug.Log("finalPos Index" + finalPos.ToString());
+        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.5f;
+        return finalPos;
+    }
 
+    public static Vector3 GetPositionForCharacterRight(Vector3 position, bool removeUsedIndex = true)
+    {
+        if (positionIndexRight.Count == 0)
+        {
+            Utility.ResetPositionForCharacterRight();
+        }
+
+        int randomIndex = UnityEngine.Random.Range(0, positionIndexRight.Count);
+        int actualIndex = positionIndexRight[randomIndex];
+        if (removeUsedIndex)
+        {
+            positionIndexRight.RemoveAt(randomIndex);
+        }
+
+        int rows = actualIndex / 3;
+        int colums = (actualIndex % 3) - 1;
+
+        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.5f;
         return finalPos;
     }
 

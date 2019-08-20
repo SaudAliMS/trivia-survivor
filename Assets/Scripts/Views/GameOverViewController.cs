@@ -15,7 +15,7 @@ public class GameOverViewController : MonoBehaviour
     public Text resultXPCount;
 
     public Transform coinsContainer;
-    public Sprite[] coinsList;
+    public Image[] coinsList;
 
     #region public methods
     public void Open()
