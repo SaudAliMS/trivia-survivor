@@ -15,7 +15,8 @@ public class GameplayController : SingletonMono<GameplayController>
     //public List<Transform> icePieces;
     public Transform leftIce,rightIce,wholeIce;
 
-    public Transform stone,tornado;
+    public Transform stone;
+    public SpriteRenderer tornado;
     public Transform characterContainer;
     public GameObject characterPrefab;
     List<QuestionData> levelData;
@@ -414,12 +415,12 @@ public class GameplayController : SingletonMono<GameplayController>
 
     Vector3 GetRightSidePosition(bool correctLeftSide)
     {
-        return rightIce.position + Vector3.down * 0f;// + Vector3.left * 0.1f;
+        return rightIce.position + Vector3.down * 0.25f;// + Vector3.left * 0.1f;
     }
 
     Vector3 GetLeftSidePosition(bool correctLeftSide)
     {
-        return leftIce.position + Vector3.down * 0f;// + Vector3.right * 0.1f;
+        return leftIce.position + Vector3.down * 0.25f;// + Vector3.right * 0.1f;
     }
 
     #region Death Animations
@@ -551,17 +552,29 @@ public class GameplayController : SingletonMono<GameplayController>
         //        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
         if (levelData[questionIndex].AnswerIsTrue)
         {
-            tornado.position = new Vector3(1, -7, 0);
+            tornado.transform.position = new Vector3(1, -7, 0);
         }
         else
         {
-            tornado.position = new Vector3(-1.5f, -7, 0);
+            tornado.transform.position = new Vector3(-1.5f, -7, 0);
         }
+        tornado.DOKill();
 
+        tornado.color = new Color(1, 1, 1, 0f);
         tornado.gameObject.SetActive(true);
-        tornado.DOMoveY(7, 1.2f).OnComplete(()=> {
+
+        float posX = tornado.transform.position.x;
+        List<Vector3> tornadoPath = new List<Vector3>();
+        tornadoPath.Add(new Vector3(posX + 0.2f,-2f,0));
+        tornadoPath.Add(new Vector3(posX - 0.25f,   0f, 0));
+        tornadoPath.Add(new Vector3(posX + 0.2f, 2f,0));
+        tornadoPath.Add(Vector3.up * 7);
+
+        tornado.transform.DOPath(tornadoPath.ToArray(), 1.2f,PathType.CatmullRom).OnComplete(()=> {
             tornado.gameObject.SetActive(false);
         });
+        tornado.DOFade(1, 0.2f).SetDelay(0.1f);
+        tornado.DOFade(0f, 0.2f).SetDelay(0.6f);
 
         transform.DOMove(Vector3.zero, 0.4f).OnComplete(() =>
         {

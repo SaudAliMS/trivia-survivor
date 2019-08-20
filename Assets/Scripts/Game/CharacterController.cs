@@ -11,6 +11,8 @@ public class CharacterController : MonoBehaviour
     public SpriteRenderer emoticon, otherEmoticon, glow;
     public TextMesh emoticonText, otherEmoticonText;
     public SpriteRenderer waterSplash;
+    public Transform mask;
+
     float posX,posY;
     int chrId;
 
@@ -19,6 +21,7 @@ public class CharacterController : MonoBehaviour
     private bool isOtherPlayer;
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
     {
+        mask.gameObject.SetActive(false);
         isDying = false;
         isOtherPlayer = otherPlayer;
         newPos += Vector3.down * 0.8f;
@@ -126,6 +129,14 @@ public class CharacterController : MonoBehaviour
 
     public void PlayFreezeAnimation()
     {
+        mask.transform.localPosition = Vector3.down * 1;
+        mask.gameObject.SetActive(true);
+        mask.transform.DOLocalMoveY(0.5f, 0.2f);
+        mask.transform.DOLocalMoveY(-1, 0.4f).SetDelay(0.2f).OnComplete(() =>
+        {
+            mask.gameObject.SetActive(false);
+        });
+
         waterSplash.DOKill();
         waterSplash.color = Color.white;
         waterSplash.transform.localScale = Vector3.zero;
@@ -161,6 +172,15 @@ public class CharacterController : MonoBehaviour
 
     public void PlayDeathAnimation() 
     {
+
+        mask.transform.localPosition = Vector3.down * 1;
+        mask.gameObject.SetActive(true);
+        mask.transform.DOLocalMoveY(0.5f, 0.2f);
+        mask.transform.DOLocalMoveY(-1, 0.4f).SetDelay(0.2f).OnComplete(() =>
+        {
+            mask.gameObject.SetActive(false);
+        });
+
         float posY = transform.localPosition.y;
         glow.gameObject.SetActive(false);
 
@@ -203,7 +223,7 @@ public class CharacterController : MonoBehaviour
     public void PlayStunAnimation()
     {
         transform.DOKill();
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, false, 0.4f);
     }
 
     public void PlayWalkAnimation()

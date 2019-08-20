@@ -53,6 +53,7 @@ MonoBehaviour:
     shockFrames:
     - {fileID: 21300000, guid: 452da8cd1c9104b2bb8cbb8afac847da, type: 3}
     - {fileID: 21300000, guid: 204bc6165436147669a0abc7dbd3dd41, type: 3}
+    - {fileID: 21300000, guid: 452da8cd1c9104b2bb8cbb8afac847da, type: 3}
     lightningFrames:
     - {fileID: 21300000, guid: f3f284abacdfd4a3aaf2451b531ef39d, type: 3}
     - {fileID: 21300000, guid: 3f90215f558654f5e8dc18173e6b9b53, type: 3}
@@ -73,6 +74,7 @@ MonoBehaviour:
     shockFrames:
     - {fileID: 21300000, guid: 47be38337cbcf43adb5277a7a82d6e08, type: 3}
     - {fileID: 21300000, guid: b709862815bca44acba71c0002bb074f, type: 3}
+    - {fileID: 21300000, guid: 47be38337cbcf43adb5277a7a82d6e08, type: 3}
     lightningFrames:
     - {fileID: 21300000, guid: 6d5b4334fdfd44bf783e0302e3156f66, type: 3}
     - {fileID: 21300000, guid: 380e875d0df334aab98d1794a7bbedb3, type: 3}
@@ -93,6 +95,7 @@ MonoBehaviour:
     shockFrames:
     - {fileID: 21300000, guid: 5928e3a34f11c47eab0e02005ec6c213, type: 3}
     - {fileID: 21300000, guid: a7cfef6fd3ba84ea089473d138735a4e, type: 3}
+    - {fileID: 21300000, guid: 5928e3a34f11c47eab0e02005ec6c213, type: 3}
     lightningFrames:
     - {fileID: 21300000, guid: 88427ede677954bbab9e0a8b25f631f5, type: 3}
     - {fileID: 21300000, guid: 26e0a42d407dd4a02abb0194a565dd8d, type: 3}
@@ -113,6 +116,7 @@ MonoBehaviour:
     shockFrames:
     - {fileID: 21300000, guid: 7978be04bf51e404086b19754f9a9a33, type: 3}
     - {fileID: 21300000, guid: 58899f27ae7044a9baaf083d166e3aa8, type: 3}
+    - {fileID: 21300000, guid: 7978be04bf51e404086b19754f9a9a33, type: 3}
     lightningFrames:
     - {fileID: 21300000, guid: 9499d68eac59c4c7984e1330dfcdd08d, type: 3}
     - {fileID: 21300000, guid: f3e8c46fdcf204e4cbf152b1be3324b4, type: 3}
@@ -133,6 +137,7 @@ MonoBehaviour:
     shockFrames:
     - {fileID: 21300000, guid: e5727bdabd32b40bd8b566e2fbfd59ab, type: 3}
     - {fileID: 21300000, guid: f927d585319ee4a459289f968cae9b24, type: 3}
+    - {fileID: 21300000, guid: 7978be04bf51e404086b19754f9a9a33, type: 3}
     lightningFrames:
     - {fileID: 21300000, guid: 2fd3986ff67f241578866316fe51f595, type: 3}
     - {fileID: 21300000, guid: 8fdbd09123e4b4b1ab54fad115e4db80, type: 3}
@@ -153,6 +158,7 @@ MonoBehaviour:
     shockFrames:
     - {fileID: 21300000, guid: ffbc533c8ee92411cbdea0eaed88a1bd, type: 3}
     - {fileID: 21300000, guid: 2bb14fa5d0d8f46f4b8517a44b75aa53, type: 3}
+    - {fileID: 21300000, guid: ffbc533c8ee92411cbdea0eaed88a1bd, type: 3}
     lightningFrames:
     - {fileID: 21300000, guid: 95cc503962496429a8edcd31e01b46ad, type: 3}
     - {fileID: 21300000, guid: 857538780b71c420b9f79519d213b0f9, type: 3}
