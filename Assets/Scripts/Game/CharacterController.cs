@@ -14,10 +14,12 @@ public class CharacterController : MonoBehaviour
     float posX,posY;
     int chrId;
 
+    public bool isDying;
     private bool myAnswer;
     private bool isOtherPlayer;
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
     {
+        isDying = false;
         isOtherPlayer = otherPlayer;
         newPos += Vector3.down * 0.8f;
         chrId = characterId;
@@ -107,7 +109,10 @@ public class CharacterController : MonoBehaviour
             glow.transform.Rotate(Vector3.back * 2);
             //localPos.z = -1f;
         }
-        transform.localPosition = localPos;
+        if (!isDying)
+        {
+            transform.localPosition = localPos;
+        }
     }
 
     public bool UserAnswerYes()
@@ -118,6 +123,27 @@ public class CharacterController : MonoBehaviour
     #region Animations
 
     Sequence animSequence;
+
+    public void PlayFreezeAnimation()
+    {
+    
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
+
+        ////transform.localEulerAngles = Vector3.back * 5;
+        //animSequence = DOTween.Sequence();
+        //animSequence.PrependInterval(Random.Range(0.2f, 0.3f));
+        //animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete(delegate () {
+
+        //}));
+        //animSequence.Join(transform.DOLocalMoveY(posY - 0.2f, 0.2f));
+        ////animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
+
+        //animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        ////animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        //animSequence.Join(transform.DOLocalMoveY(posY, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        //animSequence.Play();
+    }
+
     public void PlayDeathAnimation() 
     {
         float posY = transform.localPosition.y;

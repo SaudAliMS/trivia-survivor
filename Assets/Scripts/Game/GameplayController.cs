@@ -435,7 +435,7 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
             int randomNo = Random.Range(0, 100);
-            if(randomNo < 100)
+            if(randomNo < 50)
             {
                 Invoke("ThrowLightning", 0.5f);
             }
@@ -545,26 +545,77 @@ public class GameplayController : SingletonMono<GameplayController>
 
     void ShowTornado()
     {
-//        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
-
-        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
-        for (int count = 0; count < characterList.Count; count++)
+        //        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
+        if (levelData[questionIndex].AnswerIsTrue)
         {
-            CharacterController characterController = characterList[count];
-            bool userAnswerYes = characterController.UserAnswerYes();
-            if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+            tornado.position = new Vector3(1, -7, 0);
+        }
+        else
+        {
+            tornado.position = new Vector3(-1.5f, -7, 0);
+        }
+
+        tornado.DOMoveY(7, 1.2f);
+
+        transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
+        {
+            bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            for (int count = 0; count < characterList.Count; count++)
             {
-                characterController.PlayStunAnimation();
+                CharacterController characterController = characterList[count];
+                bool userAnswerYes = characterController.UserAnswerYes();
+                if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+                {
+                    Vector3 startPos = characterController.transform.position;
+                    Vector3 finalPos = startPos;
+                    if (Random.Range(0,100) < 50)
+                    {
+                        finalPos.y = Random.Range(3f, 4f);
+                    }
+                    else
+                    {
+                        finalPos.y = Random.Range(-3f, -4f);
+                    }
+                    finalPos.x += Random.Range(-1f, 1f);
+
+                    characterController.isDying = true;
+                    characterController.transform.DOScale(1f, 0.3f);
+                    characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                    characterController.transform.DOMove(finalPos, 0.5f).SetEase(Ease.Linear).OnComplete(()=> {
+                        characterController.PlayDeathAnimation();
+
+                    });
+
+                }
             }
-        }
 
-        bool userAnswerYesOwn = myCharacter.UserAnswerYes();
-        if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
-        {
-            myCharacter.PlayStunAnimation();
-        }
+            bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+            {
+                Vector3 startPos = myCharacter.transform.position;
+                Vector3 finalPos = startPos;
+                if (Random.Range(0, 100) < 50)
+                {
+                    finalPos.y = Random.Range(3f, 4f);
+                }
+                else
+                {
+                    finalPos.y = Random.Range(-3f, -4f);
+                }
+                finalPos.x += Random.Range(-1f, 1f);
 
-        Invoke("AnalytizeUserAnswer", 1.5f);
+                myCharacter.isDying = true;
+                myCharacter.transform.DOScale(1f, 0.3f);
+                myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                myCharacter.transform.DOMove(finalPos, 0.5f).SetEase(Ease.Linear).OnComplete(() => {
+                    myCharacter.PlayDeathAnimation();
+
+                });
+            }
+
+            Invoke("AnalytizeUserAnswer", 1.5f);
+        });
+
     }
 
     #endregion Death Animations
