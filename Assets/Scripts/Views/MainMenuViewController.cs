@@ -21,7 +21,7 @@ public class MainMenuViewController : MonoBehaviour
         coinsCount.text = PlayerData.CoinsCount.ToString();
         xpCount.text = PlayerData.XPCount.ToString() + "/" + GameplayController.Instance.GetRequiredXPForLevelUpdate();
         levelCount.text = "Lv " + PlayerData.Level.ToString();
-        levelProgress.value = (PlayerData.XPCount / GameplayController.Instance.GetRequiredXPForLevelUpdate());
+        levelProgress.value = ((float)PlayerData.XPCount / (float)GameplayController.Instance.GetRequiredXPForLevelUpdate());
     }
 
     public void Close()
