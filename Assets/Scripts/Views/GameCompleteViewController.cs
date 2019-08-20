@@ -114,7 +114,9 @@ public class GameCompleteViewController : MonoBehaviour
         TweenTotalReward();
         PlayerData.CoinsCount += GameplayController.Instance.sessionCoinsCount;
         PlayerData.XPCount += GameplayController.Instance.sessionXPCount;
+        UpdateXPStatus();
         PlayerData.SaveState();
+
     }
 
     public void AnimateCoins()

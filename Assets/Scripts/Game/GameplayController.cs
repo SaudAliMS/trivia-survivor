@@ -338,6 +338,7 @@ public class GameplayController : SingletonMono<GameplayController>
     public int GetMyPosition() 
     {
         int position = 1;
+        if (characterList.Count == 0) { return position; }
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
         foreach (CharacterController character in characterList) 
         {
