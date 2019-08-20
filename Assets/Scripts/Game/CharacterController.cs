@@ -43,6 +43,11 @@ public class CharacterController : MonoBehaviour
             emoticonText.text = "ME";
             emoticon.gameObject.SetActive(true);
         }
+        else
+        {
+            glow.gameObject.SetActive(false);
+            emoticon.gameObject.SetActive(false);
+        }
     }
 
     public void Shuffle(Vector3 newPos, bool answer)
@@ -100,7 +105,7 @@ public class CharacterController : MonoBehaviour
         if (!isOtherPlayer)
         {
             glow.transform.Rotate(Vector3.back * 2);
-            localPos.z -= 0.1f;
+            //localPos.z = -1f;
         }
         transform.localPosition = localPos;
     }
