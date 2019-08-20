@@ -50,6 +50,27 @@ public class AnimationController : SingletonMono<AnimationController>
 
     private List<Sprite> GetAnimationSprites(int CharacterID, CharacterAnimtaionType type) 
     {
-        return UIRefs.Instance.characterAnimationSprites[CharacterID].animationStates[(int)type].animSprites;
+        switch(type)
+        {
+            case CharacterAnimtaionType.Death:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].frozenFrames;
+
+            case CharacterAnimtaionType.GameOver:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].cryingFrames;
+
+            case CharacterAnimtaionType.Idle:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].shiveringFrames;
+
+            case CharacterAnimtaionType.Lightning:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].lightningFrames;
+
+            case CharacterAnimtaionType.Stun:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].shockFrames;
+
+            default:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].shiveringFrames;
+
+        }
+
     }
 }

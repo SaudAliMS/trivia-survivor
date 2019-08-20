@@ -23,7 +23,7 @@ public class CharacterController : MonoBehaviour
         chrId = characterId;
         myAnswer = answer;
 
-        sprite.sprite = UIRefs.Instance.characterAnimationSprites[characterId].animationStates[(int)CharacterAnimtaionType.Idle].animSprites[0];
+        sprite.sprite = UIRefs.Instance.characterAnimationSprites[characterId].shiveringFrames[0];
 
         transform.localPosition = newPos;//new Vector3(posX, posY, 0);
         transform.localScale = Vector3.one * 0.8f;
@@ -96,7 +96,7 @@ public class CharacterController : MonoBehaviour
     void LateUpdate()
     {
         Vector3 localPos = transform.localPosition;
-        localPos.z = localPos.y;
+        localPos.z = localPos.y/10f;
         if (!isOtherPlayer)
         {
             glow.transform.Rotate(Vector3.back * 2);
@@ -145,6 +145,13 @@ public class CharacterController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0,0,-1);
         transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f,0.05f)).SetLoops(-1, LoopType.Yoyo);
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 0.5f);
+    }
+
+    public void PlayLightningAnimation()
+    {
+        //transform.localRotation = Quaternion.Euler(0, 0, -1);
+        //transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f, 0.05f)).SetLoops(-1, LoopType.Yoyo);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Lightning, false, 1f);
     }
 
     public void PlayStunAnimation()

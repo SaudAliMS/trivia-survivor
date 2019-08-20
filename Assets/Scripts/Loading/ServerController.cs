@@ -15,6 +15,7 @@ public class ServerController
     Action languageFileErrorCallback;
     Action<float> updateCallback;
 
+    string bucketURL = "gs://trivia-survival-100.appspot.com/";
     string metaVersion = "";
     string languageFileVersion = "";
     #region instance method
@@ -49,15 +50,22 @@ public class ServerController
         metaVersion = version;
         Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
         // Points to the root reference
-        Firebase.Storage.StorageReference storage_ref = storage.GetReferenceFromUrl("gs://flickpool-84778.appspot.com/");
+        Firebase.Storage.StorageReference storage_ref = storage.GetReferenceFromUrl(bucketURL);
 
         Firebase.Storage.StorageReference file_ref = storage_ref.Child(filePath);
+
+        string savePath = Utility.GetPathForDownloadMeta();
 
         file_ref.GetDownloadUrlAsync().ContinueWith((Task<Uri> task) => {
             if (!task.IsFaulted && !task.IsCanceled)
             {
                 Debug.Log("Download URL: " + task.Result);
-                loadingView.StartCoroutine(DownloadFile(task.Result.ToString(), Utility.GetPathForDownloadMeta()));
+                string urlToDownload = task.Result.ToString();
+
+                UnityMainThreadDispatcher.Instance().Enqueue(DownloadFile(urlToDownload, savePath));
+
+//                ServerController.SharedInstance.StartDowloadingOnMainThread(urlToDownload,loadingView);
+
             }
             else
             {
@@ -66,6 +74,13 @@ public class ServerController
             }
         });
     }
+
+    //public void StartDowloadingOnMainThread(string urlToDownload, LoadingViewController loadingView)
+    //{
+    //    string savePath = Utility.GetPathForDownloadMeta();
+    //    loadingView.StartCoroutine(DownloadFile(urlToDownload, savePath));
+
+    //}
     #endregion Download Meta File
 
     #region Download Language File
@@ -78,7 +93,7 @@ public class ServerController
         languageFileVersion = version;
         Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
         // Points to the root reference
-        Firebase.Storage.StorageReference storage_ref = storage.GetReferenceFromUrl("gs://flickpool-84778.appspot.com/");
+        Firebase.Storage.StorageReference storage_ref = storage.GetReferenceFromUrl(bucketURL);
 
         Firebase.Storage.StorageReference file_ref = storage_ref.Child(filePath);
 
@@ -99,10 +114,14 @@ public class ServerController
 
     private IEnumerator DownloadFile(string fileUri, string filePath)
     {
+        Debug.Log("Downloading...Starts! ");
         yield return null;
+
+        Debug.Log("Downloading...Starts! ");
 
         if (System.IO.File.Exists(filePath)) 
         {
+            Debug.Log("Delete Exising File! ");
             System.IO.File.Delete(filePath);
         }
 
@@ -117,6 +136,7 @@ public class ServerController
 
             if (!string.IsNullOrEmpty(unpackerWWW.error))
             {
+                Debug.Log("Error downloading! " + unpackerWWW.error);
                 if (filePath == Utility.GetPathForDownloadMeta())
                 {
                     MetaFileSyncFailed();
@@ -142,7 +162,7 @@ public class ServerController
                 #else
                 System.IO.File.WriteAllBytes(filePath, encryptedBytes); // 64MB limit on File.WriteAllBytes.
                 #endif
-                //Configs.SetFireBaseMetaDataVersion(metaVersion);
+                Configs.SetFireBaseMetaDataVersion(metaVersion);
                 MetaFileSyncSuccessfull();
             }
             else if (filePath == Utility.GetPathForDownloadedLanguageFile()) 
@@ -152,7 +172,7 @@ public class ServerController
                 #else
                 System.IO.File.WriteAllBytes(filePath, unpackerWWW.bytes); // 64MB limit on File.WriteAllBytes.
                 #endif
-                //Configs.SetFireBaseLanguageFileVersion(languageFileVersion);
+                Configs.SetFireBaseLanguageFileVersion(languageFileVersion);
                 LanguageFileSyncSuccessfull();
             }
         }

@@ -31,8 +31,12 @@ public class GameData : SingletonBase<GameData>
         else{
             levelDatas = new List<LevelData>();
         }
-        levelDatas.Add(levelData);
-        levelDataDict[levelData.Level] = levelDatas;
+
+        if (levelDatas.Count <= 1)
+        {
+            levelDatas.Add(levelData);
+            levelDataDict[levelData.Level] = levelDatas;
+        }
     }
     #endregion
 
