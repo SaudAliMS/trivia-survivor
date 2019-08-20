@@ -13,4 +13,14 @@ public class GameConstants
 
         
     public const float QUESTION_TIME = 5;
+
+
+    public const string XPCount         = "XPCount";
+    public const string CoinsCount      = "CoinsCount";
+    public const string Level           = "Level";
+    public const int COIN_REWARD_ON_MATCH_COMPLETE = 10;
+    public const int COIN_REWARD_ON_TRUE_ANSWER = 2;
+    public const int XP_REWARD_ON_TRUE_ANSWER = 1;
+    public static readonly int[] REQUIRED_XP = {3, 5, 7, 10, 20};
+
 }

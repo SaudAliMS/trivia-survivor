@@ -13,11 +13,16 @@ public class GameplayViewController : MonoBehaviour
     public Text pauseText;
     public Text timer;
 
+    public Text coinsCount;
+    public Text xpCount;
+    public Text questionNumber;
+
     #region public methods
     public void Open()
     {
         gameObject.SetActive(true);
-        HideTimer();
+        UpdatUI();
+        UpdateTopBar();
     }
 
     public void Close()
@@ -25,6 +30,17 @@ public class GameplayViewController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void UpdatUI()
+    {
+        HideTimer();
+    }
+
+    public void UpdateTopBar()
+    {
+        coinsCount.text = GameplayController.Instance.sessionCoinsCount.ToString();
+        xpCount.text = GameplayController.Instance.sessionXPCount.ToString();
+        questionNumber.text = "Q." + GameplayController.Instance.questionNumber.ToString();
+    }
 
     public void OnPressYesBtn()
     {
