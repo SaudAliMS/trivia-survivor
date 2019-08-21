@@ -79,12 +79,18 @@ public class CharacterController : MonoBehaviour
 
 
         int showText = Random.Range(0, 100);
-        if (showText < 20)
+        if (showText < 40)
         {
             otherEmoticonText.text = Utility.GetOtherPlayerText();
             otherEmoticon.transform.DOKill();
-            otherEmoticon.gameObject.SetActive(true);
-            otherEmoticon.transform.DOScale(1, 1).OnComplete(() =>
+
+            float animDelay = Random.Range(0f, 1f);
+            otherEmoticon.transform.DOScale(1, 0.01f).SetDelay(animDelay).OnComplete(() =>
+            {
+                otherEmoticon.gameObject.SetActive(true);
+
+            });
+            otherEmoticon.transform.DOScale(1, 4).SetDelay(animDelay).OnComplete(() =>
             {
                 otherEmoticon.gameObject.SetActive(false);
 
