@@ -184,7 +184,7 @@ public class GameCompleteViewController : MonoBehaviour
                 .Append(coinsList[i].DOScale(Vector3.zero, 0.01f));
             sequence.OnComplete(delegate {
                 Vibration.Vibrate(TapticPlugin.ImpactFeedback.Light);
-                SoundController.Instance.PlaySfx(Sfx.CoinClink, 0.5f);
+                SoundController.Instance.PlaySfx(Sfx.CoinClink, 0.25f);
             });
 
         }

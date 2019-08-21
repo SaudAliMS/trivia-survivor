@@ -1290,5 +1290,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2356592528057550001, guid: a6e4419d7b50743f9b6c8aabd4e45dab,
+        type: 3}
+      propertyPath: waterSplashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fc6b38c5dc02e41158daf609e3507547, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6e4419d7b50743f9b6c8aabd4e45dab, type: 3}

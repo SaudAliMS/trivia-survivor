@@ -95,12 +95,14 @@ public class GameplayViewController : MonoBehaviour
     public void ShowQuestion(string question)
     {
         question = question.Replace(";", ",");
+        questionGroup.transform.DOScale(0.2f, 0.2f).SetEase(Ease.InSine);
         questionGroup.DOFade(0.2f, 0.2f).OnComplete(() =>
         {
             questionText.text = question;
         });
         questionGroup.DOFade(1f, 0.2f).SetDelay(0.2f);
-
+        questionGroup.transform.DOScale(1.3f, 0.1f).SetDelay(0.2f).SetEase(Ease.OutSine);
+        questionGroup.transform.DOScale(1f, 0.1f).SetDelay(0.3f).SetEase(Ease.InSine);
 
     }
     #endregion
