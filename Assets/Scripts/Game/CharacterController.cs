@@ -24,13 +24,13 @@ public class CharacterController : MonoBehaviour
         mask.gameObject.SetActive(false);
         isDying = false;
         isOtherPlayer = otherPlayer;
-        newPos += Vector3.down * 0.8f;
+        //newPos += Vector3.down * 0.8f;
         chrId = characterId;
         myAnswer = answer;
 
         sprite.sprite = UIRefs.Instance.characterAnimationSprites[characterId].shiveringFrames[0];
 
-        transform.localPosition = newPos;//new Vector3(posX, posY, 0);
+        transform.position = newPos;//new Vector3(posX, posY, 0);
         transform.localScale = Vector3.one * 0.8f;
         emoticon.gameObject.SetActive(false);
         otherEmoticon.gameObject.SetActive(false);
@@ -66,14 +66,14 @@ public class CharacterController : MonoBehaviour
     {
         PlayWalkAnimation(); 
 
-        newPos += Vector3.down * 0.8f;
+        //newPos += Vector3.down * 0.8f;
         myAnswer = answer;
        
-        float time  = Vector3.Distance(transform.localPosition, newPos) / 8f;
+        float time  = Vector3.Distance(transform.position, newPos) / 8f;
         float delay = Random.Range(1f, 1.5f);
 
         transform.DOKill();
-        transform.DOLocalMove(newPos, time).SetDelay(delay).SetEase(Ease.InOutSine).OnComplete(() => {
+        transform.DOMove(newPos, time).SetDelay(delay).SetEase(Ease.InOutSine).OnComplete(() => {
             PlayIdleAnimation();
         });
 
@@ -108,7 +108,7 @@ public class CharacterController : MonoBehaviour
         float time = Vector3.Distance(transform.localPosition, newPos) / 8f;
         float delay = Random.Range(0.25f, 2f);
 
-        transform.DOLocalMove(newPos, time).SetEase(Ease.InOutSine).OnComplete(()=> {
+        transform.DOMove(newPos, time).SetEase(Ease.InOutSine).OnComplete(()=> {
             PlayIdleAnimation();
         });
         emoticonText.text = Utility.GeMyPlayerText();

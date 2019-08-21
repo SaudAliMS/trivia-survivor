@@ -118,15 +118,22 @@ public class GameCompleteViewController : MonoBehaviour
 
     public void ShowAnswer(string answer)
     {
+        answer = answer.Replace(";", ",");
         answerText.text = answer;
     }
     #endregion
 
     private void UpdateXPStatus()
     {
-        while (PlayerData.XPCount >= GameConstants.REQUIRED_XP[PlayerData.Level - 1]) 
+        int playerXpIndex = PlayerData.Level - 1;
+        if(playerXpIndex >= GameConstants.REQUIRED_XP.Length)
         {
-            PlayerData.XPCount -= GameConstants.REQUIRED_XP[PlayerData.Level - 1];
+            playerXpIndex = GameConstants.REQUIRED_XP.Length - 1;
+        }
+
+        while (PlayerData.XPCount >= GameConstants.REQUIRED_XP[playerXpIndex]) 
+        {
+            PlayerData.XPCount -= GameConstants.REQUIRED_XP[playerXpIndex];
             PlayerData.Level++;
             PlayerData.SaveState();
         }

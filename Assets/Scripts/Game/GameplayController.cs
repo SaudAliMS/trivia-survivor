@@ -16,7 +16,7 @@ public class GameplayController : SingletonMono<GameplayController>
     public SpriteRenderer leftIce,rightIce,wholeIce;
 
     public Transform stone;
-    public SpriteRenderer tornado;
+    public TornadoController tornado;
     public Transform characterContainer;
     public GameObject characterPrefab;
     List<QuestionData> levelData;
@@ -43,6 +43,9 @@ public class GameplayController : SingletonMono<GameplayController>
         rightIce.color = Color.white;
         wholeIce.color = Color.white;
 
+        leftIce.transform.localScale = Vector3.one;
+        rightIce.transform.localScale = Vector3.one;
+
         wholeIce.transform.position = Vector3.up * 0.2f; 
         leftIce.gameObject.SetActive(false);
         rightIce.gameObject.SetActive(false);
@@ -56,7 +59,6 @@ public class GameplayController : SingletonMono<GameplayController>
             CharacterController characterController = characterList[count];
             characterController.gameObject.SetActive(false);
             characterCache.Add(characterController);
-
         }
 
         if(myCharacter != null)
@@ -213,7 +215,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
         Utility.ResetPositionForCharacterRight();
         // right characters
-        Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
+        Vector3 rightCenterPos = GetRightSidePosition();
         for (int count= 0; count < 5; count++)
         {
             // new Vector3(1.25f, 0.5f, 0);
@@ -227,7 +229,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
         Utility.ResetPositionForCharacterLeft();
         // left characters
-        Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);
+        Vector3 leftCenterPos = GetLeftSidePosition();
         for (int count = 0; count < 5; count++)
         {
             //new Vector3(-1.25f,0.5f, 0);
@@ -240,7 +242,7 @@ public class GameplayController : SingletonMono<GameplayController>
             characterList.Add(characterController);
         }
 
-        Vector3 leftCenterPos1 = GetLeftSidePosition(answerIsTrue);//new Vector3(-1.25f, 0.5f, 0);
+        Vector3 leftCenterPos1 = GetLeftSidePosition();//new Vector3(-1.25f, 0.5f, 0);
         Vector3 leftSidePos1 = Utility.GetPositionForCharacterLeft(leftCenterPos1);
 
         myCharacter = GetCharacter();
@@ -304,14 +306,15 @@ public class GameplayController : SingletonMono<GameplayController>
         Vector2 myCharacterPos = myCharacter.transform.position;
         // right characters
         Utility.ResetPositionForCharacterRight();
-        Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);
+        Vector3 rightCenterPos = GetRightSidePosition();
         for (int count = 0; count < characterMovingRight.Count; count++)
         {
             //new Vector3(1.25f, 0.5f, 0);
 
             Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
-            while(Mathf.Approximately(rightSidePos.x,myCharacterPos.x) && Mathf.Approximately(rightSidePos.y, myCharacterPos.y))
+            while(Vector2.Distance(rightSidePos, myCharacterPos) < 0.1f)
             {
+                Debug.Log("Position Overlap Changing to new pos");
                 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
             }
 
@@ -322,14 +325,15 @@ public class GameplayController : SingletonMono<GameplayController>
         }
 
         Utility.ResetPositionForCharacterLeft();
-        Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);
+        Vector3 leftCenterPos = GetLeftSidePosition();
         // left characters
         for (int count = 0; count < characterMovingLeft.Count; count++)
         {
             //new Vector3(-1.25f, 0.5f, 0);
             Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
-            while (Mathf.Approximately(leftSidePos.x, myCharacterPos.x) && Mathf.Approximately(leftSidePos.y, myCharacterPos.y))
+            while (Vector2.Distance(leftSidePos, myCharacterPos) < 0.1f)
             {
+                Debug.Log("Position Overlap Changing to new pos");
                 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
             }
 
@@ -403,7 +407,7 @@ public class GameplayController : SingletonMono<GameplayController>
         if (canAnswer)
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
-            Vector3 leftCenterPos = GetLeftSidePosition(answerIsTrue);//new Vector3(-1.25f, 0.5f, 0);
+            Vector3 leftCenterPos = GetLeftSidePosition();//new Vector3(-1.25f, 0.5f, 0);
             Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos,false);
 
             //canAnswer = false;
@@ -416,7 +420,7 @@ public class GameplayController : SingletonMono<GameplayController>
         if (canAnswer)
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
-            Vector3 rightCenterPos = GetRightSidePosition(answerIsTrue);//new Vector3(1.25f, 0.5f, 0);
+            Vector3 rightCenterPos = GetRightSidePosition();//new Vector3(1.25f, 0.5f, 0);
             Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos,false);
 
             //canAnswer = false;
@@ -445,12 +449,12 @@ public class GameplayController : SingletonMono<GameplayController>
 
     #endregion
 
-    Vector3 GetRightSidePosition(bool correctLeftSide)
+    Vector3 GetRightSidePosition()
     {
-        return rightIce.transform.position + Vector3.down * 0.25f;// + Vector3.left * 0.1f;
+        return rightIce.transform.position + Vector3.down * 0.1f;// + Vector3.left * 0.1f;
     }
 
-    Vector3 GetLeftSidePosition(bool correctLeftSide)
+    Vector3 GetLeftSidePosition()
     {
         return leftIce.transform.position + Vector3.down * 0.25f;// + Vector3.right * 0.1f;
     }
@@ -519,11 +523,11 @@ public class GameplayController : SingletonMono<GameplayController>
                 snowDust.color = Color.white;
             });
 
-            icePieceSinking.transform.DOMoveZ(1, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
+            icePieceSinking.transform.DOScale(0, 0.25f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 icePieceSinking.gameObject.SetActive(false);
             });
-            icePieceSinking.DOFade(0, 0.15f).SetDelay(0.15f).SetEase(Ease.Linear);
+            icePieceSinking.DOFade(0, 0.15f).SetDelay(0.1f).SetEase(Ease.Linear);
             stone.gameObject.SetActive(false);
 
             SinkWrongAnswerCharaceters();
@@ -579,32 +583,12 @@ public class GameplayController : SingletonMono<GameplayController>
 
     void ShowTornado()
     {
-        //        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, chrId, CharacterAnimtaionType.Stun, true, 0.4f);
+        Vector3 tornadoPos = new Vector3(-1.5f, -7, 0);
         if (levelData[questionIndex].AnswerIsTrue)
         {
-            tornado.transform.position = new Vector3(1, -7, 0);
+            tornadoPos = new Vector3(1, -7, 0);
         }
-        else
-        {
-            tornado.transform.position = new Vector3(-1.5f, -7, 0);
-        }
-        tornado.DOKill();
-
-        tornado.color = new Color(1, 1, 1, 0f);
-        tornado.gameObject.SetActive(true);
-
-        float posX = tornado.transform.position.x;
-        List<Vector3> tornadoPath = new List<Vector3>();
-        tornadoPath.Add(new Vector3(posX + 0.2f,-2f,0));
-        tornadoPath.Add(new Vector3(posX - 0.25f,   0f, 0));
-        tornadoPath.Add(new Vector3(posX + 0.2f, 2f,0));
-        tornadoPath.Add(Vector3.up * 7);
-
-        tornado.transform.DOPath(tornadoPath.ToArray(), 1.5f,PathType.CatmullRom).OnComplete(()=> {
-            tornado.gameObject.SetActive(false);
-        });
-        tornado.DOFade(1, 0.3f).SetDelay(0.2f);
-        tornado.DOFade(0f, 0.3f).SetDelay(0.8f);
+        tornado.Animate(tornadoPos);
 
         transform.DOMove(Vector3.zero, 0.6f).OnComplete(() =>
         {
@@ -619,13 +603,13 @@ public class GameplayController : SingletonMono<GameplayController>
                     Vector3 finalPos = startPos;
                     if (Random.Range(0,100) < 50)
                     {
-                        finalPos.y = Random.Range(3f, 4f);
+                        finalPos.y = Random.Range(2.25f, 3f);
                     }
                     else
                     {
-                        finalPos.y = Random.Range(-3f, -4f);
+                        finalPos.y = Random.Range(-2.5f, -3.5f);
                     }
-                    finalPos.x += Random.Range(-1f, 1f);
+                    finalPos.x += Random.Range(-1.2f, 1.2f);
 
                     characterController.isDying = true;
                     characterController.transform.DOScale(1f, 0.3f);

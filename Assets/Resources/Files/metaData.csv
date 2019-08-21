@@ -1,9 +1,9 @@
 [LEVEL TABLE],,,
 ID,Answer,QuestionStatement,CorrectAnswer
-1,0,There are 6 colors in the rainbow,"The rainbow appears in 7 colors, (red, orange, yellow, green, blue, indigo, violet)."
+1,0,There are 6 colors in the rainbow,The rainbow appears in 7 colors (red; orange; yellow; green; blue; indigo; violet).
 2,1,Dove is a symbol of peace,Dove is a symbol of peace
 3,1,Is Bill Gates the founder of Microsoft?,Is Bill Gates the founder of Microsoft?
-4,0,USA flag has the color yellow in it,"The flag of the USA has only red, blue and white in it"
+4,0,USA flag has the color yellow in it,The flag of the USA has only red; blue and white in it
 5,0,Spider-Man is a DC Comics character?,Spider-Man is a character created by Stan Lee of Marvel
 6,1,E is the fifth letter in the english alphabet,E is the fifth letter in the english alphabet
 7,0,7+4 = 12?,It's 11!
@@ -19,9 +19,9 @@ ID,Answer,QuestionStatement,CorrectAnswer
 17,0,Leonardo DiCaprio has never won an academy award,Leonardo DiCaprio won an academy award for his role in The Revenant (2015).
 18,1,Jupiter is the largest planet in the Solar System,Jupiter is the largest planet in the Solar System
 19,1,A spider has 8 eyes,A spider has 8 eyes
-20,0,There are 1000 centimeters in a meter,"The prefix comes from the Latin centum, meaning ""hundred"". A meter has 100 centimeters"
+20,0,There are 1000 centimeters in a meter,"The prefix comes from the Latin centum; meaning ""hundred"". A meter has 100 centimeters"
 21,0,The currency of Japan is Japanese Dollars,The Japanese currency is the Japanese yen
-22,0,There are 6 oceans in the world,"Planet earth contains 5 oceans, including the Arctic, Atlantic, Indian, Pacific and Southern"
+22,0,There are 6 oceans in the world,Planet earth contains 5 oceans; including the Arctic; Atlantic; Indian; Pacific and Southern
 23,1,Rhode Island is the smallest state in the USA,Rhode Island is the smallest state in the USA
 24,1,A heptagon has 7 sides,A heptagon has 7 sides
 25,0,Newton discovered gravity by observing a falling orange,The legend is that Newton discovered Gravity when he saw a falling apple while thinking about the forces of nature
