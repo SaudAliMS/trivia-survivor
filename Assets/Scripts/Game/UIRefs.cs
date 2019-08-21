@@ -8,10 +8,10 @@ public class UIRefs : SingletonMono<UIRefs>
 
 
     public List<CharacterAnimList> characterAnimationSprites;
-  
 
 
 
+    public List<Sprite> tornado;
     public List<Sprite> waves;
 }
 

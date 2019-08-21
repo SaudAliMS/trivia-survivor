@@ -28,7 +28,8 @@ public enum CharacterAnimtaionType : int
     Stun,
     Walk,
     Lightning,
-    GameWin
+    GameWin,
+    Tornado,
 
 }
 

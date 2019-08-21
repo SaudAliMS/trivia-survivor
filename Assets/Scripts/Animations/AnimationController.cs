@@ -24,6 +24,17 @@ public class AnimationController : SingletonMono<AnimationController>
         StartCoroutine(coroutine);
     }
 
+    public void StopAnimation(SpriteRenderer spriteRenderer)
+    {
+        int hash = spriteRenderer.GetHashCode();
+        if (coroutinesDictionary.ContainsKey(hash))
+        {
+            IEnumerator routine = coroutinesDictionary.GetValue(hash);
+            coroutinesDictionary.Remove(hash);
+            StopCoroutine(routine);
+        }
+    }
+
     private IEnumerator PlayAnimationCoroutine(Action<bool> onComplete, SpriteRenderer spriteRenderer, int chrId, CharacterAnimtaionType type,  bool loop, float time) 
     {
         List<Sprite> animationSprites = GetAnimationSprites(chrId, type);
@@ -67,6 +78,17 @@ public class AnimationController : SingletonMono<AnimationController>
         IEnumerator coroutine = PlayAnimationCoroutine(onComplete, image, chrId, type, loop, time);
         coroutinesDictionary.Add(hash, coroutine);
         StartCoroutine(coroutine);
+    }
+
+    public void StopAnimation( Image image)
+    {
+        int hash = image.GetHashCode();
+        if (coroutinesDictionary.ContainsKey(hash))
+        {
+            IEnumerator routine = coroutinesDictionary.GetValue(hash);
+            coroutinesDictionary.Remove(hash);
+            StopCoroutine(routine);
+        }
     }
 
     private IEnumerator PlayAnimationCoroutine(Action<bool> onComplete, Image image, int chrId, CharacterAnimtaionType type, bool loop, float time)
@@ -119,6 +141,9 @@ public class AnimationController : SingletonMono<AnimationController>
 
             case CharacterAnimtaionType.GameWin:
                 return UIRefs.Instance.characterAnimationSprites[CharacterID].gameWinFrames;
+
+            case CharacterAnimtaionType.Tornado:
+                return UIRefs.Instance.tornado;
 
             default:
                 return UIRefs.Instance.characterAnimationSprites[CharacterID].shiveringFrames;
