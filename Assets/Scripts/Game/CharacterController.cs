@@ -113,7 +113,7 @@ public class CharacterController : MonoBehaviour
     void LateUpdate()
     {
         Vector3 localPos = transform.localPosition;
-        localPos.z = localPos.y/10f;
+        localPos.z = localPos.y/4f;
         if (!isOtherPlayer)
         {
             glow.transform.Rotate(Vector3.back * 2);
