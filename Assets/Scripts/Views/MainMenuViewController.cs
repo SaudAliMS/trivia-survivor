@@ -11,8 +11,13 @@ public class MainMenuViewController : MonoBehaviour
     public Text levelCount;
     public Slider levelProgress;
     public Transform tapToStart;
+    public Transform topBar;
     public void Open()
     {
+        if (Utility.IsIphoneX) 
+        {
+            topBar.GetComponent<RectTransform>().DOAnchorPosY(-150, 0.01f);
+        }
         UpdateUI();
         gameObject.SetActive(true);
     }

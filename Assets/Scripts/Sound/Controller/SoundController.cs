@@ -18,6 +18,9 @@ public class SoundController : SingletonMono<SoundController> {
     public AudioClip ClickSound;
     public AudioClip CoinClinkSound;
     public AudioClip waterSplashSound;
+    public AudioClip winSound;
+    public AudioClip loseSound;
+    public AudioClip newQuestionSound;
 
     private bool musicState = true;
 	private bool soundState = true;
@@ -107,6 +110,12 @@ public class SoundController : SingletonMono<SoundController> {
                 return CoinClinkSound;
             case Sfx.WaterSplash:
                 return waterSplashSound;
+            case Sfx.Win:
+                return winSound;
+            case Sfx.Lose:
+                return loseSound;
+            case Sfx.NewQuestion:
+                return newQuestionSound;
             default:
 				return null;
 		}
@@ -123,14 +132,19 @@ public class SoundController : SingletonMono<SoundController> {
 
     public void PlayMusic()
     {
-        //if (musicState)
-        //{
-        //    musicAudioSource.Play();
-        //}
-        //else 
-        //{
-        //    musicAudioSource.Stop();
-        //}
+        if (musicState)
+        {
+            musicAudioSource.Play();
+        }
+        else 
+        {
+            musicAudioSource.Stop();
+        }
+    }
+
+    public void StopMusic()
+    {
+        musicAudioSource.Stop();
     }
 
     #endregion Music

@@ -397,6 +397,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public void LoadQuestion()
     {
+        SoundController.Instance.PlaySfx(Sfx.NewQuestion, 0.05f);
         questionNumber += 1;
         myCharacter.SetPlayerUIStauts();
         timerValue = GameConstants.QUESTION_TIME;

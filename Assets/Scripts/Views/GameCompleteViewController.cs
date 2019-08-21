@@ -24,6 +24,7 @@ public class GameCompleteViewController : MonoBehaviour
     public Transform xpCollectionPoint;
     public Transform coinsContainer;
     public Transform[] coinsList;
+    public Transform topBar;
 
     int position = 1;
     int extraReward = 0;
@@ -40,6 +41,10 @@ public class GameCompleteViewController : MonoBehaviour
     #region public methods
     public void Open()
     {
+        if (Utility.IsIphoneX)
+        {
+            topBar.GetComponent<RectTransform>().DOAnchorPosY(-150, 0.01f);
+        }
         UpdateUI();
         UpdateXPStatus();
         gameObject.SetActive(true);
@@ -88,6 +93,7 @@ public class GameCompleteViewController : MonoBehaviour
 
     private void UpdateWinUI() 
     {
+        SoundController.Instance.PlaySfx(Sfx.Win, 0.3f);
         AnimationController.Instance.PlayAnimation(null, character, GameConstants.MY_CHARACTER_ID, CharacterAnimtaionType.GameWin, true, 0.5f);
         LevelBonus.SetActive(true);
         Glow.SetActive(true);
@@ -97,6 +103,7 @@ public class GameCompleteViewController : MonoBehaviour
 
     private void UpdateLoseUI()
     {
+        SoundController.Instance.PlaySfx(Sfx.Lose, 0.3f);
         AnimationController.Instance.PlayAnimation(null, character, GameConstants.MY_CHARACTER_ID, CharacterAnimtaionType.GameOver, true, 0.5f);
         LevelBonus.SetActive(false);
         Glow.SetActive(false);

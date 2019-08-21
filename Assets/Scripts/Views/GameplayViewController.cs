@@ -20,9 +20,15 @@ public class GameplayViewController : MonoBehaviour
 
     public Image readyImage;
     public Image goImage;
+    public Transform topBar;
+
     #region public methods
     public void Open()
     {
+        if (Utility.IsIphoneX)
+        {
+            topBar.GetComponent<RectTransform>().DOAnchorPosY(-150, 0.01f);
+        }
         questionGroup.alpha = 0;
         gameObject.SetActive(true);
         UpdatUI();

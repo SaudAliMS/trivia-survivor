@@ -262,6 +262,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 5071368440302542910, guid: 7b0bf61e3303a442ebce2d617f3b71b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5071368440302542909, guid: 7b0bf61e3303a442ebce2d617f3b71b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1100,12 +1105,12 @@ PrefabInstance:
     - target: {fileID: 6437187958442903030, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.527
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6437187958442903030, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 188423244063803675, guid: 7f8d3017bb291498b88690bf548d14bc,
         type: 3}
@@ -1210,16 +1215,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5973636338826167920, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 5973636338826167920, guid: 5ee51b9fd16a54175a2d1e903ccbb44b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ee51b9fd16a54175a2d1e903ccbb44b, type: 3}
