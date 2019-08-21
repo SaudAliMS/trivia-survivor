@@ -30,6 +30,17 @@ public enum CharacterAnimtaionType : int
     Lightning,
     GameWin,
     Tornado,
+}
 
+public enum Sfx 
+{
+    Ready,
+    Go,
+    Tornado,
+    Lightning,
+    GlacierBreak,
+    TimeUp,
+    Click,
+    CoinClink
 }
 

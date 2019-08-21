@@ -21,9 +21,11 @@ public class TornadoController : MonoBehaviour
         tornadoPath.Add(new Vector3(posX + 0.2f, 2f, 0));
         tornadoPath.Add(Vector3.up * 7);
 
+        Invoke("PlayTornadoSound", 0.5f);
         tornado.transform.DOPath(tornadoPath.ToArray(), 2f, PathType.CatmullRom).OnComplete(() => {
             tornado.gameObject.SetActive(false);
             AnimationController.Instance.StopAnimation(tornado);
+
         });
         tornado.DOFade(1, 0.3f).SetDelay(0.25f);
         tornado.DOFade(0f, 0.3f).SetDelay(1.2f);
@@ -34,5 +36,10 @@ public class TornadoController : MonoBehaviour
 
     private void OnAnimationComplete(bool status)
     {
+    }
+
+    private void PlayTornadoSound() 
+    {
+        SoundController.Instance.PlaySfx(Sfx.Tornado, 0.5f);
     }
 }
