@@ -42,6 +42,9 @@ public enum Sfx
     TimeUp,
     Click,
     CoinClink,
-    WaterSplash
+    WaterSplash,
+    Win,
+    Lose,
+    NewQuestion
 }
 

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ViewController : SingletonMono<ViewController>
 {
-    public MainMenuViewController       mainMenuViewController;
-    public GameplayViewController       gameplayViewController;
-    public LevelCompletedViewController levelCompletedViewController;
+    public MainMenuViewController           mainMenuViewController;
+    public GameplayViewController           gameplayViewController;
+    public LevelCompletedViewController     levelCompletedViewController;
     public GameCompleteViewController       gameCompleteViewController;
 
     public Views currentView;
@@ -26,9 +26,11 @@ public class ViewController : SingletonMono<ViewController>
                     break;
                 case Views.GameComplete:
                     gameCompleteViewController.Open();
+                    SoundController.Instance.StopMusic();
                     break;
                 case Views.LevelComplete:
                     levelCompletedViewController.Open();
+                    SoundController.Instance.StopMusic();
                     break;
             }
         }
@@ -36,6 +38,7 @@ public class ViewController : SingletonMono<ViewController>
 
     public void CloseView(Views view)
     {
+        SoundController.Instance.PlayMusic();
         switch (view)
         {
             case Views.MainMenu:

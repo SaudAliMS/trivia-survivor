@@ -43,7 +43,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a251342172924469baf3b746e7b94347, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -182,6 +182,10 @@ MonoBehaviour:
   TimeUpSound: {fileID: 8300000, guid: 62a03e3a0a46a44b0a0b589ac617d8e6, type: 3}
   ClickSound: {fileID: 8300000, guid: 584a60e2b9dd247cb86650d6c5b2ce91, type: 3}
   CoinClinkSound: {fileID: 8300000, guid: ac42231e157a740ac8117d4acf4f6e58, type: 3}
+  waterSplashSound: {fileID: 8300000, guid: fc6b38c5dc02e41158daf609e3507547, type: 3}
+  winSound: {fileID: 8300000, guid: b18f42fa69f5c401ea0294c328b3bc8a, type: 3}
+  loseSound: {fileID: 8300000, guid: 7ed1ed8166d0244e0957c0af37369acd, type: 3}
+  newQuestionSound: {fileID: 8300000, guid: 299acc9abedce4d3c928d2da18963d0e, type: 3}
 --- !u!82 &3389791051824593023
 AudioSource:
   m_ObjectHideFlags: 0
