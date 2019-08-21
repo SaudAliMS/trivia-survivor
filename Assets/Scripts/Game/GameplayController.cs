@@ -145,12 +145,12 @@ public class GameplayController : SingletonMono<GameplayController>
         if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
         {
             myCharacter.PlayStunAnimation();
-            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Heavy);
+            Vibration.Vibrate(TapticPlugin.ImpactFeedback.Heavy);
 
         }
         else
         {
-            TapticPlugin.TapticManager.Impact(TapticPlugin.ImpactFeedback.Medium);
+            Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
         }
     }
 

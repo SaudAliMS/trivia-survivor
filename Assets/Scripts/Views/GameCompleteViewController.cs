@@ -74,6 +74,13 @@ public class GameCompleteViewController : MonoBehaviour
         resultXPCount.text = GameplayController.Instance.sessionXPCount.ToString();
     }
 
+    private void updateCoinText(int reward) 
+    {
+        topCoinsCount.text = reward.ToString();
+        coinsCollectionPoint.DOKill();
+        coinsCollectionPoint.DOScale(0.7f, 0.05f).SetLoops(2, LoopType.Yoyo);
+    }
+
     public void Close()
     {
         gameObject.SetActive(false);
@@ -177,7 +184,9 @@ public class GameCompleteViewController : MonoBehaviour
     {
         int currentReward = PlayerData.CoinsCount;
         int newReward = currentReward + GameplayController.Instance.sessionCoinsCount + extraReward;
-        DOTween.To(() => currentReward, x => currentReward = x, newReward, 1).SetDelay(1f).OnUpdate(UpdateUI);
+        DOTween.To(() => currentReward, x => currentReward = x, newReward, 1).SetDelay(1f).OnUpdate(() => {
+            updateCoinText(currentReward);
+        }).OnComplete(UpdateUI);
     }
     #endregion Reward Animation
 }
