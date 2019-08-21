@@ -45,9 +45,11 @@ public class GameplayViewController : MonoBehaviour
         goImage.transform.localScale = Vector3.one * 1.5f;
 
         readyImage.gameObject.SetActive(true);
+        SoundController.Instance.PlaySfx(Sfx.Ready, 0.5f);
         readyImage.transform.DOScale(1, 0.5f).SetDelay(0.5f);
         readyImage.DOFade(0, 0.5f).SetDelay(1f).OnComplete(() =>
         {
+            SoundController.Instance.PlaySfx(Sfx.Go);
             goImage.gameObject.SetActive(true);
             goImage.transform.DOScale(1, 0.5f);
             goImage.DOFade(0, 0.5f).SetDelay(0.5f);
@@ -69,12 +71,14 @@ public class GameplayViewController : MonoBehaviour
 
     public void OnPressYesBtn()
     {
+        SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
         GameplayController.Instance.OnPressYesBtn();
     }
 
     public void OnPressNoBtn()
     {
+        SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
         GameplayController.Instance.OnPressNoBtn();
     }

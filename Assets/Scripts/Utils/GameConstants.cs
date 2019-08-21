@@ -14,6 +14,8 @@ public class GameConstants
         
     public const float QUESTION_TIME = 5;
 
+    public const string MusicState = "MusicState";
+    public const string SoundState = "SoundState";
 
     public const string XPCount         = "XPCount";
     public const string CoinsCount      = "CoinsCount";

@@ -36,6 +36,8 @@ public class MainMenuViewController : MonoBehaviour
     public void OnPressStartGame()
     {
         GameplayController.Instance.OnPressTapToStartBtn();
+        SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
+        Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
     }
     //// Start is called before the first frame update
     //void Start()

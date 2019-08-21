@@ -108,6 +108,8 @@ public class GameCompleteViewController : MonoBehaviour
     {
         GameplayController.Instance.LoadLevel();
         ViewController.Instance.OpenView(Views.MainMenu);
+        SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
+        Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
     }
 
     public void OnPressRetryBtn()
@@ -182,6 +184,7 @@ public class GameCompleteViewController : MonoBehaviour
                 .Append(coinsList[i].DOScale(Vector3.zero, 0.01f));
             sequence.OnComplete(delegate {
                 Vibration.Vibrate(TapticPlugin.ImpactFeedback.Light);
+                SoundController.Instance.PlaySfx(Sfx.CoinClink, 0.5f);
             });
 
         }

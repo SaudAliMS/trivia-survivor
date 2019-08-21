@@ -200,7 +200,7 @@ public class GameplayController : SingletonMono<GameplayController>
             {
                 ViewController.Instance.gameplayViewController.HideTimer();
                 SelectDeathAnimation();
-
+                SoundController.Instance.PlaySfx(Sfx.TimeUp, 0.5f);
             }
             else
             {
@@ -513,7 +513,7 @@ public class GameplayController : SingletonMono<GameplayController>
             rightIce.gameObject.SetActive(true);
             wholeIce.gameObject.SetActive(false);
 
-
+            Invoke("PlayGlacierSound", 0.35f);
             snowDust.transform.localPosition = stone.transform.localPosition + Vector3.down * 0.4f;
             snowDust.transform.localScale = Vector3.one * 0.2f;
             snowDust.gameObject.SetActive(true);
@@ -535,6 +535,10 @@ public class GameplayController : SingletonMono<GameplayController>
         });
     }
 
+    private void PlayGlacierSound() 
+    {
+        SoundController.Instance.PlaySfx(Sfx.GlacierBreak, 0.5f);
+    }
 
     void SinkWrongAnswerCharaceters()
     {
@@ -578,6 +582,7 @@ public class GameplayController : SingletonMono<GameplayController>
             myCharacter.PlayLightningAnimation();
         }
 
+        SoundController.Instance.PlaySfx(Sfx.Lightning, 0.5f);
         Invoke("AnalytizeUserAnswer", 1.5f);
     }
 
