@@ -37,7 +37,7 @@ public class MetaLoader
             catch (Exception ex)
             {
                 data = null;
-                textAsset = Resources.Load("Files/metaData") as TextAsset;
+                textAsset = Resources.Load("MyFiles/metaDataFile", typeof(TextAsset)) as TextAsset;
                 data = textAsset.text;
                 Debug.Log("Loading data from resources meta file");
 
@@ -53,7 +53,7 @@ public class MetaLoader
         }
         else
         {
-            textAsset = Resources.Load("Files/metaData") as TextAsset;
+            textAsset = Resources.Load("MyFiles/metaDataFile", typeof(TextAsset)) as TextAsset;
             data = textAsset.text;
             Debug.Log("Loading data from resources meta file");
         }

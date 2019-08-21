@@ -176,7 +176,8 @@ public class GameplayController : SingletonMono<GameplayController>
         if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
         {
             myCharacter.gameObject.SetActive(false);
-            characterCache.Add(myCharacter);
+            //characterCache.Add(myCharacter);
+            //myCharacter = null;
         }
     }
 
@@ -230,7 +231,7 @@ public class GameplayController : SingletonMono<GameplayController>
         Utility.ResetPositionForCharacterLeft();
         // left characters
         Vector3 leftCenterPos = GetLeftSidePosition();
-        for (int count = 0; count < 5; count++)
+        for (int count = 0; count < 4; count++)
         {
             //new Vector3(-1.25f,0.5f, 0);
             Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
@@ -266,7 +267,7 @@ public class GameplayController : SingletonMono<GameplayController>
         bool killAllOtherPlayers =  false;
         if( questionIndex >= levelData.Count-1)
         {
-            //Debug.Log("Kill all other players");
+            Debug.Log("Kill all other players");
             killAllOtherPlayers = true;
         }
 
@@ -347,14 +348,23 @@ public class GameplayController : SingletonMono<GameplayController>
     public int GetMyPosition() 
     {
         int position = 1;
-        if (characterList.Count == 0) { return position; }
-        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        int lastQuestionIndex = Mathf.Clamp(questionIndex, 0, levelData.Count - 1);
+        bool answerIsTrue = levelData[lastQuestionIndex].AnswerIsTrue;
+       
+       
+
         foreach (CharacterController character in characterList) 
         {
             if (answerIsTrue == character.UserAnswerYes()) 
             {
                 position++;
             }
+        }
+
+        // if i'm wrong at last question
+        if (answerIsTrue != myCharacter.UserAnswerYes() && position == 1)
+        {
+            position =2;
         }
         return position;
     }
@@ -451,7 +461,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
     Vector3 GetRightSidePosition()
     {
-        return rightIce.transform.position + Vector3.down * 0.1f;// + Vector3.left * 0.1f;
+        return rightIce.transform.position + Vector3.down * 0f;// + Vector3.left * 0.1f;
     }
 
     Vector3 GetLeftSidePosition()
@@ -513,7 +523,8 @@ public class GameplayController : SingletonMono<GameplayController>
             rightIce.gameObject.SetActive(true);
             wholeIce.gameObject.SetActive(false);
 
-            Invoke("PlayGlacierSound", 0.35f);
+            PlayGlacierSound();
+//            Invoke("PlayGlacierSound", 0.3f);
             snowDust.transform.localPosition = stone.transform.localPosition + Vector3.down * 0.4f;
             snowDust.transform.localScale = Vector3.one * 0.2f;
             snowDust.gameObject.SetActive(true);

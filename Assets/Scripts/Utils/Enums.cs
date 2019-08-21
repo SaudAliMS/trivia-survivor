@@ -41,6 +41,7 @@ public enum Sfx
     GlacierBreak,
     TimeUp,
     Click,
-    CoinClink
+    CoinClink,
+    WaterSplash
 }
 

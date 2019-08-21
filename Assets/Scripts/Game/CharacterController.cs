@@ -182,6 +182,8 @@ public class CharacterController : MonoBehaviour
         });
 
         waterSplash.DOFade(0, 0.2f).SetDelay(0.4f);
+        SoundController.Instance.PlaySfx(Sfx.WaterSplash, 0.2f, Random.Range(0.85f,1.15f));
+
     }
 
     public void PlayDeathAnimation() 

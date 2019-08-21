@@ -30,7 +30,7 @@ public class TornadoController : MonoBehaviour
         tornado.DOFade(1, 0.3f).SetDelay(0.25f);
         tornado.DOFade(0f, 0.3f).SetDelay(1.2f);
 
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, -1, CharacterAnimtaionType.Tornado, true, 0.5f);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, tornado, -1, CharacterAnimtaionType.Tornado, true, 0.3f);
 
     }
 
