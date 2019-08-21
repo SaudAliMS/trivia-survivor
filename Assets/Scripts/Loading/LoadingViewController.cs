@@ -89,8 +89,14 @@ public class LoadingViewController : MonoBehaviour
             }
         }
 
-        Debug.Log(" LoadScene");
+        Debug.Log(" Loading Meta file!!!");
 
+        PlayerData.LoadState();
+        if (!MetaLoader.LoadData())
+        {
+            Debug.LogError("Meta Loading Failed");
+        }
+        Debug.Log(" LoadScene");
         SceneManager.LoadScene("GameScene");
         //async = SceneManager.LoadSceneAsync("Gameplay");
         //async.allowSceneActivation = false;

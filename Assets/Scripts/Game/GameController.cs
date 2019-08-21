@@ -24,15 +24,16 @@ public class GameController  : SingletonBase<GameController>
 
     public void LoadGameData()
     {
-        if (MetaLoader.LoadData())
-        {
-            //currentLevel = DatabaseManager.GetInt("current_level",1);
-            GameplayController.Instance.LoadLevel();
-        }
-        else
-        {
-            Debug.LogError("Meta Loading Failed");
-        }
+        //GameplayController.Instance.LoadLevel();
+
+        //if (MetaLoader.LoadData())
+        //{
+        //    //currentLevel = DatabaseManager.GetInt("current_level",1);
+        //}
+        //else
+        //{
+        //    Debug.LogError("Meta Loading Failed");
+        //}
     }
 
     //public void LevelCompleted()
