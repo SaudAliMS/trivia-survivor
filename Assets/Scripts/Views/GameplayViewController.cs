@@ -115,7 +115,6 @@ public class GameplayViewController : MonoBehaviour
         questionGroup.DOFade(1f, 0.2f).SetDelay(0.2f);
         questionGroup.transform.DOScale(1.3f, 0.1f).SetDelay(0.2f).SetEase(Ease.OutSine);
         questionGroup.transform.DOScale(1f, 0.1f).SetDelay(0.3f).SetEase(Ease.InSine);
-
     }
     #endregion
 
