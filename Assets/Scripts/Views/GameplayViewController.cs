@@ -78,6 +78,9 @@ public class GameplayViewController : MonoBehaviour
 
     public void OnPressYesBtn()
     {
+        yesBtn.transform.localScale = Vector3.one;
+        yesBtn.transform.DOKill();
+        yesBtn.transform.DOScale(0.8f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
         SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
         GameplayController.Instance.OnPressYesBtn();
@@ -85,6 +88,9 @@ public class GameplayViewController : MonoBehaviour
 
     public void OnPressNoBtn()
     {
+        noBtn.transform.localScale = Vector3.one;
+        noBtn.transform.DOKill();
+        noBtn.transform.DOScale(0.8f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
         SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
         GameplayController.Instance.OnPressNoBtn();
