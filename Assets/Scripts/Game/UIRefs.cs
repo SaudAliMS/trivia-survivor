@@ -32,5 +32,7 @@ public class CharacterAnimList
     public List<Sprite> shockFrames;
     public List<Sprite> lightningFrames;
     public List<Sprite> gameWinFrames;
+    public List<Sprite> happyFrames;
+    public List<Sprite> correctAnswerFrames;
 }
 

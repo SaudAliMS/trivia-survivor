@@ -19,6 +19,9 @@ public class CharacterController : MonoBehaviour
     public bool isDying;
     private bool myAnswer;
     private bool isOtherPlayer;
+    private bool isIdleHappyAnimPlaying = false;
+    private IEnumerator idleHappyAnimCoroutine;
+
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
     {
         mask.gameObject.SetActive(false);
@@ -36,8 +39,7 @@ public class CharacterController : MonoBehaviour
         otherEmoticon.gameObject.SetActive(false);
 
         SetPlayerUIStauts();
-        PlayIdleAnimation();
-//        Invoke("PlayIdleAnimation", 2);
+        PlayIdleHappyAnim();
     }
 
     public void SetPlayerUIStauts() 
@@ -75,7 +77,8 @@ public class CharacterController : MonoBehaviour
 
         transform.DOKill();
         transform.DOMove(newPos, time).SetDelay(delay).SetEase(Ease.InOutSine).OnComplete(() => {
-            PlayIdleAnimation();
+            //PlayIdleAnimation();
+            PlayIdleHappyAnim();
         });
 
 
@@ -112,7 +115,8 @@ public class CharacterController : MonoBehaviour
         float delay = Random.Range(0.25f, 2f);
 
         transform.DOMove(newPos, time).SetEase(Ease.InOutSine).OnComplete(()=> {
-            PlayIdleAnimation();
+            //PlayIdleAnimation();
+            PlayIdleHappyAnim();
         });
 
         emoticonText.text = myAnswer == true ? Utility.GetSpeechBubbleTextForYes() : Utility.GetSpeechBubbleTextForNo();
@@ -148,6 +152,7 @@ public class CharacterController : MonoBehaviour
 
     public void PlayFreezeAnimation()
     {
+        StopIdleHappyAnimation();
         HideEmoticons();
         mask.transform.localPosition = Vector3.down * 1;
         mask.gameObject.SetActive(true);
@@ -194,6 +199,7 @@ public class CharacterController : MonoBehaviour
 
     public void PlayDeathAnimation() 
     {
+        StopIdleHappyAnimation();
         HideEmoticons();
         float initialDelay = Random.Range(0.2f, 0.3f);
         mask.transform.localPosition = Vector3.down * 1;
@@ -238,32 +244,80 @@ public class CharacterController : MonoBehaviour
 
     public void PlayGameOverAnimation()
     {
+        StopIdleHappyAnimation();
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.GameOver, false, 0.5f);
     }
 
     public void PlayIdleAnimation()
     {
+        transform.DOKill();
         transform.localRotation = Quaternion.Euler(0,0,-1);
         transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f,0.05f)).SetLoops(-1, LoopType.Yoyo);
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 0.5f);
     }
 
+    public void PlayHappyAnimation() 
+    {
+        //transform.DOKill();
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Happy, false, 0.5f);
+    }
+
+    public void PlayCorrectAnswerAnimation()
+    {
+        //transform.DOKill();
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.CorrectAnswer, false, 0.5f);
+    }
+
+    void StopIdleHappyAnimation() 
+    {
+        if (isIdleHappyAnimPlaying) 
+        {
+            StopCoroutine(idleHappyAnimCoroutine);
+            isIdleHappyAnimPlaying = false;
+        }
+    }
+
+    public void PlayIdleHappyAnim(float delay = 0) 
+    {
+        idleHappyAnimCoroutine = PlayIdleHappyAnimation(delay);
+        StartCoroutine(idleHappyAnimCoroutine);
+    }
+    public IEnumerator PlayIdleHappyAnimation(float initialDelay = 0)
+    {
+        if (isIdleHappyAnimPlaying) { yield return null; }
+        isIdleHappyAnimPlaying = true;
+        yield return new WaitForSeconds(initialDelay);
+        while (isIdleHappyAnimPlaying)
+        {
+            if (Random.Range(1,11) <= 2) 
+            {
+                PlayHappyAnimation();
+            }
+            else 
+            {
+                PlayIdleAnimation();
+            }
+            yield return new WaitForSeconds(Random.Range(0.7f, 1.2f));
+        }
+    }
+
     public void PlayLightningAnimation()
     {
+        StopIdleHappyAnimation();
         HideEmoticons();
-        //transform.localRotation = Quaternion.Euler(0, 0, -1);
-        //transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f, 0.05f)).SetLoops(-1, LoopType.Yoyo);
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Lightning, false, 1f);
     }
 
     public void PlayStunAnimation()
     {
+        StopIdleHappyAnimation();
         transform.DOKill();
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Stun, false, 0.4f);
     }
 
     public void PlayWalkAnimation()
     {
+        StopIdleHappyAnimation();
         transform.DOKill();
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, true, 0.4f);
     }
