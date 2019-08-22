@@ -201,7 +201,7 @@ public class GameplayController : SingletonMono<GameplayController>
             {
                 ViewController.Instance.gameplayViewController.HideTimer();
                 SelectDeathAnimation();
-                SoundController.Instance.PlaySfx(Sfx.TimeUp, 0.5f);
+                //SoundController.Instance.PlaySfx(Sfx.TimeUp, 0.5f);
             }
             else
             {

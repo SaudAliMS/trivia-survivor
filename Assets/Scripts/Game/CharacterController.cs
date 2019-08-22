@@ -46,6 +46,7 @@ public class CharacterController : MonoBehaviour
         {
             glow.gameObject.SetActive(true);
             emoticonText.text = "ME";
+            emoticon.size = new Vector2(1, 0.5f);
             emoticon.gameObject.SetActive(true);
         }
         else
@@ -81,7 +82,9 @@ public class CharacterController : MonoBehaviour
         int showText = Random.Range(0, 100);
         if (showText < 40)
         {
-            otherEmoticonText.text = Utility.GetOtherPlayerText();
+            otherEmoticonText.text = myAnswer == true ? Utility.GetSpeechBubbleTextForYes() : Utility.GetSpeechBubbleTextForNo();
+            float width = (otherEmoticonText.text.Length * 0.2f);
+            otherEmoticon.size = new Vector2(Mathf.Clamp(width, 1, 2), 0.5f);
             otherEmoticon.transform.DOKill();
 
             float animDelay = Random.Range(0f, 1f);
@@ -111,7 +114,10 @@ public class CharacterController : MonoBehaviour
         transform.DOMove(newPos, time).SetEase(Ease.InOutSine).OnComplete(()=> {
             PlayIdleAnimation();
         });
-        emoticonText.text = Utility.GeMyPlayerText();
+
+        emoticonText.text = myAnswer == true ? Utility.GetSpeechBubbleTextForYes() : Utility.GetSpeechBubbleTextForNo();
+        float width = (emoticonText.text.Length * 0.2f);
+        emoticon.size = new Vector2(Mathf.Clamp(width, 1, 2), 0.5f);
         emoticon.transform.DOKill();
         emoticon.gameObject.SetActive(true);
     }

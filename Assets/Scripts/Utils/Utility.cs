@@ -461,34 +461,55 @@ public static class Utility
         return finalPos;
     }
 
-    public static string GetOtherPlayerText()
+    public static string GetSpeechBubbleTextForYes()
     {
+        if (UnityEngine.Random.Range(0f, 10f) <= 3f) 
+        {
+            return GetSpeechBubbleTextForGeneric();
+        }
         int randNo = UnityEngine.Random.Range(0, 5);
         switch(randNo)
         {
-            case 0:return "Yes!";
-            case 1: return "Heyyy";
-            case 2: return "Easy";
-            case 3: return "Phew";
-            case 4: return "Lucky";
-            default:  return "Yes!";
+            case 0:return "Absolutely!";
+            case 1: return "MmmHmm!";
+            case 2: return "Right On";
+            case 3: return "Yup!";
+            case 4: return "Sure!";
+            default:  return "Sure!";
         }
     }
 
-    public static string GeMyPlayerText()
+    public static string GetSpeechBubbleTextForNo()
+    {
+        if (UnityEngine.Random.Range(0f, 10f) <= 3f)
+        {
+            return GetSpeechBubbleTextForGeneric();
+        }
+        int randNo = UnityEngine.Random.Range(0, 5);
+        switch (randNo)
+        {
+            case 0: return "No way!";
+            case 1: return "Impossible!";
+            case 2: return "Yeah right!";
+            case 3: return "Really?";
+            case 4: return "Come on!";
+            default: return "No way!";
+        }
+    }
+
+    public static string GetSpeechBubbleTextForGeneric()
     {
         int randNo = UnityEngine.Random.Range(0, 5);
         switch (randNo)
         {
-            case 0: return "YES!";
-            case 1: return "Hi";
-            case 2: return "Hello";
-            case 3: return "Hmm";
-            case 4: return "Ok";
-            default: return "YES!";
+            case 0: return "Suckers!";
+            case 1: return "Hmmm...";
+            case 2: return "I wonder?";
+            case 3: return "Let’s see!";
+            case 4: return "Losers!!";
+            default: return " Losers!!";
         }
     }
-
 
 #if UNITY_EDITOR
     // Add menu item to menu bar.
