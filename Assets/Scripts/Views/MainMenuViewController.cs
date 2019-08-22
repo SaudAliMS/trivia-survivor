@@ -12,14 +12,27 @@ public class MainMenuViewController : MonoBehaviour
     public Slider levelProgress;
     public Transform tapToStart;
     public Transform topBar;
+
+    public RectTransform viewport;
+    public RectTransform content;
+    public Button rightBtn;
+    public Button leftBtn;
+
+    float ratio;
+    float screenWidth;
+    int gameModeIndex = 0;
+
     public void Open()
     {
+        ratio = ((float)Screen.height / (float)Screen.width);
+        screenWidth = Screen.width / ratio;
         if (Utility.IsIphoneX) 
         {
             topBar.GetComponent<RectTransform>().DOAnchorPosY(-150, 0.01f);
         }
         UpdateUI();
         gameObject.SetActive(true);
+        content.GetComponent<GridLayoutGroup>().cellSize = new Vector2(screenWidth, content.GetComponent<GridLayoutGroup>().cellSize.y);
     }
 
     private void UpdateUI()
@@ -31,6 +44,7 @@ public class MainMenuViewController : MonoBehaviour
 
         tapToStart.DOKill();
         tapToStart.DOScale(0.925f, 0.85f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+
     }
 
     public void Close()
@@ -44,17 +58,22 @@ public class MainMenuViewController : MonoBehaviour
         SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
     }
-    //// Start is called before the first frame update
-    //void Start()
-    //{
 
-    //}
+    public void OnRightBtnPressed() 
+    {
+        if (gameModeIndex < 2)
+        {
+            gameModeIndex++;
+            content.transform.DOLocalMoveX(-(gameModeIndex * screenWidth), 0.75f).SetEase(Ease.OutBounce);
+        }
+    }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
-
-
+    public void OnLeftBtnPressed()
+    {
+        if (gameModeIndex > 0) 
+        {
+            gameModeIndex--;
+            content.transform.DOLocalMoveX(-(gameModeIndex * screenWidth), 0.75f).SetEase(Ease.OutBounce);
+        }
+    }
 }

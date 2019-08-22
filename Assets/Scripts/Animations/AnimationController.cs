@@ -142,6 +142,12 @@ public class AnimationController : SingletonMono<AnimationController>
             case CharacterAnimtaionType.GameWin:
                 return UIRefs.Instance.characterAnimationSprites[CharacterID].gameWinFrames;
 
+            case CharacterAnimtaionType.Happy:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].happyFrames;
+
+            case CharacterAnimtaionType.CorrectAnswer:
+                return UIRefs.Instance.characterAnimationSprites[CharacterID].correctAnswerFrames;
+
             case CharacterAnimtaionType.Tornado:
                 return UIRefs.Instance.tornado;
 

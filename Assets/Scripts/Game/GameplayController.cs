@@ -154,6 +154,28 @@ public class GameplayController : SingletonMono<GameplayController>
         }
     }
 
+    void SmileCorrectAnswerCharaceters()
+    {
+        bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        for (int count = 0; count < characterList.Count; count++)
+        {
+            CharacterController characterController = characterList[count];
+            bool userAnswerYes = characterController.UserAnswerYes();
+            if ((answerIsTrue == userAnswerYes))
+            {
+                characterController.PlayCorrectAnswerAnimation();
+                characterController.PlayIdleHappyAnim(1.2f);
+            }
+        }
+
+        bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+        if ((answerIsTrue == userAnswerYesOwn))
+        {
+            myCharacter.PlayCorrectAnswerAnimation();
+            myCharacter.PlayIdleHappyAnim(1.2f);
+        }
+    }
+
     void RemoveEliminatedCharaceters()
     {
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
@@ -475,6 +497,7 @@ public class GameplayController : SingletonMono<GameplayController>
         timerOn = false;
 
         ShockWrongAnswerCharaceters();
+        SmileCorrectAnswerCharaceters();
 
         // last index
         if (questionIndex >= levelData.Count - 1)
