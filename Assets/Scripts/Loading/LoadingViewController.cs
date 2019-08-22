@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using mindstormstudios.hypercausalplugin;
 
 public class LoadingViewController : MonoBehaviour
 {
@@ -98,6 +99,10 @@ public class LoadingViewController : MonoBehaviour
         }
         Debug.Log(" LoadScene");
         SceneManager.LoadScene("GameScene");
+
+
+
+        HCController.Instance();
         //async = SceneManager.LoadSceneAsync("Gameplay");
         //async.allowSceneActivation = false;
 

@@ -145,6 +145,8 @@ public class AnimationController : SingletonMono<AnimationController>
             case CharacterAnimtaionType.Tornado:
                 return UIRefs.Instance.tornado;
 
+            case CharacterAnimtaionType.SharkJump:
+                return UIRefs.Instance.shark;
             default:
                 return UIRefs.Instance.characterAnimationSprites[CharacterID].shiveringFrames;
 

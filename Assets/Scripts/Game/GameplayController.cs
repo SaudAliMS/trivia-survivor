@@ -17,6 +17,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public Transform stone;
     public TornadoController tornado;
+    public SharkController sharkController;
     public Transform characterContainer;
     public GameObject characterPrefab;
     List<QuestionData> levelData;
@@ -50,7 +51,6 @@ public class GameplayController : SingletonMono<GameplayController>
         leftIce.gameObject.SetActive(false);
         rightIce.gameObject.SetActive(false);
         wholeIce.gameObject.SetActive(true);
-
 
         stone.gameObject.SetActive(false);
 
@@ -89,8 +89,6 @@ public class GameplayController : SingletonMono<GameplayController>
             return characterController;
         }
     }
-
-
 
     void QuestionCompleted()
     {
@@ -485,15 +483,17 @@ public class GameplayController : SingletonMono<GameplayController>
         }
         else
         {
-            int randomNo = Random.Range(0, 100);
-            if(randomNo < 50)
-            {
-                Invoke("ThrowLightning", 0.5f);
-            }
-            else
-            {
-                Invoke("ShowTornado", 0.5f);
-            }
+
+            Invoke("ShowShark", 0.5f);
+            //int randomNo = Random.Range(0, 100);
+            //if(randomNo < 50)
+            //{
+            //    Invoke("ThrowLightning", 0.5f);
+            //}
+            //else
+            //{
+            //    Invoke("ShowTornado", 0.5f);
+            //}
         }
     }
 
@@ -669,6 +669,78 @@ public class GameplayController : SingletonMono<GameplayController>
 
     }
 
+    void ShowShark()
+    {
+        Vector3 sharkPos = new Vector3(-2.5f, -7, 0);
+        if (levelData[questionIndex].AnswerIsTrue)
+        {
+            sharkPos = new Vector3(2f, -7, 0);
+        }
+        sharkController.Animate(sharkPos);
+
+        transform.DOMove(Vector3.zero, 0.75f).OnComplete(() =>
+        {
+            bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            for (int count = 0; count < characterList.Count; count++)
+            {
+                CharacterController characterController = characterList[count];
+                bool userAnswerYes = characterController.UserAnswerYes();
+                if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+                {
+                    Vector3 startPos = characterController.transform.position;
+                    Vector3 finalPos = startPos;
+                    if (Random.Range(0, 100) < 50)
+                    {
+                        finalPos.y = Random.Range(2.25f, 3f);
+                    }
+                    else
+                    {
+                        finalPos.y = Random.Range(-2.5f, -3.5f);
+                    }
+                    finalPos.x += Random.Range(-1.2f, 1.2f);
+
+                    characterController.isDying = true;
+                    characterController.ShowBlood();
+                    characterController.transform.DOScale(1f, 0.3f);
+                    characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                    float time = Random.Range(0.3f, 0.6f);
+                    characterController.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(() => {
+                        characterController.PlayFreezeAnimation();
+
+                    });
+
+                }
+            }
+
+            bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+            {
+                Vector3 startPos = myCharacter.transform.position;
+                Vector3 finalPos = startPos;
+                if (Random.Range(0, 100) < 50)
+                {
+                    finalPos.y = Random.Range(3f, 4f);
+                }
+                else
+                {
+                    finalPos.y = Random.Range(-3f, -4f);
+                }
+                finalPos.x += Random.Range(-1f, 1f);
+
+                myCharacter.isDying = true;
+                myCharacter.ShowBlood();
+                myCharacter.transform.DOScale(1f, 0.3f);
+                myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                myCharacter.transform.DOMove(finalPos, 0.5f).SetEase(Ease.Linear).OnComplete(() => {
+                    myCharacter.PlayFreezeAnimation();
+
+                });
+            }
+
+            Invoke("AnalytizeUserAnswer", 2.5f);
+        });
+
+    }
     #endregion Death Animations
 
     public int GetRequiredXPForLevelUpdate()
