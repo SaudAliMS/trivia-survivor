@@ -10,8 +10,8 @@ public class IceAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foam.transform.DOLocalMoveY(-1.6f, 2f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
-        wave.transform.DOLocalMoveY(-1.8f, 1.25f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        foam.transform.DOLocalMoveY(-1.5f, 2f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        wave.transform.DOLocalMoveY(-1.9f, 1.25f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
 
     }
 
