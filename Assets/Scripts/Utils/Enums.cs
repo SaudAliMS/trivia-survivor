@@ -30,7 +30,7 @@ public enum CharacterAnimtaionType : int
     Lightning,
     GameWin,
     Tornado,
-    SharkJump
+    SharkJump,
     Happy,
     CorrectAnswer
 }
