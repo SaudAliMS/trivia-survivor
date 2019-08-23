@@ -253,13 +253,13 @@ public class CharacterController : MonoBehaviour
         transform.DOKill();
         transform.localRotation = Quaternion.Euler(0,0,-1);
         transform.DOLocalRotate(new Vector3(0, 0, 1), Random.Range(0.03f,0.05f)).SetLoops(-1, LoopType.Yoyo);
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 0.5f);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Idle, false, 1.2f);
     }
 
     public void PlayHappyAnimation() 
     {
         //transform.DOKill();
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Happy, false, 0.5f);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Happy, false, 1f);
     }
 
     public void PlayCorrectAnswerAnimation()
@@ -297,7 +297,7 @@ public class CharacterController : MonoBehaviour
             {
                 PlayIdleAnimation();
             }
-            yield return new WaitForSeconds(Random.Range(0.7f, 1.2f));
+            yield return new WaitForSeconds(Random.Range(1f, 1.5f));
         }
     }
 

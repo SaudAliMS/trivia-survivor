@@ -9,14 +9,17 @@ public class SoundController : SingletonMono<SoundController> {
 	public AudioSource sfxAudioSource;
     public AudioSource musicAudioSource;
 
-    public AudioClip ReadySound;
-    public AudioClip GoSound;
-    public AudioClip TornadoSound;
-    public AudioClip LightningSound;
-    public AudioClip GlacierBreakSound;
-    public AudioClip TimeUpSound;
-    public AudioClip ClickSound;
-    public AudioClip CoinClinkSound;
+    public AudioClip readySound;
+    public AudioClip goSound;
+    public AudioClip tornadoSound;
+    public AudioClip lightningSound;
+    public AudioClip glacierBreakSound;
+    public AudioClip sharkDeathSound;
+    public AudioClip waveDeathSound;
+    public AudioClip correctAnswerSound;
+    public AudioClip timeUpSound;
+    public AudioClip clickSound;
+    public AudioClip coinClinkSound;
     public AudioClip waterSplashSound;
     public AudioClip winSound;
     public AudioClip loseSound;
@@ -93,21 +96,21 @@ public class SoundController : SingletonMono<SoundController> {
 		switch (type) 
 		{
             case Sfx.Ready:
-                return ReadySound;
+                return readySound;
             case Sfx.Go:
-                return GoSound;
+                return goSound;
             case Sfx.Tornado:
-                return TornadoSound;
+                return tornadoSound;
             case Sfx.Lightning:
-                return LightningSound;
+                return lightningSound;
             case Sfx.GlacierBreak:
-                return GlacierBreakSound;
+                return glacierBreakSound;
             case Sfx.TimeUp:
-                return TimeUpSound;
+                return timeUpSound;
             case Sfx.Click:
-                return ClickSound;
+                return clickSound;
             case Sfx.CoinClink:
-                return CoinClinkSound;
+                return coinClinkSound;
             case Sfx.WaterSplash:
                 return waterSplashSound;
             case Sfx.Win:
@@ -116,6 +119,12 @@ public class SoundController : SingletonMono<SoundController> {
                 return loseSound;
             case Sfx.NewQuestion:
                 return newQuestionSound;
+            case Sfx.Correct:
+                return correctAnswerSound;
+            case Sfx.SharkDeath:
+                return sharkDeathSound;
+            case Sfx.WaveDeath:
+                return waveDeathSound;
             default:
 				return null;
 		}

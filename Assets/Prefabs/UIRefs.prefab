@@ -51,6 +51,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f094a1d181749418fb1abc3d00865908, type: 3}
     shiveringFrames:
     - {fileID: 21300000, guid: d418c2071ec9a4194a8f4b9ce8ce050d, type: 3}
+    - {fileID: 21300000, guid: 11a124005cccd40cd8c45e8fe1f2b81a, type: 3}
+    - {fileID: 21300000, guid: d418c2071ec9a4194a8f4b9ce8ce050d, type: 3}
     shockFrames:
     - {fileID: 21300000, guid: 452da8cd1c9104b2bb8cbb8afac847da, type: 3}
     - {fileID: 21300000, guid: 204bc6165436147669a0abc7dbd3dd41, type: 3}
@@ -71,6 +73,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: d940b9a58116e45fcb8929e9528c7e4d, type: 3}
     happyFrames:
     - {fileID: 21300000, guid: 527b70aa0bf81458ea681ba2b01d4a9a, type: 3}
+    - {fileID: 21300000, guid: 5cf14c5f6b9f44f869b15688f904cebc, type: 3}
+    - {fileID: 21300000, guid: 527b70aa0bf81458ea681ba2b01d4a9a, type: 3}
     correctAnswerFrames:
     - {fileID: 21300000, guid: f0a2b7307ecde4873943cf7b534b0012, type: 3}
   - frozenFrames:
@@ -78,6 +82,8 @@ MonoBehaviour:
     cryingFrames:
     - {fileID: 21300000, guid: b082a96c583214e87a2a9c009e0bd1a5, type: 3}
     shiveringFrames:
+    - {fileID: 21300000, guid: bbdf0cd38880046e184ab544fb6187ee, type: 3}
+    - {fileID: 21300000, guid: 67d84ce8411e042b8bdbb58cc455f8d8, type: 3}
     - {fileID: 21300000, guid: bbdf0cd38880046e184ab544fb6187ee, type: 3}
     shockFrames:
     - {fileID: 21300000, guid: 47be38337cbcf43adb5277a7a82d6e08, type: 3}
@@ -97,6 +103,8 @@ MonoBehaviour:
     gameWinFrames: []
     happyFrames:
     - {fileID: 21300000, guid: fd5574784e3be4ebe8804f9847e28e76, type: 3}
+    - {fileID: 21300000, guid: 538f7729275d44869bd00c666e01a663, type: 3}
+    - {fileID: 21300000, guid: fd5574784e3be4ebe8804f9847e28e76, type: 3}
     correctAnswerFrames:
     - {fileID: 21300000, guid: 4a0eed649103e4273b2c1219e8577003, type: 3}
   - frozenFrames:
@@ -104,6 +112,8 @@ MonoBehaviour:
     cryingFrames:
     - {fileID: 21300000, guid: a858916a1c3e944f0a4546c9e2bae63d, type: 3}
     shiveringFrames:
+    - {fileID: 21300000, guid: f5d3b5a8751fe48b78610328fcf82a83, type: 3}
+    - {fileID: 21300000, guid: bf3463a9228db4c07ae2173074f6cd79, type: 3}
     - {fileID: 21300000, guid: f5d3b5a8751fe48b78610328fcf82a83, type: 3}
     shockFrames:
     - {fileID: 21300000, guid: 5928e3a34f11c47eab0e02005ec6c213, type: 3}
@@ -131,6 +141,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3943ba387f7ab48f4b5101b41277cf4d, type: 3}
     shiveringFrames:
     - {fileID: 21300000, guid: a434d5e42550e4ee88f2fd5b5ac2461a, type: 3}
+    - {fileID: 21300000, guid: 90b33b22903f349abb746589de92f563, type: 3}
+    - {fileID: 21300000, guid: a434d5e42550e4ee88f2fd5b5ac2461a, type: 3}
     shockFrames:
     - {fileID: 21300000, guid: 7978be04bf51e404086b19754f9a9a33, type: 3}
     - {fileID: 21300000, guid: 58899f27ae7044a9baaf083d166e3aa8, type: 3}
@@ -149,6 +161,8 @@ MonoBehaviour:
     gameWinFrames: []
     happyFrames:
     - {fileID: 21300000, guid: f40ab62e293f048ee9afe0c6529c905f, type: 3}
+    - {fileID: 21300000, guid: a41e8b7d0af084fd2805770bdee46022, type: 3}
+    - {fileID: 21300000, guid: f40ab62e293f048ee9afe0c6529c905f, type: 3}
     correctAnswerFrames:
     - {fileID: 21300000, guid: c5f58ca2b0d944cc9b0a329de1c5253b, type: 3}
   - frozenFrames:
@@ -156,6 +170,8 @@ MonoBehaviour:
     cryingFrames:
     - {fileID: 21300000, guid: b6a9ca89ddc1049cdbeca05ec3347c6b, type: 3}
     shiveringFrames:
+    - {fileID: 21300000, guid: 863335d312fdb4fb9927826e98d0528a, type: 3}
+    - {fileID: 21300000, guid: 4e8747e03690740e9bc855ec2bf959ca, type: 3}
     - {fileID: 21300000, guid: 863335d312fdb4fb9927826e98d0528a, type: 3}
     shockFrames:
     - {fileID: 21300000, guid: e5727bdabd32b40bd8b566e2fbfd59ab, type: 3}
@@ -175,6 +191,8 @@ MonoBehaviour:
     gameWinFrames: []
     happyFrames:
     - {fileID: 21300000, guid: 6ed7b988fb5fe45268943ed019b6af65, type: 3}
+    - {fileID: 21300000, guid: ff0f196f9509c4219a862ed0a58aeaad, type: 3}
+    - {fileID: 21300000, guid: 6ed7b988fb5fe45268943ed019b6af65, type: 3}
     correctAnswerFrames:
     - {fileID: 21300000, guid: c92d5bd50ee054c3ea7df023c8700423, type: 3}
   - frozenFrames:
@@ -182,6 +200,8 @@ MonoBehaviour:
     cryingFrames:
     - {fileID: 21300000, guid: ec845c9cd6cea4061a70d572b36297ef, type: 3}
     shiveringFrames:
+    - {fileID: 21300000, guid: a959617fe00fe4ce895a2036e6e9b9e9, type: 3}
+    - {fileID: 21300000, guid: 68c03de8f8cd8477497ea8e91b6a9a58, type: 3}
     - {fileID: 21300000, guid: a959617fe00fe4ce895a2036e6e9b9e9, type: 3}
     shockFrames:
     - {fileID: 21300000, guid: ffbc533c8ee92411cbdea0eaed88a1bd, type: 3}
@@ -200,6 +220,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 7e848bf4783c144d3bcfbdae1505982e, type: 3}
     gameWinFrames: []
     happyFrames:
+    - {fileID: 21300000, guid: a184d8b4222cc46b2a8074c41aff23ed, type: 3}
+    - {fileID: 21300000, guid: 23a873fd8c40242a891368328a22f8ff, type: 3}
     - {fileID: 21300000, guid: a184d8b4222cc46b2a8074c41aff23ed, type: 3}
     correctAnswerFrames:
     - {fileID: 21300000, guid: e6dd46a68144848c9980cfc154bc4030, type: 3}
