@@ -24,15 +24,23 @@ public class MainMenuViewController : MonoBehaviour
 
     public void Open()
     {
-        ratio = ((float)Screen.height / (float)Screen.width);
-        screenWidth = Screen.width / ratio;
         if (Utility.IsIphoneX) 
         {
             topBar.GetComponent<RectTransform>().DOAnchorPosY(-150, 0.01f);
         }
         UpdateUI();
         gameObject.SetActive(true);
+        StartCoroutine(UpdateCellSize());
+
+    }
+
+    IEnumerator UpdateCellSize() 
+    {
+        yield return new WaitForEndOfFrame();
+        ratio = ((float)Screen.height / (float)Screen.width);
+        screenWidth = viewport.GetComponent<RectTransform>().rect.size.x;
         content.GetComponent<GridLayoutGroup>().cellSize = new Vector2(screenWidth, content.GetComponent<GridLayoutGroup>().cellSize.y);
+        UpdateArrowsState();
     }
 
     private void UpdateUI()
@@ -44,7 +52,6 @@ public class MainMenuViewController : MonoBehaviour
 
         tapToStart.DOKill();
         tapToStart.DOScale(0.925f, 0.85f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
-        UpdateArrowsState();
     }
 
     public void Close()
