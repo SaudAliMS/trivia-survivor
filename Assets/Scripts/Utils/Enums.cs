@@ -52,6 +52,7 @@ public enum Sfx
     WaterSplash,
     Win,
     Lose,
-    NewQuestion
+    NewQuestion,
+    Scream
 }
 

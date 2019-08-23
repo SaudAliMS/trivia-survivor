@@ -419,7 +419,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public void LoadQuestion()
     {
-        //SoundController.Instance.PlaySfx(Sfx.NewQuestion, 0.05f);
+        SoundController.Instance.PlaySfx(Sfx.NewQuestion, 0.05f);
         questionNumber += 1;
         myCharacter.SetPlayerUIStauts();
         timerValue = GameConstants.QUESTION_TIME;
@@ -644,6 +644,8 @@ public class GameplayController : SingletonMono<GameplayController>
         transform.DOMove(Vector3.zero, 0.6f).OnComplete(() =>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            SoundController.Instance.PlaySfx(Sfx.Scream, 0.3f);
+
             for (int count = 0; count < characterList.Count; count++)
             {
                 CharacterController characterController = characterList[count];
@@ -693,6 +695,7 @@ public class GameplayController : SingletonMono<GameplayController>
                 myCharacter.transform.DOScale(1f, 0.3f);
                 myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                 myCharacter.transform.DOMove(finalPos, 0.5f).SetEase(Ease.Linear).OnComplete(() => {
+                    //SoundController.Instance.PlaySfx(Sfx.Scream, 0.5f);
                     myCharacter.PlayDeathAnimation();
 
                 });
@@ -718,6 +721,8 @@ public class GameplayController : SingletonMono<GameplayController>
             for (int count = 0; count < characterList.Count; count++)
             {
                 CharacterController characterController = characterList[count];
+                SoundController.Instance.PlaySfx(Sfx.Scream, 0.3f);
+
                 bool userAnswerYes = characterController.UserAnswerYes();
                 if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
                 {
@@ -735,6 +740,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
                     characterController.isDying = true;
                     characterController.ShowBlood();
+                    //SoundController.Instance.PlaySfx(Sfx.Scream, 0.5f);
                     characterController.transform.DOScale(1f, 0.3f);
                     characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                     float time = Random.Range(0.3f, 0.6f);
@@ -762,6 +768,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
                 myCharacter.isDying = true;
                 myCharacter.ShowBlood();
+                //SoundController.Instance.PlaySfx(Sfx.Scream, 0.5f);
                 myCharacter.transform.DOScale(1f, 0.3f);
                 myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                 float time = Random.Range(0.3f, 0.6f);
@@ -789,6 +796,8 @@ public class GameplayController : SingletonMono<GameplayController>
         transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
         {
             iceAnimation.AnimateWater(waveDropletPos);
+            SoundController.Instance.PlaySfx(Sfx.Scream, 0.3f);
+
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             for (int count = 0; count < characterList.Count; count++)
             {
@@ -803,6 +812,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
                     characterController.isDying = true;
                     //characterController.ShowWater();
+                    //SoundController.Instance.PlaySfx(Sfx.Scream, 0.5f);
                     characterController.transform.DOScale(1f, 0.3f);
                     characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                     float time = Random.Range(0.3f, 0.6f);
@@ -823,6 +833,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
                 myCharacter.isDying = true;
                 //myCharacter.ShowWater();
+                //SoundController.Instance.PlaySfx(Sfx.Scream, 0.5f);
                 myCharacter.transform.DOScale(1f, 0.3f);
                 myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                 float time = Random.Range(0.3f, 0.6f);

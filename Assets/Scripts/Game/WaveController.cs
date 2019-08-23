@@ -21,7 +21,7 @@ public class WaveController : MonoBehaviour
         //tornadoPath.Add(new Vector3(posX + 0.2f, 2f, 0));
         //tornadoPath.Add(Vector3.up * 7);
 
-        Invoke("PlayWaveSound", 0.5f);
+        Invoke("PlayWaveSound", 0.4f);
         wave.transform.DOMoveY(1, 1f).OnComplete(() => {
             wave.gameObject.SetActive(false);
             AnimationController.Instance.StopAnimation(wave);
@@ -37,6 +37,6 @@ public class WaveController : MonoBehaviour
 
     private void PlayWaveSound() 
     {
-     //   SoundController.Instance.PlaySfx(Sfx.Tornado, 0.5f);
+        SoundController.Instance.PlaySfx(Sfx.WaveDeath, 0.5f);
     }
 }

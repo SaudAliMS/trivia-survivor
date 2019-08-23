@@ -24,6 +24,7 @@ public class SoundController : SingletonMono<SoundController> {
     public AudioClip winSound;
     public AudioClip loseSound;
     public AudioClip newQuestionSound;
+    public AudioClip[] screams;
 
     private bool musicState = true;
 	private bool soundState = true;
@@ -125,6 +126,8 @@ public class SoundController : SingletonMono<SoundController> {
                 return sharkDeathSound;
             case Sfx.WaveDeath:
                 return waveDeathSound;
+            case Sfx.Scream:
+                return screams[Random.Range(0,screams.Length-1)];
             default:
 				return null;
 		}

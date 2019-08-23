@@ -51,11 +51,11 @@ public class SharkController : MonoBehaviour
         //Debug.Log("total time " + totalTime);
 
         float animationTime = 0.2f;
-        //Invoke("PlayTornadoSound", 0.5f);
+        Invoke("PlaySharkSound", time1);
         Sequence sequence = DOTween.Sequence();
         sequence.Append(shark.transform.DOMove(posY1, time1).SetEase(Ease.Linear));
-        sequence.InsertCallback(time1,() => {
 
+        sequence.InsertCallback(time1,() => {
              AnimationController.Instance.PlayAnimation(OnAnimationComplete, shark, -1, CharacterAnimtaionType.SharkJump, false, animationTime);
 
             // set Jump frame
@@ -98,9 +98,9 @@ public class SharkController : MonoBehaviour
     {
     }
 
-    private void PlayTornadoSound()
+    private void PlaySharkSound()
     {
-        SoundController.Instance.PlaySfx(Sfx.Tornado, 0.5f);
+        SoundController.Instance.PlaySfx(Sfx.SharkDeath, 0.5f);
     }
 
   

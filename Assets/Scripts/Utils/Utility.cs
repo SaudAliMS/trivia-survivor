@@ -436,7 +436,7 @@ public static class Utility
         int rows   = actualIndex / 3;
         int colums = (actualIndex % 3) - 1;
 
-        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.5f;
+        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.4f;
         return finalPos;
     }
 
