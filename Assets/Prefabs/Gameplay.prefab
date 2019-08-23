@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 5973636338595750873}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1131635946
 SpriteRenderer:
@@ -119,12 +119,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191627140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.66, y: 3.6, z: 0}
+  m_LocalPosition: {x: -1.66, y: 3.6000001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4004084274216796625}
-  m_Father: {fileID: 8772920385542512360}
-  m_RootOrder: 0
+  m_Father: {fileID: 5973636338595750873}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1191627143
 SpriteRenderer:
@@ -15085,7 +15085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8527458001514796075
 Transform:
   m_ObjectHideFlags: 0
@@ -20021,8 +20021,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.16666667, z: 1}
-  m_Children:
-  - {fileID: 1191627141}
+  m_Children: []
   m_Father: {fileID: 8527458001514796075}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20375,6 +20374,7 @@ MonoBehaviour:
   bloodSplat: {fileID: 6351142729651167924}
   waterSplatOnSurface: {fileID: 2654791726360468167}
   isDying: 0
+  positionIndex: 0
 --- !u!1 &5973636338486360920
 GameObject:
   m_ObjectHideFlags: 0
@@ -20520,6 +20520,7 @@ Transform:
   - {fileID: 5973636339349005061}
   - {fileID: 5973636338816165549}
   - {fileID: 8080560423994874825}
+  - {fileID: 1191627141}
   - {fileID: 1131635944}
   m_Father: {fileID: 0}
   m_RootOrder: 0

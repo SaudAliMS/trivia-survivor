@@ -235,6 +235,7 @@ public class GameplayController : SingletonMono<GameplayController>
     void PopulateCharacters()
     {
         bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+        int positionIndex = 0;
 
         Utility.ResetPositionForCharacterRight();
         // right characters
@@ -242,9 +243,11 @@ public class GameplayController : SingletonMono<GameplayController>
         for (int count= 0; count < 5; count++)
         {
             // new Vector3(1.25f, 0.5f, 0);
-            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
-            CharacterController characterController = GetCharacter();
+
+            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos,out positionIndex);
             int characterId = Random.Range(0, UIRefs.Instance.characterAnimationSprites.Count);
+
+            CharacterController characterController = GetCharacter();
             characterController.transform.SetParent(characterContainer);
             characterController.SetupCharacter(characterId, rightSidePos,false);
             characterList.Add(characterController);
@@ -255,8 +258,7 @@ public class GameplayController : SingletonMono<GameplayController>
         Vector3 leftCenterPos = GetLeftSidePosition();
         for (int count = 0; count < 4; count++)
         {
-            //new Vector3(-1.25f,0.5f, 0);
-            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos,out positionIndex);
 
             CharacterController characterController = GetCharacter();
             int characterId = Random.Range(0, UIRefs.Instance.characterAnimationSprites.Count);
@@ -266,7 +268,7 @@ public class GameplayController : SingletonMono<GameplayController>
         }
 
         Vector3 leftCenterPos1 = GetLeftSidePosition();//new Vector3(-1.25f, 0.5f, 0);
-        Vector3 leftSidePos1 = Utility.GetPositionForCharacterLeft(leftCenterPos1);
+        Vector3 leftSidePos1 = Utility.GetPositionForCharacterLeft(leftCenterPos1, out positionIndex);
 
         myCharacter = GetCharacter();
         int myCharacterId = GameConstants.MY_CHARACTER_ID;
@@ -326,24 +328,23 @@ public class GameplayController : SingletonMono<GameplayController>
         }
         //bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
 
+        int positionIndex = 0;
         Vector2 myCharacterPos = myCharacter.transform.position;
         // right characters
         Utility.ResetPositionForCharacterRight();
         Vector3 rightCenterPos = GetRightSidePosition();
         for (int count = 0; count < characterMovingRight.Count; count++)
         {
-            //new Vector3(1.25f, 0.5f, 0);
+            int index = characterMovingRight[count];
+            CharacterController characterController = characterList[index];
 
-            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
+            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos,out positionIndex);
             while(Vector2.Distance(rightSidePos, myCharacterPos) < 0.1f)
             {
                 Debug.Log("Position Overlap Changing to new pos");
-                rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos);
+                rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos, out positionIndex);
             }
 
-            int index = characterMovingRight[count];
-            //Debug.Log("Characters moving right" + index);
-            CharacterController characterController = characterList[index];
             characterController.Shuffle(rightSidePos,false);
         }
 
@@ -352,17 +353,16 @@ public class GameplayController : SingletonMono<GameplayController>
         // left characters
         for (int count = 0; count < characterMovingLeft.Count; count++)
         {
-            //new Vector3(-1.25f, 0.5f, 0);
-            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+            int index = characterMovingLeft[count];
+            CharacterController characterController = characterList[index];
+
+            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos, out positionIndex);
             while (Vector2.Distance(leftSidePos, myCharacterPos) < 0.1f)
             {
                 Debug.Log("Position Overlap Changing to new pos");
-                leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos);
+                leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos, out positionIndex);
             }
 
-            int index = characterMovingLeft[count];
-            //Debug.Log("characterMovingLeft" + index);
-            CharacterController characterController = characterList[index];
             characterController.Shuffle(leftSidePos,true);
         }
     }
@@ -439,12 +439,24 @@ public class GameplayController : SingletonMono<GameplayController>
     {
         if (canAnswer)
         {
+            Vector3 currentPos = myCharacter.transform.position;
+            int lastPlayerIndex = myCharacter.positionIndex;
+            int positionIndex = 0;
+
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             Vector3 leftCenterPos = GetLeftSidePosition();//new Vector3(-1.25f, 0.5f, 0);
-            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos,false);
-
+            Vector3 leftSidePos = Utility.GetPositionForCharacterLeft(leftCenterPos,out positionIndex);
             //canAnswer = false;
-            myCharacter.ShuffleMyPlayer(leftSidePos,true);
+            myCharacter.ShuffleMyPlayer(leftSidePos,true, positionIndex);
+
+            if (currentPos.x < 0)
+            {
+                Utility.AddPositionForCharacterLeft(lastPlayerIndex);
+            }
+            else
+            {
+                Utility.AddPositionForCharacterRight(lastPlayerIndex);
+            }
         }
     }
 
@@ -452,12 +464,26 @@ public class GameplayController : SingletonMono<GameplayController>
     {
         if (canAnswer)
         {
+            Vector3 currentPos = myCharacter.transform.position;
+            int lastPlayerIndex = myCharacter.positionIndex;
+            int positionIndex = 0;
+
+            Vector3 currentPosition = myCharacter.transform.position;
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             Vector3 rightCenterPos = GetRightSidePosition();//new Vector3(1.25f, 0.5f, 0);
-            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos,false);
+            Vector3 rightSidePos = Utility.GetPositionForCharacterRight(rightCenterPos, out positionIndex);
 
             //canAnswer = false;
-            myCharacter.ShuffleMyPlayer(rightSidePos,false);
+            myCharacter.ShuffleMyPlayer(rightSidePos,false, positionIndex);
+
+            if (currentPos.x < 0)
+            {
+                Utility.AddPositionForCharacterLeft(lastPlayerIndex);
+            }
+            else
+            {
+                Utility.AddPositionForCharacterRight(lastPlayerIndex);
+            }
         }
     }
 
@@ -484,12 +510,12 @@ public class GameplayController : SingletonMono<GameplayController>
 
     Vector3 GetRightSidePosition()
     {
-        return rightIce.transform.position + Vector3.down * 0f;// + Vector3.left * 0.1f;
+        return rightIce.transform.position + Vector3.down * 0.7f;// + Vector3.left * 0.1f;
     }
 
     Vector3 GetLeftSidePosition()
     {
-        return leftIce.transform.position + Vector3.down * 0.25f;// + Vector3.right * 0.1f;
+        return leftIce.transform.position + Vector3.down * 0.9f;// + Vector3.right * 0.1f;
     }
 
     #region Death Animations
@@ -509,24 +535,24 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
 
-            Invoke("ShowWave", 0.3f);
-            //int randomNo = Random.Range(0, 100);
-            //if(randomNo < 25)
-            //{
-            //    Invoke("ThrowLightning", 0.3f);
-            //}
-            //else if(randomNo < 50)
-            //{
-            //    Invoke("ShowTornado", 0.3f);
-            //}
-            //else if (randomNo < 75)
-            //{
-            //    Invoke("ShowWave", 0.3f);
-            //}
-            //else
-            //{
-            //    Invoke("ShowShark", 0.3f);
-            //}
+//            Invoke("ShowWave", 0.3f);
+            int randomNo = Random.Range(0, 100);
+            if(randomNo < 25)
+            {
+                Invoke("ThrowLightning", 0.3f);
+            }
+            else if(randomNo < 50)
+            {
+                Invoke("ShowTornado", 0.3f);
+            }
+            else if (randomNo < 75)
+            {
+                Invoke("ShowWave", 0.3f);
+            }
+            else
+            {
+                Invoke("ShowShark", 0.3f);
+            }
         }
     }
 
@@ -670,9 +696,7 @@ public class GameplayController : SingletonMono<GameplayController>
                     float time  = Random.Range(0.3f, 0.6f);
                     characterController.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(()=> {
                         characterController.PlayFreezeAnimation();
-
                     });
-
                 }
             }
 

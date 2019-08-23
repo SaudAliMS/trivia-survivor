@@ -21,12 +21,12 @@ public class CharacterController : MonoBehaviour
     private bool isOtherPlayer;
     private bool isIdleHappyAnimPlaying = false;
     private Coroutine idleHappyAnimCoroutine;
-
+    public int positionIndex;
 
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
     {
         bloodSplat.transform.SetParent(transform);
-        bloodSplat.transform.localPosition = Vector3.down * 0.2f;
+        bloodSplat.transform.localPosition = Vector3.zero;// * 0.2f;
         bloodSplat.transform.localScale = Vector3.one * 1.2f;
 
         //waterSplatOnSurface.transform.SetParent(transform);
@@ -79,8 +79,6 @@ public class CharacterController : MonoBehaviour
     public void Shuffle(Vector3 newPos, bool answer)
     {
         PlayWalkAnimation(); 
-
-        //newPos += Vector3.down * 0.8f;
         myAnswer = answer;
        
         float time  = Vector3.Distance(transform.position, newPos) / 8f;
@@ -114,11 +112,10 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void ShuffleMyPlayer(Vector3 newPos, bool answer)
+    public void ShuffleMyPlayer(Vector3 newPos, bool answer, int pIndex )
     {
+        positionIndex = pIndex;
         PlayWalkAnimation();
-
-        newPos += Vector3.down * 0.8f;
         myAnswer = answer;
        
         float time = Vector3.Distance(transform.localPosition, newPos) / 8f;

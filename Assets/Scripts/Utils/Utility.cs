@@ -419,19 +419,24 @@ public static class Utility
         }
     }
 
-    public static Vector3 GetPositionForCharacterLeft(Vector3 position,bool removeUsedIndex = true)
+    public static void AddPositionForCharacterLeft(int index)
+    {
+        positionIndexLeft.Add(index);
+    }
+
+    public static Vector3 GetPositionForCharacterLeft( Vector3 position,out int index)
     {
         if (positionIndexLeft.Count == 0)
         {
-            Utility.ResetPositionForCharacterLeft();
+            Debug.Log("No more position left");
+            //return currentPosition;
+            //Utility.ResetPositionForCharacterLeft();
         }
 
         int randomIndex = UnityEngine.Random.Range(0, positionIndexLeft.Count);
         int actualIndex = positionIndexLeft[randomIndex];
-        if (removeUsedIndex)
-        { 
-            positionIndexLeft.RemoveAt(randomIndex);
-        }
+        positionIndexLeft.RemoveAt(randomIndex);
+        index = actualIndex;
 
         int rows   = actualIndex / 3;
         int colums = (actualIndex % 3) - 1;
@@ -440,24 +445,28 @@ public static class Utility
         return finalPos;
     }
 
-    public static Vector3 GetPositionForCharacterRight(Vector3 position, bool removeUsedIndex = true)
+    public static void AddPositionForCharacterRight(int index)
+    {
+        positionIndexRight.Add(index);
+    }
+
+    public static Vector3 GetPositionForCharacterRight(Vector3 position, out int index)
     {
         if (positionIndexRight.Count == 0)
         {
-            Utility.ResetPositionForCharacterRight();
+            Debug.Log("No more position left");
+            //return currentPosition;
         }
 
         int randomIndex = UnityEngine.Random.Range(0, positionIndexRight.Count);
         int actualIndex = positionIndexRight[randomIndex];
-        if (removeUsedIndex)
-        {
-            positionIndexRight.RemoveAt(randomIndex);
-        }
+        positionIndexRight.RemoveAt(randomIndex);
 
+        index = actualIndex;
         int rows = actualIndex / 3;
         int colums = (actualIndex % 3) - 1;
 
-        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.4f;
+        Vector3 finalPos = position + Vector3.right * colums * 0.4f + Vector3.up * rows * 0.52f;
         return finalPos;
     }
 
