@@ -20,7 +20,7 @@ public class CharacterController : MonoBehaviour
     private bool myAnswer;
     private bool isOtherPlayer;
     private bool isIdleHappyAnimPlaying = false;
-    private IEnumerator idleHappyAnimCoroutine;
+    private Coroutine idleHappyAnimCoroutine;
 
 
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
@@ -49,6 +49,7 @@ public class CharacterController : MonoBehaviour
         otherEmoticon.gameObject.SetActive(false);
 
         SetPlayerUIStauts();
+        StopIdleHappyAnimation();
         PlayIdleHappyAnim();
     }
 
@@ -286,7 +287,9 @@ public class CharacterController : MonoBehaviour
 
     public void PlayCorrectAnswerAnimation()
     {
-        //transform.DOKill();
+        StopIdleHappyAnimation();
+        transform.DOKill();
+        transform.DOLocalMoveY(transform.localPosition.y + 0.1f, Random.Range(0.1f, 0.2f)).SetLoops(2, LoopType.Yoyo);
         AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.CorrectAnswer, false, 0.5f);
     }
 
@@ -299,24 +302,26 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void PlayIdleHappyAnim(float delay = 0) 
+    public void PlayIdleHappyAnim(float delay = 0)
     {
-        idleHappyAnimCoroutine = PlayIdleHappyAnimation(delay);
-        StartCoroutine(idleHappyAnimCoroutine);
+        if (!isIdleHappyAnimPlaying)
+        {
+            isIdleHappyAnimPlaying = true;
+            idleHappyAnimCoroutine = StartCoroutine(PlayIdleHappyAnimation(delay));
+        }
     }
-    public IEnumerator PlayIdleHappyAnimation(float initialDelay = 0)
+
+    IEnumerator PlayIdleHappyAnimation(float initialDelay = 0)
     {
-        if (isIdleHappyAnimPlaying) { yield return null; }
-        isIdleHappyAnimPlaying = true;
         yield return new WaitForSeconds(initialDelay);
         while (isIdleHappyAnimPlaying)
         {
-            if (Random.Range(1,11) <= 2)
+            if (Random.Range(1, 11) <= 2)
             {
                 PlayHappyAnimation();
                 yield return new WaitForSeconds(Random.Range(2f, 2.5f));
             }
-            else 
+            else
             {
                 PlayIdleAnimation();
                 yield return new WaitForSeconds(Random.Range(2f, 2.5f));
