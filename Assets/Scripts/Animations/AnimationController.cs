@@ -153,6 +153,9 @@ public class AnimationController : SingletonMono<AnimationController>
 
             case CharacterAnimtaionType.SharkJump:
                 return UIRefs.Instance.shark;
+
+            case CharacterAnimtaionType.WaveSplash:
+                return UIRefs.Instance.waveSplash;
             default:
                 return UIRefs.Instance.characterAnimationSprites[CharacterID].shiveringFrames;
 

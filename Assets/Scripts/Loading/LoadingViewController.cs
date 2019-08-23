@@ -98,11 +98,13 @@ public class LoadingViewController : MonoBehaviour
             Debug.LogError("Meta Loading Failed");
         }
         Debug.Log(" LoadScene");
+
+        HCController.Instance();
+
         SceneManager.LoadScene("GameScene");
 
 
 
-        HCController.Instance();
         //async = SceneManager.LoadSceneAsync("Gameplay");
         //async.allowSceneActivation = false;
 

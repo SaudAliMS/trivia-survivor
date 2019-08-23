@@ -5,55 +5,37 @@ using DG.Tweening;
 
 public class WaveController : MonoBehaviour
 {
-    public GameObject wavePrefab;
-    //// Start is called before the first frame update
-    void Start()
+    public SpriteRenderer wave;
+    public void Animate(Vector3 startingPos)
     {
-        for(int count =0; count < 5; count++)
-        {
-            GameObject waveGO = Instantiate(wavePrefab);
-            waveGO.transform.SetParent(transform);
-            float posX = Random.Range(-4f, 2f);
-            float posY = Random.Range(-5f, 4f);
-            Vector3 initialPos = new Vector3(posX, posY, 0);
-            waveGO.transform.localPosition = initialPos;
-            Vector3 finalPos = new Vector3(4, posY, 0);
+        wave.transform.position = startingPos;
+        wave.DOKill();
 
-            int index = Random.Range(0, UIRefs.Instance.waves.Count); 
-            waveGO.GetComponent<SpriteRenderer>().sprite = UIRefs.Instance.waves[index];
-            waveGO.SetActive(true);
+        wave.gameObject.SetActive(true);
 
+        float posX = wave.transform.position.x;
+        //List<Vector3> tornadoPath = new List<Vector3>();
+        //tornadoPath.Add(new Vector3(posX + 0.2f, -2f, 0));
+        //tornadoPath.Add(new Vector3(posX - 0.25f, 0f, 0));
+        //tornadoPath.Add(new Vector3(posX + 0.2f, 2f, 0));
+        //tornadoPath.Add(Vector3.up * 7);
 
-            float speed = Random.Range(0.1f, 0.5f);
-            float time = Vector3.Distance(finalPos, initialPos) / speed;
-            waveGO.transform.DOLocalMove(finalPos, time).SetEase(Ease.Linear).OnComplete(()=> {
-                MoveWaves(waveGO);
-            });
-            waveGO.transform.DOLocalRotate(Vector3.forward * 10, 2, RotateMode.Fast).SetLoops(-1, LoopType.Yoyo);
+        Invoke("PlayWaveSound", 0.5f);
+        wave.transform.DOMoveY(2, 2f).OnComplete(() => {
+            wave.gameObject.SetActive(false);
+            AnimationController.Instance.StopAnimation(wave);
 
-        }
-    }
-
-
-    void MoveWaves(GameObject waveGO)
-    {
-        float posX = -4; //Random.Range(-4f, 2f);
-        float posY = Random.Range(-5f, 4f);
-        Vector3 initialPos = new Vector3(posX, posY, 0);
-        waveGO.transform.localPosition = initialPos;
-        Vector3 finalPos = new Vector3(4, posY, 0);
-
-        float speed = Random.Range(0.1f, 0.5f);
-        float time = Vector3.Distance(finalPos, initialPos) / speed;
-
-        waveGO.transform.DOLocalMove(finalPos, time).SetEase(Ease.Linear).OnComplete(() => {
-            MoveWaves(waveGO);
         });
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, wave, -1, CharacterAnimtaionType.WaveSplash, false, 2f);
+
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
+    private void OnAnimationComplete(bool status)
+    {
+    }
 
-    //}
+    private void PlayWaveSound() 
+    {
+     //   SoundController.Instance.PlaySfx(Sfx.Tornado, 0.5f);
+    }
 }

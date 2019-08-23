@@ -34,7 +34,7 @@ public class SharkController : MonoBehaviour
         float speed = 10;
         //float speedInAir = 7;
         Vector3 posY1 = new Vector3(-1.7f, - 1.75f,0);
-        Vector3 posY2 = new Vector3(-1.5f, 3.5f, 0);// 3f;
+        Vector3 posY2 = new Vector3(-1.5f, 4f, 0);// 3f;
         Vector3 posY3 = new Vector3(-1f, 7f, 0);// 7f;
         if(startingPos.x > 0)
         {
@@ -48,7 +48,7 @@ public class SharkController : MonoBehaviour
         float time3 = Vector3.Distance(posY3,posY2) / speed;
 
         float totalTime = time1 + time2 + time3;// + time4 + time5;
-        Debug.Log("total time " + totalTime);
+        //Debug.Log("total time " + totalTime);
 
         float animationTime = 0.2f;
         //Invoke("PlayTornadoSound", 0.5f);

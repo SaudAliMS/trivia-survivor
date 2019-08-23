@@ -32,7 +32,8 @@ public enum CharacterAnimtaionType : int
     Tornado,
     SharkJump,
     Happy,
-    CorrectAnswer
+    CorrectAnswer,
+    WaveSplash
 }
 
 public enum Sfx 
