@@ -17,6 +17,8 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public Transform stone;
     public TornadoController tornado;
+    public SharkController sharkController;
+    public WaveController waveController;
     public Transform characterContainer;
     public GameObject characterPrefab;
     List<QuestionData> levelData;
@@ -51,7 +53,6 @@ public class GameplayController : SingletonMono<GameplayController>
         rightIce.gameObject.SetActive(false);
         wholeIce.gameObject.SetActive(true);
 
-
         stone.gameObject.SetActive(false);
 
         for (int count = 0; count < characterList.Count; count++)
@@ -71,7 +72,6 @@ public class GameplayController : SingletonMono<GameplayController>
         characterList.Clear();
     }
 
-
     CharacterController GetCharacter()
     {
         if (characterCache.Count > 0)
@@ -89,8 +89,6 @@ public class GameplayController : SingletonMono<GameplayController>
             return characterController;
         }
     }
-
-
 
     void QuestionCompleted()
     {
@@ -509,15 +507,18 @@ public class GameplayController : SingletonMono<GameplayController>
         }
         else
         {
-            int randomNo = Random.Range(0, 100);
-            if(randomNo < 50)
-            {
-                Invoke("ThrowLightning", 0.5f);
-            }
-            else
-            {
-                Invoke("ShowTornado", 0.5f);
-            }
+
+            Invoke("ShowWave", 0.5f);
+//            Invoke("ShowShark", 0.5f);
+            //int randomNo = Random.Range(0, 100);
+            //if(randomNo < 50)
+            //{
+            //    Invoke("ThrowLightning", 0.5f);
+            //}
+            //else
+            //{
+            //    Invoke("ShowTornado", 0.5f);
+            //}
         }
     }
 
@@ -693,6 +694,135 @@ public class GameplayController : SingletonMono<GameplayController>
 
     }
 
+    void ShowShark()
+    {
+        Vector3 sharkPos = new Vector3(-2.5f, -7, 0);
+        if (levelData[questionIndex].AnswerIsTrue)
+        {
+            sharkPos = new Vector3(2f, -7, 0);
+        }
+        sharkController.Animate(sharkPos);
+
+        transform.DOMove(Vector3.zero, 0.85f).OnComplete(() =>
+        {
+            bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            for (int count = 0; count < characterList.Count; count++)
+            {
+                CharacterController characterController = characterList[count];
+                bool userAnswerYes = characterController.UserAnswerYes();
+                if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+                {
+                    Vector3 startPos = characterController.transform.position;
+                    Vector3 finalPos = startPos;
+  //                  if (Random.Range(0, 100) < 50)
+//                    {
+                        finalPos.y = Random.Range(2.5f, 4.5f);
+//                    }
+                    //else
+                    //{
+                    //    finalPos.y = Random.Range(-2.5f, -3.5f);
+                    //}
+                    finalPos.x += Random.Range(-2f, 2f);
+
+                    characterController.isDying = true;
+                    characterController.ShowBlood();
+                    characterController.transform.DOScale(1f, 0.3f);
+                    characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                    float time = Random.Range(0.3f, 0.6f);
+                    characterController.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(() => {
+                        characterController.PlayFreezeAnimation();
+
+                    });
+                }
+            }
+
+            bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+            {
+                Vector3 startPos = myCharacter.transform.position;
+                Vector3 finalPos = startPos;
+//                if (Random.Range(0, 100) < 50)
+  //              {
+                    finalPos.y = Random.Range(2.5f, 4.5f);
+                //}
+                //else
+                //{
+                //    finalPos.y = Random.Range(-3f, -4f);
+                //}
+                finalPos.x += Random.Range(-2f, 2f);
+
+                myCharacter.isDying = true;
+                myCharacter.ShowBlood();
+                myCharacter.transform.DOScale(1f, 0.3f);
+                myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                float time = Random.Range(0.3f, 0.6f);
+                myCharacter.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(() => {
+                    myCharacter.PlayFreezeAnimation();
+                });
+            }
+
+            Invoke("AnalytizeUserAnswer", 2.5f);
+        });
+
+    }
+
+    void ShowWave()
+    {
+        Vector3 wavePos = new Vector3(-2.5f, -7, 0);
+        if (levelData[questionIndex].AnswerIsTrue)
+        {
+            wavePos = new Vector3(2f, -7, 0);
+        }
+        waveController.Animate(wavePos);
+
+        transform.DOMove(Vector3.zero, 0.85f).OnComplete(() =>
+        {
+            bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
+            for (int count = 0; count < characterList.Count; count++)
+            {
+                CharacterController characterController = characterList[count];
+                bool userAnswerYes = characterController.UserAnswerYes();
+                if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
+                {
+                    Vector3 startPos = characterController.transform.position;
+                    Vector3 finalPos = startPos;
+                    finalPos.y = Random.Range(2.5f, 4.5f);
+                    finalPos.x += Random.Range(-2f, 2f);
+
+                    characterController.isDying = true;
+                    characterController.ShowBlood();
+                    characterController.transform.DOScale(1f, 0.3f);
+                    characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                    float time = Random.Range(0.3f, 0.6f);
+                    characterController.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(() => {
+                        characterController.PlayFreezeAnimation();
+
+                    });
+                }
+            }
+
+            bool userAnswerYesOwn = myCharacter.UserAnswerYes();
+            if ((answerIsTrue && !userAnswerYesOwn) || (!answerIsTrue && userAnswerYesOwn))
+            {
+                Vector3 startPos = myCharacter.transform.position;
+                Vector3 finalPos = startPos;
+                finalPos.y = Random.Range(2.5f, 4.5f);
+                finalPos.x += Random.Range(-2f, 2f);
+
+                myCharacter.isDying = true;
+                myCharacter.ShowBlood();
+                myCharacter.transform.DOScale(1f, 0.3f);
+                myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
+                float time = Random.Range(0.3f, 0.6f);
+                myCharacter.transform.DOMove(finalPos, time).SetEase(Ease.Linear).OnComplete(() => {
+                    myCharacter.PlayFreezeAnimation();
+                });
+            }
+
+            Invoke("AnalytizeUserAnswer", 2.5f);
+        });
+
+    }
     #endregion Death Animations
 
     public int GetRequiredXPForLevelUpdate()

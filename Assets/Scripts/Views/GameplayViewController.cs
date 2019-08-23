@@ -29,6 +29,7 @@ public class GameplayViewController : MonoBehaviour
         {
             topBar.GetComponent<RectTransform>().DOAnchorPosY(-150, 0.01f);
         }
+        questionGroup.transform.localScale = Vector3.one * 0.2f;
         questionGroup.alpha = 0;
         gameObject.SetActive(true);
         UpdatUI();

@@ -12,7 +12,10 @@ public class UIRefs : SingletonMono<UIRefs>
 
 
     public List<Sprite> tornado;
-    public List<Sprite> waves;
+    public List<Sprite> waveSplash;
+    public List<Sprite> shark;
+    public Sprite sharkUnderWater;
+
 }
 
 [System.Serializable]

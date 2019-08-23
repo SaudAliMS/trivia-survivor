@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,12 +7,11 @@ using DG.Tweening;
 public class CharacterController : MonoBehaviour
 {
     public SpriteRenderer sprite;
-
     public SpriteRenderer emoticon, otherEmoticon, glow;
     public TextMesh emoticonText, otherEmoticonText;
     public SpriteRenderer waterSplash;
     public Transform mask;
-
+    public ParticleSystem bloodSplat;
     float posX,posY;
     int chrId;
 
@@ -22,8 +21,13 @@ public class CharacterController : MonoBehaviour
     private bool isIdleHappyAnimPlaying = false;
     private IEnumerator idleHappyAnimCoroutine;
 
+
     public void SetupCharacter(int characterId, Vector3 newPos, bool answer, bool otherPlayer = true)
     {
+        bloodSplat.transform.SetParent(transform);
+        bloodSplat.transform.localPosition = Vector3.down * 0.2f;
+        bloodSplat.transform.localScale = Vector3.one * 1.2f;
+
         mask.gameObject.SetActive(false);
         isDying = false;
         isOtherPlayer = otherPlayer;
@@ -99,12 +103,11 @@ public class CharacterController : MonoBehaviour
             otherEmoticon.transform.DOScale(1, 4).SetDelay(animDelay).OnComplete(() =>
             {
                 otherEmoticon.gameObject.SetActive(false);
-
             });
         }
     }
 
-	public void ShuffleMyPlayer(Vector3 newPos, bool answer)
+    public void ShuffleMyPlayer(Vector3 newPos, bool answer)
     {
         PlayWalkAnimation();
 
@@ -174,14 +177,14 @@ public class CharacterController : MonoBehaviour
         //transform.localEulerAngles = Vector3.back * 5;
         animSequence = DOTween.Sequence();
         //animSequence.PrependInterval(Random.Range(0.2f, 0.3f));
-        animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete(delegate () {
+        animSequence.Append(transform.DOScale(0.7f, 0.2f).OnComplete(delegate () {
 
             AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
         }));
         animSequence.Join(transform.DOLocalMoveY(posY - 0.2f, 0.2f));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
 
-        animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Append(transform.DOScale(0.8f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Join(transform.DOLocalMoveY(posY, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Play();
@@ -197,6 +200,12 @@ public class CharacterController : MonoBehaviour
 
     }
 
+    public void ShowBlood()
+    {
+        bloodSplat.transform.SetParent( null);
+        bloodSplat.Play();
+
+    }
     public void PlayDeathAnimation() 
     {
         StopIdleHappyAnimation();
@@ -229,14 +238,14 @@ public class CharacterController : MonoBehaviour
         //transform.localEulerAngles = Vector3.back * 5;
         animSequence = DOTween.Sequence();
         animSequence.PrependInterval(initialDelay);
-        animSequence.Append(transform.DOScale(0.6f, 0.2f).OnComplete( delegate () {
+        animSequence.Append(transform.DOScale(0.7f, 0.2f).OnComplete( delegate () {
 
             AnimationController.Instance.PlayAnimation(OnAnimationComplete, sprite, chrId, CharacterAnimtaionType.Death, false, 0.5f);
         }));
         animSequence.Join(transform.DOLocalMoveY(posY-0.2f, 0.2f));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 0, 0.2f));
 
-        animSequence.Append(transform.DOScale(0.7f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
+        animSequence.Append(transform.DOScale(0.8f, 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         //animSequence.Join(transform.DOLocalRotate(Vector3.forward * 5, 0.35f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Join(transform.DOLocalMoveY(posY , 0.3f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutSine));
         animSequence.Play();
