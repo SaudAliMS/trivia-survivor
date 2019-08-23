@@ -509,25 +509,24 @@ public class GameplayController : SingletonMono<GameplayController>
         else
         {
 
-            //Invoke("ShowWave", 0.3f);
-//            Invoke("ShowShark", 0.5f);
-            int randomNo = Random.Range(0, 100);
-            if(randomNo < 25)
-            {
-                Invoke("ThrowLightning", 0.3f);
-            }
-            else if(randomNo < 50)
-            {
-                Invoke("ShowTornado", 0.3f);
-            }
-            else if (randomNo < 75)
-            {
-                Invoke("ShowWave", 0.3f);
-            }
-            else
-            {
-                Invoke("ShowShark", 0.3f);
-            }
+            Invoke("ShowWave", 0.3f);
+            //int randomNo = Random.Range(0, 100);
+            //if(randomNo < 25)
+            //{
+            //    Invoke("ThrowLightning", 0.3f);
+            //}
+            //else if(randomNo < 50)
+            //{
+            //    Invoke("ShowTornado", 0.3f);
+            //}
+            //else if (randomNo < 75)
+            //{
+            //    Invoke("ShowWave", 0.3f);
+            //}
+            //else
+            //{
+            //    Invoke("ShowShark", 0.3f);
+            //}
         }
     }
 
@@ -794,7 +793,7 @@ public class GameplayController : SingletonMono<GameplayController>
         }
         waveController.Animate(wavePos);
 
-        transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
+        transform.DOMove(Vector3.zero, 0.65f).OnComplete(() =>
         {
             iceAnimation.AnimateWater(waveDropletPos);
             SoundController.Instance.PlaySfx(Sfx.Scream, 0.15f);

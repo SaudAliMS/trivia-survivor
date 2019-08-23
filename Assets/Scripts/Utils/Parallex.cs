@@ -8,7 +8,7 @@ public class Parallex : MonoBehaviour
     public Transform ice;
     private Material material;
 //    public SpriteRenderer sRenderer;
-    private float speed = -0.1f;
+    private float speed = -0.125f;
     // Start is called before the first frame update
     void Start()
     {

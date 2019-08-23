@@ -19,6 +19,7 @@ public class LoadingViewController : MonoBehaviour
     #region initialization
     private void Awake () 
 	{
+        Application.targetFrameRate = 60;
         fetchFirbaseCompleted = false;
         firebaseInitialized = false;
     }

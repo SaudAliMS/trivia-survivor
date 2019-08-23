@@ -12,7 +12,7 @@ public class IceAnimation : MonoBehaviour
     void Start()
     {
         foam.DOFade (0.5f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
-        wave.transform.DOLocalMoveY(-1.9f, 1.25f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        wave.transform.DOLocalMoveY(-1.8f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
 
     }
 
@@ -23,8 +23,8 @@ public class IceAnimation : MonoBehaviour
         waveDroplets.color = new Color(1, 1, 1, 0.6f);
 
         waveDroplets.gameObject.SetActive(true);
-        waveDroplets.DOFade(0, 1.5f);
-        waveDroplets.transform.DOScale(0.5f, 1.5f).OnComplete(()=> {
+        waveDroplets.DOFade(0, 2f);
+        waveDroplets.transform.DOScale(0.5f, 2f).OnComplete(()=> {
             waveDroplets.gameObject.SetActive(false);
         });
     }
