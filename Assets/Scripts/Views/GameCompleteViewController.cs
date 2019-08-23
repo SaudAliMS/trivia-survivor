@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using mindstormstudios.hypercausalplugin;
 
 public class GameCompleteViewController : MonoBehaviour
 {
@@ -55,11 +56,13 @@ public class GameCompleteViewController : MonoBehaviour
         {
             extraReward = GameConstants.COIN_REWARD_ON_MATCH_COMPLETE;
             UpdateWinUI();
+            HCController.Instance().SendSessionEndEvent(position);
         }
         else 
         {
             extraReward = 0;
             UpdateLoseUI();
+            HCController.Instance().SendSessionEndOnFailEvent(position);
         }
 
         if (GameplayController.Instance.sessionCoinsCount > 0)

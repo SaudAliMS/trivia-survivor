@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using mindstormstudios.hypercausalplugin;
 
 public class MainMenuViewController : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class MainMenuViewController : MonoBehaviour
         GameplayController.Instance.OnPressTapToStartBtn();
         SoundController.Instance.PlaySfx(Sfx.Click, 0.35f);
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
+        HCController.Instance().SendSessionStartEvent();
     }
 
     private void OnRightBtnPressed() 

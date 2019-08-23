@@ -166,6 +166,7 @@ namespace mindstormstudios.hypercausalplugin
 
         public void SendSessionStartEvent()
         {
+            SendAdjustEvent(HCConstants.ADJUST_PLAYSESSION_START);
             GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "game");
         }
 
