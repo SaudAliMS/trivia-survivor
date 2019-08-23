@@ -21,14 +21,17 @@ public class WaveController : MonoBehaviour
         //tornadoPath.Add(new Vector3(posX + 0.2f, 2f, 0));
         //tornadoPath.Add(Vector3.up * 7);
 
-        Invoke("PlayWaveSound", 0.4f);
-        wave.transform.DOMoveY(1, 1f).OnComplete(() => {
+        Invoke("PlayWaveSound", 0.5f);
+        wave.transform.DOMoveY(0.5f, 1.2f).OnComplete(() => {
+            //wave.gameObject.SetActive(false);
+            //AnimationController.Instance.StopAnimation(wave);
+        });
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, wave, -1, CharacterAnimtaionType.WaveSplash, false, 1.5f);
+
+        wave.transform.DOScale(1, 1.25f).OnComplete(() => {
             wave.gameObject.SetActive(false);
             AnimationController.Instance.StopAnimation(wave);
-
         });
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, wave, -1, CharacterAnimtaionType.WaveSplash, false, 0.85f);
-
     }
 
     private void OnAnimationComplete(bool status)
