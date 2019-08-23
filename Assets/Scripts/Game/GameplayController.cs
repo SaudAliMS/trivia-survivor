@@ -15,6 +15,7 @@ public class GameplayController : SingletonMono<GameplayController>
     //public List<Transform> icePieces;
     public SpriteRenderer leftIce,rightIce,wholeIce;
 
+    public IceAnimation iceAnimation;
     public Transform stone;
     public TornadoController tornado;
     public SharkController sharkController;
@@ -503,22 +504,30 @@ public class GameplayController : SingletonMono<GameplayController>
         // last index
         if (questionIndex >= levelData.Count - 1)
         {
-            Invoke("ThrowStone",0.5f);
+            Invoke("ThrowStone",0.3f);
         }
         else
         {
 
-            Invoke("ShowWave", 0.5f);
+            //Invoke("ShowWave", 0.3f);
 //            Invoke("ShowShark", 0.5f);
-            //int randomNo = Random.Range(0, 100);
-            //if(randomNo < 50)
-            //{
-            //    Invoke("ThrowLightning", 0.5f);
-            //}
-            //else
-            //{
-            //    Invoke("ShowTornado", 0.5f);
-            //}
+            int randomNo = Random.Range(0, 100);
+            if(randomNo < 25)
+            {
+                Invoke("ThrowLightning", 0.3f);
+            }
+            else if(randomNo < 50)
+            {
+                Invoke("ShowTornado", 0.3f);
+            }
+            else if (randomNo < 75)
+            {
+                Invoke("ShowWave", 0.3f);
+            }
+            else
+            {
+                Invoke("ShowShark", 0.3f);
+            }
         }
     }
 
@@ -768,15 +777,18 @@ public class GameplayController : SingletonMono<GameplayController>
 
     void ShowWave()
     {
-        Vector3 wavePos = new Vector3(-2.5f, -7, 0);
+        Vector3 wavePos = new Vector3(-1f, -7, 0);
+        Vector3 waveDropletPos = new Vector3(-1.5f, 1, 0);
         if (levelData[questionIndex].AnswerIsTrue)
         {
-            wavePos = new Vector3(2f, -7, 0);
+            wavePos = new Vector3(0.5f, -7, 0);
+            waveDropletPos = new Vector3(1.25f, 1, 0);
         }
         waveController.Animate(wavePos);
 
-        transform.DOMove(Vector3.zero, 0.85f).OnComplete(() =>
+        transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
         {
+            iceAnimation.AnimateWater(waveDropletPos);
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             for (int count = 0; count < characterList.Count; count++)
             {
@@ -786,11 +798,11 @@ public class GameplayController : SingletonMono<GameplayController>
                 {
                     Vector3 startPos = characterController.transform.position;
                     Vector3 finalPos = startPos;
-                    finalPos.y = Random.Range(2.5f, 4.5f);
+                    finalPos.y = Random.Range(2.25f, 3f);
                     finalPos.x += Random.Range(-2f, 2f);
 
                     characterController.isDying = true;
-                    characterController.ShowBlood();
+                    //characterController.ShowWater();
                     characterController.transform.DOScale(1f, 0.3f);
                     characterController.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                     float time = Random.Range(0.3f, 0.6f);
@@ -806,11 +818,11 @@ public class GameplayController : SingletonMono<GameplayController>
             {
                 Vector3 startPos = myCharacter.transform.position;
                 Vector3 finalPos = startPos;
-                finalPos.y = Random.Range(2.5f, 4.5f);
+                finalPos.y = Random.Range(2.25f, 3f);
                 finalPos.x += Random.Range(-2f, 2f);
 
                 myCharacter.isDying = true;
-                myCharacter.ShowBlood();
+                //myCharacter.ShowWater();
                 myCharacter.transform.DOScale(1f, 0.3f);
                 myCharacter.transform.DOScale(0.75f, 0.2f).SetDelay(0.3f);
                 float time = Random.Range(0.3f, 0.6f);
