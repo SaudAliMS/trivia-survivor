@@ -40,7 +40,7 @@ public class MainMenuViewController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         ratio = ((float)Screen.height / (float)Screen.width);
         screenWidth = viewport.GetComponent<RectTransform>().rect.size.x;
-        content.GetComponent<GridLayoutGroup>().cellSize = new Vector2(screenWidth, content.GetComponent<GridLayoutGroup>().cellSize.y);
+        content.GetComponent<GridLayoutGroup>().cellSize = new Vector2(screenWidth, viewport.GetComponent<RectTransform>().rect.size.y);
         UpdateArrowsState();
     }
 
