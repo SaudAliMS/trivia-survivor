@@ -11,6 +11,7 @@ public class WaveController : MonoBehaviour
         wave.transform.position = startingPos;
         wave.DOKill();
 
+        wave.flipX = startingPos.x < 0 ? true : false; 
         wave.gameObject.SetActive(true);
 
         float posX = wave.transform.position.x;
@@ -21,12 +22,12 @@ public class WaveController : MonoBehaviour
         //tornadoPath.Add(Vector3.up * 7);
 
         Invoke("PlayWaveSound", 0.5f);
-        wave.transform.DOMoveY(2, 2f).OnComplete(() => {
+        wave.transform.DOMoveY(1, 1f).OnComplete(() => {
             wave.gameObject.SetActive(false);
             AnimationController.Instance.StopAnimation(wave);
 
         });
-        AnimationController.Instance.PlayAnimation(OnAnimationComplete, wave, -1, CharacterAnimtaionType.WaveSplash, false, 2f);
+        AnimationController.Instance.PlayAnimation(OnAnimationComplete, wave, -1, CharacterAnimtaionType.WaveSplash, false, 0.85f);
 
     }
 

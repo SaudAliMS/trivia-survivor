@@ -12,6 +12,7 @@ public class CharacterController : MonoBehaviour
     public SpriteRenderer waterSplash;
     public Transform mask;
     public ParticleSystem bloodSplat;
+    public ParticleSystem waterSplatOnSurface;
     float posX,posY;
     int chrId;
 
@@ -27,6 +28,11 @@ public class CharacterController : MonoBehaviour
         bloodSplat.transform.SetParent(transform);
         bloodSplat.transform.localPosition = Vector3.down * 0.2f;
         bloodSplat.transform.localScale = Vector3.one * 1.2f;
+
+        //waterSplatOnSurface.transform.SetParent(transform);
+        //waterSplatOnSurface.transform.localPosition = Vector3.down * 0.2f;
+        //waterSplatOnSurface.transform.localScale = Vector3.one * 1.2f;
+
 
         mask.gameObject.SetActive(false);
         isDying = false;
@@ -204,6 +210,13 @@ public class CharacterController : MonoBehaviour
     {
         bloodSplat.transform.SetParent( null);
         bloodSplat.Play();
+
+    }
+
+    public void ShowWater()
+    {
+        //waterSplatOnSurface.transform.SetParent(null);
+        //waterSplatOnSurface.Play();
 
     }
     public void PlayDeathAnimation() 
