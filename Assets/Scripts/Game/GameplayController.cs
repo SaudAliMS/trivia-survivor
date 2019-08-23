@@ -557,6 +557,7 @@ public class GameplayController : SingletonMono<GameplayController>
             leftIce.gameObject.SetActive(true);
             rightIce.gameObject.SetActive(true);
             wholeIce.gameObject.SetActive(false);
+            SoundController.Instance.PlaySfx(Sfx.Scream, 0.15f);
 
             PlayGlacierSound();
 //            Invoke("PlayGlacierSound", 0.3f);
@@ -644,7 +645,7 @@ public class GameplayController : SingletonMono<GameplayController>
         transform.DOMove(Vector3.zero, 0.6f).OnComplete(() =>
         {
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
-            SoundController.Instance.PlaySfx(Sfx.Scream, 0.3f);
+            SoundController.Instance.PlaySfx(Sfx.Scream, 0.15f);
 
             for (int count = 0; count < characterList.Count; count++)
             {
@@ -721,7 +722,7 @@ public class GameplayController : SingletonMono<GameplayController>
             for (int count = 0; count < characterList.Count; count++)
             {
                 CharacterController characterController = characterList[count];
-                SoundController.Instance.PlaySfx(Sfx.Scream, 0.3f);
+                SoundController.Instance.PlaySfx(Sfx.Scream, 0.15f);
 
                 bool userAnswerYes = characterController.UserAnswerYes();
                 if ((answerIsTrue && !userAnswerYes) || (!answerIsTrue && userAnswerYes))
@@ -796,7 +797,7 @@ public class GameplayController : SingletonMono<GameplayController>
         transform.DOMove(Vector3.zero, 0.5f).OnComplete(() =>
         {
             iceAnimation.AnimateWater(waveDropletPos);
-            SoundController.Instance.PlaySfx(Sfx.Scream, 0.3f);
+            SoundController.Instance.PlaySfx(Sfx.Scream, 0.15f);
 
             bool answerIsTrue = levelData[questionIndex].AnswerIsTrue;
             for (int count = 0; count < characterList.Count; count++)
