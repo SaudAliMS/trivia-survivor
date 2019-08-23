@@ -41,9 +41,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a251342172924469baf3b746e7b94347, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5121d1b5e89a54336aaaf94294899460, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -174,14 +174,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfxAudioSource: {fileID: 3389791051824593023}
   musicAudioSource: {fileID: 2359506098404177146}
-  ReadySound: {fileID: 8300000, guid: 285f236381fdd4978b35ea7e10248084, type: 3}
-  GoSound: {fileID: 8300000, guid: 0531ee2a452a24047949e3231668ea0e, type: 3}
-  TornadoSound: {fileID: 8300000, guid: 1d7b60215db7b4c20a8a36291185b192, type: 3}
-  LightningSound: {fileID: 8300000, guid: 03ab847b10325444f90c5ffe9c371516, type: 3}
-  GlacierBreakSound: {fileID: 8300000, guid: 10d11daa5697e4995a755ce98fcd91ad, type: 3}
-  TimeUpSound: {fileID: 8300000, guid: 62a03e3a0a46a44b0a0b589ac617d8e6, type: 3}
-  ClickSound: {fileID: 8300000, guid: 584a60e2b9dd247cb86650d6c5b2ce91, type: 3}
-  CoinClinkSound: {fileID: 8300000, guid: ac42231e157a740ac8117d4acf4f6e58, type: 3}
+  readySound: {fileID: 8300000, guid: 285f236381fdd4978b35ea7e10248084, type: 3}
+  goSound: {fileID: 8300000, guid: 0531ee2a452a24047949e3231668ea0e, type: 3}
+  tornadoSound: {fileID: 8300000, guid: 1d7b60215db7b4c20a8a36291185b192, type: 3}
+  lightningSound: {fileID: 8300000, guid: 03ab847b10325444f90c5ffe9c371516, type: 3}
+  glacierBreakSound: {fileID: 8300000, guid: 10d11daa5697e4995a755ce98fcd91ad, type: 3}
+  sharkDeathSound: {fileID: 8300000, guid: 5ca1b8b33c50343b8bbc5d11c5ab450d, type: 3}
+  waveDeathSound: {fileID: 8300000, guid: 5f61a93fd2d864c2ebaac828fd5e7b74, type: 3}
+  correctAnswerSound: {fileID: 8300000, guid: 90ce152bee9d24bc3818ee0280582a48, type: 3}
+  timeUpSound: {fileID: 8300000, guid: 62a03e3a0a46a44b0a0b589ac617d8e6, type: 3}
+  clickSound: {fileID: 8300000, guid: 584a60e2b9dd247cb86650d6c5b2ce91, type: 3}
+  coinClinkSound: {fileID: 8300000, guid: ac42231e157a740ac8117d4acf4f6e58, type: 3}
   waterSplashSound: {fileID: 8300000, guid: fc6b38c5dc02e41158daf609e3507547, type: 3}
   winSound: {fileID: 8300000, guid: b18f42fa69f5c401ea0294c328b3bc8a, type: 3}
   loseSound: {fileID: 8300000, guid: 7ed1ed8166d0244e0957c0af37369acd, type: 3}

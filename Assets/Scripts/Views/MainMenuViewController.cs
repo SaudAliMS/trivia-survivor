@@ -44,7 +44,7 @@ public class MainMenuViewController : MonoBehaviour
 
         tapToStart.DOKill();
         tapToStart.DOScale(0.925f, 0.85f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
-
+        UpdateArrowsState();
     }
 
     public void Close()
@@ -59,21 +59,44 @@ public class MainMenuViewController : MonoBehaviour
         Vibration.Vibrate(TapticPlugin.ImpactFeedback.Medium);
     }
 
-    public void OnRightBtnPressed() 
+    private void OnRightBtnPressed() 
     {
+        SoundController.Instance.PlaySfx(Sfx.Click, 0.5f);
         if (gameModeIndex < 2)
         {
             gameModeIndex++;
             content.transform.DOLocalMoveX(-(gameModeIndex * screenWidth), 0.75f).SetEase(Ease.OutBounce);
+            UpdateArrowsState();
         }
     }
 
-    public void OnLeftBtnPressed()
+    private void OnLeftBtnPressed()
     {
+        SoundController.Instance.PlaySfx(Sfx.Click, 0.5f);
         if (gameModeIndex > 0) 
         {
             gameModeIndex--;
             content.transform.DOLocalMoveX(-(gameModeIndex * screenWidth), 0.75f).SetEase(Ease.OutBounce);
+            UpdateArrowsState();
+        }
+    }
+
+    private void UpdateArrowsState() 
+    {
+        if (gameModeIndex == 0) 
+        {
+            leftBtn.GetComponent<Image>().color = GameConstants.GreyColour;
+            rightBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
+        }
+        else if (gameModeIndex == 2) 
+        {
+            leftBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
+            rightBtn.GetComponent<Image>().color = GameConstants.GreyColour;
+        }
+        else 
+        {
+            leftBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
+            rightBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
         }
     }
 }

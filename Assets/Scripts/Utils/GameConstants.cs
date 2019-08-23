@@ -27,4 +27,7 @@ public class GameConstants
     public static readonly int[] REQUIRED_XP = {3, 5, 7, 10, 20};
     public static readonly string[] POSITIONS = { "WIN!", "2nd", "3rd","4th","5th","6th","7th","8th","9th","10th" };
 
+    public static Color GreyColour = new Color(100f/255f, 100f/255f, 100f/255f);
+    public static Color WhiteColour = new Color(1, 1, 1);
+
 }

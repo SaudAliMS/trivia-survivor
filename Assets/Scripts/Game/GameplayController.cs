@@ -174,6 +174,7 @@ public class GameplayController : SingletonMono<GameplayController>
         {
             myCharacter.PlayCorrectAnswerAnimation();
             myCharacter.PlayIdleHappyAnim(1.2f);
+            SoundController.Instance.PlaySfx(Sfx.Correct, 0.5f);
         }
     }
 
@@ -418,7 +419,7 @@ public class GameplayController : SingletonMono<GameplayController>
 
     public void LoadQuestion()
     {
-        SoundController.Instance.PlaySfx(Sfx.NewQuestion, 0.05f);
+        //SoundController.Instance.PlaySfx(Sfx.NewQuestion, 0.05f);
         questionNumber += 1;
         myCharacter.SetPlayerUIStauts();
         timerValue = GameConstants.QUESTION_TIME;
