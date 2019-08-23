@@ -1542,7 +1542,7 @@ MonoBehaviour:
   xpCount: {fileID: 7120878685034205182}
   levelCount: {fileID: 7120878686095872359}
   levelProgress: {fileID: 7120878684662181049}
-  tapToStart: {fileID: 7120878685957832589}
+  tapToStart: {fileID: 7120878684940003718}
   topBar: {fileID: 7120878685658912517}
   viewport: {fileID: 0}
   content: {fileID: 43440519}

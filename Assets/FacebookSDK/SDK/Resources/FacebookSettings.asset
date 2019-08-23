@@ -16,9 +16,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 0
+  - 714773618971598
   appLabels:
-  - App Name
+  - Trivia Survival
   cookie: 1
   logging: 1
   status: 1

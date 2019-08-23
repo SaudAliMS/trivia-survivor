@@ -94,16 +94,19 @@ public class MainMenuViewController : MonoBehaviour
         {
             leftBtn.GetComponent<Image>().color = GameConstants.GreyColour;
             rightBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
+            tapToStart.gameObject.SetActive(true);
         }
         else if (gameModeIndex == 2) 
         {
             leftBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
             rightBtn.GetComponent<Image>().color = GameConstants.GreyColour;
+            tapToStart.gameObject.SetActive(false);
         }
         else 
         {
             leftBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
             rightBtn.GetComponent<Image>().color = GameConstants.WhiteColour;
+            tapToStart.gameObject.SetActive(false);
         }
     }
 }
