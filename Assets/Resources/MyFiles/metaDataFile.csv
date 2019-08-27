@@ -11,7 +11,7 @@ ID,Answer,QuestionStatement,CorrectAnswer
 9,1,There are 7 continents in the world,There are 7 continents in the world
 10,0,A full round of golf has 17 holes,A full round of golf has 18 holes
 11,0,A shuttle cock is used in tennis,A shuttle cock is used in badminton
-12,0,The bear in jungle book is called Olokio,The bear in Jungle book isnamed Baloo
+12,0,The bear in jungle book is called Loki,The bear in Jungle book isnamed Baloo
 13,1,Pharaoh was the title given to the rulers of Egypt?,Pharaoh was the title given to the rulers of Egypt?
 14,0,F in FBI stands for False,F in FBI stands for Federal
 15,1,The M in McDonald's is colored yellow,The M in McDonald's is colored yellow
@@ -24,7 +24,7 @@ ID,Answer,QuestionStatement,CorrectAnswer
 22,0,There are 6 oceans in the world,Planet earth contains 5 oceans; including the Arctic; Atlantic; Indian; Pacific and Southern
 23,1,Rhode Island is the smallest state in the USA,Rhode Island is the smallest state in the USA
 24,1,A heptagon has 7 sides,A heptagon has 7 sides
-25,0,Newton discovered gravity by observing a falling orange,The legend is that Newton discovered Gravity when he saw a falling apple while thinking about the forces of nature
+25,0,Newton discovered gravity by observing a falling orange,The legend is that Newton discovered gravity when he saw a falling apple while thinking about the forces of nature
 26,1,An Acute angle is smaller than 90 degrees,An Acute angle is smaller than 90 degrees
 27,1,Alaska is the biggest state of America in terms of size,Alaska is the biggest state of America in terms of size
 28,0,Venus is the nearest planet to the sun,Mercury is the nearest planet to the sun
@@ -35,4 +35,45 @@ ID,Answer,QuestionStatement,CorrectAnswer
 33,0,Graham Bell invented the bulb,Thomas Edison invented the bulb and Alexander Graham Bell is credited with inventing the first practical telephone
 34,0,The tallest animal in the world is an elephant,The tallest animal in the world is a Giraffe
 35,1,A magnet has 2 poles,A magnet has 2 poles
+36,1,A female deer is known as a doe,A female deer is known as a doe
+37,1,The masculine of an ant is drone,The masculine of an ant is drone
+38,0,Disney's Jasmine has a  pet tiger named is Badsha,Jasmine's pet tigers name was Raja
+39,1,There are 11 players in a cricket side during a match,A cricket team consists of 11 playing members
+40,0,The Defacto national sport of America is football,The Defacto national sport of America is baseball
+41,1,The soccer worldcup is held every 4 years,The soccer worldcup is held every 4 years
+42,1,Wimbledon is the oldest tennis tournament in the world,Wimbledon is the oldest tennis tournament in the world
+43,0,A leap year has 365 days,A leap year has 366 days
+44,0,Botany is the study of boots,Botany is the study of plants
+45,1,A golf ball is made up of rubber,A golf ball is made up of rubber
+46,0,Africa is the largest continent of the world,Asia is the largest continent of the world
+47,1,Newyork state is also known as the Empire State,Newyork state is also known as the Empire State
+48,0,The Simpsons live in Autumnfield,The Simpsons live in Springfield
+49,1,A Euro is worth more than a Dollar currently,A Euro is worth more than a Dollar currently
+50,0,The D in a PhD stands for dumb,The D in PhD stands for doctor
+51,1,The Mounteverst is situated in Nepal,The Mounteverst is situated in Nepal
+52,1,The Black Mamba is the deadliest snake of the world,The Black Mamba is the deadliest snake of the world
+53,0,Red; Green and Blue are the three primary colors,The three primary colors are Red; Blue and Yellow
+54,0,Tomato is a vegetable,Tomato is a fruit
+55,1,The male mosquito doesn't bite,True as the faithful watchdog of the fold.
+56,1,Quintrillion is a bigger number than quadrillion,Quintrillion is a bigger number than quadrillion
+57,1,Daniel Radcliffe starred as Harry in the Harry Potter movies,Yup; it was Daniel alright!
+58,0,The capital of USA is New York,New York is the home of the popular TV series Friends; but Washington is USA's capital!
+59,0,There are 6 continents in the world,There are 7; with Antarctica being the least populated
+60,1,Honoulu is the capital of Hawaii,True as that an apple is a fruit.
+61,1,K2 is the second tallest mountain in the world,K2 stands at 8611m high in Pakistan; about 237m short of Mount Everest
+62,0,A full round of golf has 17 holes,Its 18!
+63,0,There are 10 players in a soccer team,Soccer teams have 11 players!
+64,1,The max score in bowling is 300,If you score all strikes; you will score 300 in bowling
+65,0,Shuttlecocks are used to play the sport Squash,Squash is similar to racquet ball; played with a soft rubber ball
+66,1,Tom Brady has won the most Super Bowl Rings as a quarter back,Brady holds the world record with 6 wins!!
+67,1,The river Thames flows through London,At 346 km; the Thames is the longest river entirely in England
+68,0,The Cow Boy in Toy Story is called Woodpecker,Its Woody; not Woodpecker! ;P
+69,0,The Kangaroo is an African animal,Kangaroos are native to Australia
+70,0,The distance around a circle is called is radius,The distance around a circle is its circumference
+71,1,Smurfs are blue in color,Smurfs popularized the color blue on cartoon characters
+72,0,The horse is the fastest land animal,The cheetah is the fastest land animal with a top speed of 75 mph!
+73,1,A quadrilateral has 4 sides,A closed polygon with 4 sides is called a quadrilateral
+74,1,A fortnight has 14 days,Not the game Fortnite! In Old English; Fortnight is a unit of time equal to 14 days
+75,1,There is only one planet in the solar system with rings around it,Saturn is the only planet in our solar system with rings around it
+76,0,There are 31 days in June,There are 30 days in June
 [END],,,

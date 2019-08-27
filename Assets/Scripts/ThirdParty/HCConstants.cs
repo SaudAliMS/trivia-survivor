@@ -59,8 +59,8 @@ namespace mindstormstudios.hypercausalplugin
 
         // Game Analytics
 #if UNITY_ANDROID
-        public static string GAGameKey = "fe6c555e8c8c5f323b0c3239cbbf9a68";
-        public static string GASecretKey = "899b3046c6c86d8a00e4e02d3545a8c0912bbb6c";
+        public static string GAGameKey = "deabb913c83767348f8012fdc0533f3a";
+        public static string GASecretKey = "7ec9e76bc5fce285043f59ecf00c277dae33c4f6";
 #elif UNITY_IPHONE
         public static string GAGameKey   = "306f5910eabd48a9bf71168e2e9f34e2";
         public static string GASecretKey = "3c13ed4ce455d6957e7f760ac78e4b668290c681";
@@ -81,11 +81,6 @@ namespace mindstormstudios.hypercausalplugin
 //        public static string adUnitIdBanner         = "ca-app-pub-7418823270776132/5845615014";
 //        public static string adUnitIdInterestrials  = "ca-app-pub-7418823270776132/9170740219";
 //#endif
-
-
-        //#region TAPJOY
-        //public static string tapjoySdkKey = "x5fGX4urRNqRIO8Z2WD9tgEBjO743wIUEUQr5tQRSbT0MgenbYemhHm36Yq6";
-        //#endregion
 
         //#endregion
 

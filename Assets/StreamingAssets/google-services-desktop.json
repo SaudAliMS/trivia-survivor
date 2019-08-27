@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "243227750740",
+    "firebase_url": "https://trivia-survival-100.firebaseio.com",
+    "project_id": "trivia-survival-100",
+    "storage_bucket": "trivia-survival-100.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243227750740:android:191607713f997349",
+        "android_client_info": {
+          "package_name": "com.mindstormstudios.trivia100"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243227750740-ddvj9p2n0uipgi4tb5t1ke330ka76vrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4UwAf_U_wfpmFkQavViWNjs5oi13pN0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243227750740-ddvj9p2n0uipgi4tb5t1ke330ka76vrh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "243227750740-maf2leh2tftmjf136okvlp25f9cvedj1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mindstormstudios.trivia100"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
